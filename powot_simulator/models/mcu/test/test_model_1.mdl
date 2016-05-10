@@ -1,0 +1,82 @@
+#A test model file
+#A dash '-' means the parameter hasn't been measured. A dot means that the instruction has no operands.
+#
+#Available instruction types:
+# mem   - memory access
+# datap - data processing
+# sat   - saturation instructions
+# bitf  - bitfield instructions
+# contr - branch and control
+# misc  - miscellaneous
+#
+
+DOMAIN_START
+
+ADDR	FLASH	0x00000000	0x00040000
+ADDR	RAM	0x20000000	0x20008000
+ADDR	RAMB	0x30000000	0x300000FF
+ADDR	EEPROM	0x40000FFF	0x40007FFF
+TEMPERATURES	27.0	50.0
+VOLTAGES	1.2	1.8	3.3
+FREQUENCIES	10	20	80
+OPERANDS	1	2	3
+
+DOMAIN_END
+
+#DVS_API_START
+#DVS_API - voltage - execution time - consumed energy
+DVS_API_START
+SysCtlCPUVoltage(LDO0, VOLT1_2);	1.2	20.00	3.45
+SysCtlCPUVoltage(LDO0, VOLT1_8);	1.8	15.5	2.70
+SysCtlCPUVoltage(LDO0, VOLT3_3);	3.3	13.8	2.38
+DVS_API_END
+
+#DFS_API_START
+#DFS_API - frequency - execution time - consumed energy
+DFS_API_START
+SysCtlFrequency(FREQ_10);	10.0	20.00	5.85
+SysCtlFrequency(FREQ_20);	20.0	12.00	3.20
+SysCtlFrequency(FREQ_80);	80.0	8.00	2.53
+DFS_API_END
+
+#-------------------------------------------------------------
+
+INSTR	mul.w
+TYPE	data
+FLASH	27.0	1.2	10	2	40.000,2.000
+FLASH	27.0	1.2	10	3	80.000,2.000
+FLASH	27.0	1.2	20	2	45.000,4.000
+FLASH	27.0	1.2	20	3	100.000,4.000
+FLASH	27.0	1.2	80	2	120.000,5.000
+FLASH	27.0	1.2	80	3	130.000,5.000
+FLASH	27.0	1.8	10	2	45.000,2.000
+FLASH	27.0	1.8	10	3	85.000,2.000
+FLASH	27.0	1.8	20	2	50.000,4.000
+FLASH	27.0	1.8	20	3	105.000,4.000
+FLASH	27.0	1.8	80	2	80.000,6.000
+FLASH	27.0	1.8	80	3	85.000,6.000
+FLASH	27.0	3.3	10	2	50.000,2.000
+FLASH	27.0	3.3	10	3	90.000,2.000
+FLASH	27.0	3.3	20	2	55.000,4.000
+FLASH	27.0	3.3	20	3	110.000,4.000
+
+INSTR	str
+TYPE	mem
+FLASH	27.0	1.2	10	2	10.000,2.000
+FLASH	27.0	1.2	10	3	20.000,2.000
+FLASH	27.0	1.2	20	2	10.000,4.000
+FLASH	27.0	1.2	20	3	20.000,4.000
+FLASH	27.0	1.2	80	2	35.000,8.000
+FLASH	27.0	1.2	80	3	65.000,8.000
+FLASH	27.0	1.8	10	2	10.000,6.000
+FLASH	27.0	1.8	10	3	20.000,6.000
+FLASH	27.0	1.8	20	2	10.000,8.000
+FLASH	27.0	1.8	20	3	20.000,8.000
+FLASH	27.0	1.8	80	2	33.000,10.000
+FLASH	27.0	1.8	80	3	40.000,10.000
+FLASH	27.0	3.3	10	2	10.000,9.000
+FLASH	27.0	3.3	10	3	20.000,9.000
+FLASH	27.0	3.3	20	2	10.000,10.000
+FLASH	27.0	3.3	20	3	20.000,10.000
+
+

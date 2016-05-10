@@ -1,0 +1,7 @@
+#A file containing different configuration options for the simulator
+SYMBOLLIST_COMMAND arm-none-eabi-nm
+GDBDUMP_COMMAND arm-none-eabi-gdb
+OBJDUMP_COMMAND arm-none-eabi-objdump -S -d
+#SIMULATOR_MODE DELTA_T
+#SIMULATOR_MODE DELTA_E
+#SIMULATOR_MODE DELTA_ET
