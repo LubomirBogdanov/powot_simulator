@@ -27,12 +27,12 @@
   \brief Path to the architecture configuration files that contain various strings for the simulator.
   \var configfile_dir
   */
-const QString configfile_dir = "../../powot_simulator_project/powot_simulator/simulator_configs";
+const QString configfile_dir = "../../powot_simulator/simulator_configs";
 
 /*!
   \brief Contains the path to the model directory where all the device's energy models are.
   \var modelsdir
   */
-const QString modelsdir = "../../powot_simulator_project/powot_simulator/models";
+const QString modelsdir = "../../powot_simulator/models";
 
 #endif // CONFIGFILEPATHS_H

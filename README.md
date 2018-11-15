@@ -57,14 +57,25 @@ optimizations, e.g.:
 application, called "powsimu", that uses the shared object file
 "libpowot_simulator.so", and is a good starting point for your 
 first simulation. Change to the directory where the executable 
-"powsimu" is (powot_simulator_v2/build-powot_simulator_project-
-Desktop_Qt_X_X_GCC_XXbit-Debug/powsimu) and type:
+"powsimu" is (powot_simulator_v2/powot_simulator_build/powsimu) and type:
 
 powsimu -j /path/to/your/executable/myfirmware.axf 
 -a [arch name] -p [provider name] -m [target name] -e [function name]
 
 where [function name] is the name of the function from the executable
 file myfirmware.axf that needs to be analyzed (simulated). 
+
+Note: to make the executable work you must have Qt-Creator installed
+on your machine. Also make sure that you export the .so library of the
+simulator in your LD_LIBRARY_PATH (on Ubuntu):
+
+export LD_LIBRARY_PATH+=:/path/to/git/project/powot_simulator_v2/powot_simulator_build/powot_simulator
+
+If you run: 
+
+echo $LD_LIBRARY_PATH
+
+you should see the correct path to the build directory of the simulator.
 
 5. The simulation may take anything from milliseconds to
 seconds depending on the call tree and the size of the analyzed

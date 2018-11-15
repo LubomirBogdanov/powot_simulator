@@ -1,0 +1,312 @@
+cd /path/to/powot_simulator_v2/powot_simulator_build/powsimu
+LD_LIBRARY_PATH=/path/to/powot_simulator_v2/powot_simulator_build/powot_simulator
+./powsimu -j ../../examples/bubble_sort.axf -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e main
+./powsimu -j ../../examples/dk_tm4c123g_odd_even_transposition_sort.axf -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e main
+
+
+
+Example output:
+
+user@computer:~/git_projects/powot_simulator_v2/powot_simulator_build/powsimu$ ./powsimu -j ../../examples/dk_tm4c123g_bubble_sort.axf -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e main
+                     --********--
+                     --********--
+                     --**----**--
+                     --******----
+                     --***-------
+                     --***-------
+                     --***-------
+Copyright (C) 2016 Lubomir Bogdanov
+Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+This program is part of Powot Simulator.
+
+Powot Simulator is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Powot Simulator is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Powot Simulator.  If not, see <http://www.gnu.org/licenses/>.
+
+(powotsimulator) Powot Simulator version 2.30
+(powotsimulator) 64-bit, compiled on Ubuntu 14.04
+(powotsimulator) Starting ...
+(powotsimulator) Reading configuration ...
+(powotsimulator) model file: ../../powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge.mdl
+(powotsimulator) Reading model data ... done!
+(powotsimulator) Architecture: arm-cortex-m4
+(powotsimulator) MCU provider: texas_instruments
+(powotsimulator) MCU: tm4c123gh6pge
+(powotsimulator) source entry point: main
+(powotsimulator) objfile: ../../examples/dk_tm4c123g_bubble_sort.axf
+(powotsimulator) objdump all cmd:arm-none-eabi-objdump -S -d ../../examples/dk_tm4c123g_bubble_sort.axf
+(powotsimulator) symbollist cmd:arm-none-eabi-nm ../../examples/dk_tm4c123g_bubble_sort.axf
+(powotsimulator) objdump of a symbol cmd:arm-none-eabi-gdb ../../examples/dk_tm4c123g_bubble_sort.axf -ex="disas /m main" -ex=quit --quiet
+(powotsimulator) Function main consists of 16 lines! 
+(powotsimulator) ERROR: Instruction <<bls>> not found in model file!
+(powotsimulator) ERROR: Instruction <<blt>> not found in model file!
+(powotsimulator) ERROR: Instruction <<bcs>> not found in model file!
+(powotsimulator) ERROR: Instruction <<andeq>> not found in model file!
+(powotsimulator) Total function main base energy cost: 3.639 uJ
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Line|C statement                                                |Base Energy, uJ |MEM     |Vdd,V |Fclk,MHz|Ops |VMA (hex) |Instruction                        |Instr. E, uJ  |Repeat |Total E,  uJ  |
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|6   |{                                                          |0.045           |FLASH   |3.30  |10.00   |1   |8244      |push {r11} ; (str r11, [sp, #-4]!) |0.005         |5      |0.023         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8248      |add r11, sp, #0                    |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |824c      |sub sp, sp, #20                    |0.002         |5      |0.011         |
+|7   |uint8_t i, j, temp;                                        |0.000           |        |      |        |    |          |                                   |              |       |              |
+|8   |uint8_t buff[10] = {35, 12, 10, 55, 31, 6, 8, 15, 44, 255};|0.087           |FLASH   |3.30  |10.00   |2   |8250      |ldr r2, [pc, #236] ; 0x8344 <main+256>|0.004         |5      |0.018         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8254      |sub r3, r11, #20                   |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8258      |ldm r2, {r0, r1, r2}               |0.008         |5      |0.041         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |825c      |stmia r3!, {r0, r1}                |0.001         |5      |0.003         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8260      |strh r2, [r3]                      |0.003         |5      |0.014         |
+|9   |                                                           |0.000           |        |      |        |    |          |                                   |              |       |              |
+|10  |for(j = 0; j < 10; j++){                                   |0.141           |FLASH   |3.30  |10.00   |2   |8264      |mov r3, #0                         |0.002         |5      |0.012         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8268      |strb r3, [r11, #-5]                |0.004         |5      |0.019         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |826c      |b 0x8324 <main+224>                |0.005         |5      |0.025         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8318      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |831c      |add r3, r3, #1                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8320      |strb r3, [r11, #-5]                |0.004         |5      |0.019         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8324      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8328      |cmp r3, #8                         |0.002         |5      |0.009         |
+|    |                                                           |                |        |3.30  |10.00   |1   |832c      |bls 0x8270 <main+44>               |0.000         |5      |0.000         |
+|11  |for(i = 0; i < 10; i+=2){                                  |0.881           |FLASH   |3.30  |10.00   |2   |8270      |mov r3, #0                         |0.002         |25     |0.060         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8274      |strb r3, [r11, #-6]                |0.004         |25     |0.093         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |8278      |b 0x8304 <main+192>                |0.005         |25     |0.124         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82f8      |ldrb r3, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82fc      |add r3, r3, #1                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8300      |strb r3, [r11, #-6]                |0.004         |25     |0.093         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8304      |ldrb r2, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8308      |ldrb r3, [r11, #-5]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |830c      |rsb r3, r3, #9                     |0.002         |25     |0.055         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8310      |cmp r2, r3                         |0.002         |25     |0.043         |
+|    |                                                           |                |        |3.30  |10.00   |1   |8314      |blt 0x827c <main+56>               |0.000         |25     |0.000         |
+|12  |if(buff[i] < buff[i+1]){                                   |0.794           |FLASH   |3.30  |10.00   |2   |827c      |ldrb r3, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8280      |sub r2, r11, #4                    |0.002         |25     |0.057         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8284      |add r3, r2, r3                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8288      |ldrb r2, [r3, #-16]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |828c      |ldrb r3, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8290      |add r3, r3, #1                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8294      |sub r1, r11, #4                    |0.002         |25     |0.057         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8298      |add r3, r1, r3                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |829c      |ldrb r3, [r3, #-16]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82a0      |cmp r2, r3                         |0.002         |25     |0.043         |
+|    |                                                           |                |        |3.30  |10.00   |1   |82a4      |bcs 0x82f8 <main+180>              |0.000         |25     |0.000         |
+|13  |temp = buff[i];                                            |0.442           |FLASH   |3.30  |10.00   |2   |82a8      |ldrb r3, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82ac      |sub r2, r11, #4                    |0.002         |25     |0.057         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82b0      |add r3, r2, r3                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82b4      |ldrb r3, [r3, #-16]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82b8      |strb r3, [r11, #-7]                |0.004         |25     |0.093         |
+|14  |buff[i] = buff[i+1];                                       |0.725           |FLASH   |3.30  |10.00   |2   |82bc      |ldrb r3, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82c0      |ldrb r2, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82c4      |add r2, r2, #1                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82c8      |sub r1, r11, #4                    |0.002         |25     |0.057         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82cc      |add r2, r1, r2                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82d0      |ldrb r2, [r2, #-16]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82d4      |sub r1, r11, #4                    |0.002         |25     |0.057         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82d8      |add r3, r1, r3                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82dc      |strb r2, [r3, #-16]                |0.004         |25     |0.093         |
+|15  |buff[i+1] = temp;                                          |0.496           |FLASH   |3.30  |10.00   |2   |82e0      |ldrb r3, [r11, #-6]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82e4      |add r3, r3, #1                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82e8      |sub r2, r11, #4                    |0.002         |25     |0.057         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82ec      |add r3, r2, r3                     |0.002         |25     |0.054         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82f0      |ldrb r2, [r11, #-7]                |0.005         |25     |0.119         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82f4      |strb r2, [r3, #-16]                |0.004         |25     |0.093         |
+|16  |}                                                          |0.000           |        |      |        |    |          |                                   |              |       |              |
+|17  |}                                                          |0.000           |        |      |        |    |          |                                   |              |       |              |
+|18  |                                                           |0.000           |        |      |        |    |          |                                   |              |       |              |
+|19  |for(i = 1; i < 10; i+=2){                                  |0.000           |        |      |        |    |          |                                   |              |       |              |
+|20  |if(buff[i] < buff[i+1]){                                   |0.012           |FLASH   |3.30  |10.00   |2   |8330      |mov r3, #0                         |0.002         |5      |0.012         |
+|21  |temp = buff[i];                                            |0.016           |FLASH   |3.30  |10.00   |2   |8334      |mov r0, r3                         |0.002         |1      |0.002         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8338      |add sp, r11, #0                    |0.002         |1      |0.002         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |833c      |pop {r11} ; (ldr r11, [sp], #4)    |0.005         |1      |0.005         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |8340      |bx lr                              |0.007         |1      |0.007         |
+|    |                                                           |                |        |3.30  |10.00   |4   |8344      |andeq r8, r0, r12, lsl r8          |0.000         |1      |0.000         |
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Elapsed time of simulation: 17 ms
+(powotsimulator) Finished!
+
+
+
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+======================================================================================================================================================================================================
+user@computer:~/git_projects/powot_simulator_v2/powot_simulator_build/powsimu$ ./powsimu -j ../../examples/dk_tm4c123g_odd_even_transposition_sort.axf -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e main
+
+                     --********--
+                     --********--
+                     --**----**--
+                     --******----
+                     --***-------
+                     --***-------
+                     --***-------
+Copyright (C) 2016 Lubomir Bogdanov
+Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+This program is part of Powot Simulator.
+
+Powot Simulator is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Powot Simulator is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Powot Simulator.  If not, see <http://www.gnu.org/licenses/>.
+
+(powotsimulator) Powot Simulator version 2.30
+(powotsimulator) 64-bit, compiled on Ubuntu 14.04
+(powotsimulator) Starting ...
+(powotsimulator) Reading configuration ...
+(powotsimulator) model file: ../../powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge.mdl
+(powotsimulator) Reading model data ... done!
+(powotsimulator) Architecture: arm-cortex-m4
+(powotsimulator) MCU provider: texas_instruments
+(powotsimulator) MCU: tm4c123gh6pge
+(powotsimulator) source entry point: main
+(powotsimulator) objfile: ../../examples/dk_tm4c123g_odd_even_transposition_sort.axf
+(powotsimulator) objdump all cmd:arm-none-eabi-objdump -S -d ../../examples/dk_tm4c123g_odd_even_transposition_sort.axf
+(powotsimulator) symbollist cmd:arm-none-eabi-nm ../../examples/dk_tm4c123g_odd_even_transposition_sort.axf
+(powotsimulator) objdump of a symbol cmd:arm-none-eabi-gdb ../../examples/dk_tm4c123g_odd_even_transposition_sort.axf -ex="disas /m main" -ex=quit --quiet
+(powotsimulator) Function main consists of 24 lines! 
+(powotsimulator) ERROR: Instruction <<bls>> not found in model file!
+(powotsimulator) ERROR: Instruction <<bls>> not found in model file!
+(powotsimulator) ERROR: Instruction <<bcs>> not found in model file!
+(powotsimulator) ERROR: Instruction <<bls>> not found in model file!
+(powotsimulator) ERROR: Instruction <<bcs>> not found in model file!
+(powotsimulator) ERROR: Instruction <<;>> not found in model file!
+(powotsimulator) Total function main base energy cost: 7.288 uJ
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Line|C statement                                                |Base Energy, uJ |MEM     |Vdd,V |Fclk,MHz|Ops |VMA (hex) |Instruction                        |Instr. E, uJ  |Repeat |Total E,  uJ  |
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|6   |{                                                          |0.009           |FLASH   |3.30  |10.00   |1   |8244      |push {r11} ; (str r11, [sp, #-4]!) |0.005         |1      |0.005         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8248      |add r11, sp, #0                    |0.002         |1      |0.002         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |824c      |sub sp, sp, #20                    |0.002         |1      |0.002         |
+|7   |uint8_t i, j, temp;                                        |0.000           |        |      |        |    |          |                                   |              |       |              |
+|8   |uint8_t buff[10] = {35, 12, 10, 55, 31, 6, 8, 15, 44, 255};|0.017           |FLASH   |3.30  |10.00   |2   |8250      |ldr r2, [pc, #388] ; 0x83dc <main+408>|0.004         |1      |0.004         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8254      |sub r3, r11, #20                   |0.002         |1      |0.002         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8258      |ldm r2, {r0, r1, r2}               |0.008         |1      |0.008         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |825c      |stmia r3!, {r0, r1}                |0.001         |1      |0.001         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8260      |strh r2, [r3]                      |0.003         |1      |0.003         |
+|9   |                                                           |0.000           |        |      |        |    |          |                                   |              |       |              |
+|10  |for(j = 0; j < 10; j++){                                   |0.283           |FLASH   |3.30  |10.00   |2   |8264      |mov r3, #0                         |0.002         |10     |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8268      |strb r3, [r11, #-6]                |0.004         |10     |0.037         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |826c      |b 0x83bc <main+376>                |0.005         |10     |0.050         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |83b0      |ldrb r3, [r11, #-6]                |0.005         |10     |0.048         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |83b4      |add r3, r3, #1                     |0.002         |10     |0.021         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |83b8      |strb r3, [r11, #-6]                |0.004         |10     |0.037         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |83bc      |ldrb r3, [r11, #-6]                |0.005         |10     |0.048         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |83c0      |cmp r3, #9                         |0.002         |10     |0.017         |
+|    |                                                           |                |        |3.30  |10.00   |1   |83c4      |bls 0x8270 <main+44>               |0.000         |10     |0.000         |
+|11  |for(i = 0; i < 10; i+=2){                                  |1.413           |FLASH   |3.30  |10.00   |2   |8270      |mov r3, #0                         |0.002         |50     |0.120         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8274      |strb r3, [r11, #-5]                |0.004         |50     |0.187         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |8278      |b 0x8304 <main+192>                |0.005         |50     |0.248         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82f8      |ldrb r3, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82fc      |add r3, r3, #2                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8300      |strb r3, [r11, #-5]                |0.004         |50     |0.187         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8304      |ldrb r3, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8308      |cmp r3, #9                         |0.002         |50     |0.087         |
+|    |                                                           |                |        |3.30  |10.00   |1   |830c      |bls 0x827c <main+56>               |0.000         |50     |0.000         |
+|12  |if(buff[i] < buff[i+1]){                                   |1.589           |FLASH   |3.30  |10.00   |2   |827c      |ldrb r3, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8280      |sub r2, r11, #4                    |0.002         |50     |0.113         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8284      |add r3, r2, r3                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8288      |ldrb r2, [r3, #-16]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |828c      |ldrb r3, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8290      |add r3, r3, #1                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8294      |sub r1, r11, #4                    |0.002         |50     |0.113         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8298      |add r3, r1, r3                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |829c      |ldrb r3, [r3, #-16]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82a0      |cmp r2, r3                         |0.002         |50     |0.087         |
+|    |                                                           |                |        |3.30  |10.00   |1   |82a4      |bcs 0x82f8 <main+180>              |0.000         |50     |0.000         |
+|13  |temp = buff[i];                                            |0.884           |FLASH   |3.30  |10.00   |2   |82a8      |ldrb r3, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82ac      |sub r2, r11, #4                    |0.002         |50     |0.113         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82b0      |add r3, r2, r3                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82b4      |ldrb r3, [r3, #-16]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82b8      |strb r3, [r11, #-7]                |0.004         |50     |0.187         |
+|14  |buff[i] = buff[i+1];                                       |1.450           |FLASH   |3.30  |10.00   |2   |82bc      |ldrb r3, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82c0      |ldrb r2, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82c4      |add r2, r2, #1                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82c8      |sub r1, r11, #4                    |0.002         |50     |0.113         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82cc      |add r2, r1, r2                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82d0      |ldrb r2, [r2, #-16]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82d4      |sub r1, r11, #4                    |0.002         |50     |0.113         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82d8      |add r3, r1, r3                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82dc      |strb r2, [r3, #-16]                |0.004         |50     |0.187         |
+|15  |buff[i+1] = temp;                                          |0.991           |FLASH   |3.30  |10.00   |2   |82e0      |ldrb r3, [r11, #-5]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82e4      |add r3, r3, #1                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82e8      |sub r2, r11, #4                    |0.002         |50     |0.113         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |82ec      |add r3, r2, r3                     |0.002         |50     |0.107         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82f0      |ldrb r2, [r11, #-7]                |0.005         |50     |0.238         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |82f4      |strb r2, [r3, #-16]                |0.004         |50     |0.187         |
+|16  |}                                                          |0.000           |        |      |        |    |          |                                   |              |       |              |
+|17  |}                                                          |0.000           |        |      |        |    |          |                                   |              |       |              |
+|18  |                                                           |0.000           |        |      |        |    |          |                                   |              |       |              |
+|19  |for(i = 1; i < 10; i+=2){                                  |0.141           |FLASH   |3.30  |10.00   |2   |8310      |mov r3, #1                         |0.002         |5      |0.012         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8314      |strb r3, [r11, #-5]                |0.004         |5      |0.019         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |8318      |b 0x83a4 <main+352>                |0.005         |5      |0.025         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8398      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |839c      |add r3, r3, #2                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |83a0      |strb r3, [r11, #-5]                |0.004         |5      |0.019         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |83a4      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |83a8      |cmp r3, #9                         |0.002         |5      |0.009         |
+|    |                                                           |                |        |3.30  |10.00   |1   |83ac      |bls 0x831c <main+216>              |0.000         |5      |0.000         |
+|20  |if(buff[i] < buff[i+1]){                                   |0.159           |FLASH   |3.30  |10.00   |2   |831c      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8320      |sub r2, r11, #4                    |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8324      |add r3, r2, r3                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8328      |ldrb r2, [r3, #-16]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |832c      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8330      |add r3, r3, #1                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8334      |sub r1, r11, #4                    |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8338      |add r3, r1, r3                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |833c      |ldrb r3, [r3, #-16]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8340      |cmp r2, r3                         |0.002         |5      |0.009         |
+|    |                                                           |                |        |3.30  |10.00   |1   |8344      |bcs 0x8398 <main+340>              |0.000         |5      |0.000         |
+|21  |temp = buff[i];                                            |0.088           |FLASH   |3.30  |10.00   |2   |8348      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |834c      |sub r2, r11, #4                    |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8350      |add r3, r2, r3                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8354      |ldrb r3, [r3, #-16]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8358      |strb r3, [r11, #-7]                |0.004         |5      |0.019         |
+|22  |buff[i] = buff[i+1];                                       |0.145           |FLASH   |3.30  |10.00   |2   |835c      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8360      |ldrb r2, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8364      |add r2, r2, #1                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8368      |sub r1, r11, #4                    |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |836c      |add r2, r1, r2                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8370      |ldrb r2, [r2, #-16]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8374      |sub r1, r11, #4                    |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8378      |add r3, r1, r3                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |837c      |strb r2, [r3, #-16]                |0.004         |5      |0.019         |
+|23  |buff[i+1] = temp;                                          |0.099           |FLASH   |3.30  |10.00   |2   |8380      |ldrb r3, [r11, #-5]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8384      |add r3, r3, #1                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |8388      |sub r2, r11, #4                    |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |838c      |add r3, r2, r3                     |0.002         |5      |0.011         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8390      |ldrb r2, [r11, #-7]                |0.005         |5      |0.024         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |2   |8394      |strb r2, [r3, #-16]                |0.004         |5      |0.019         |
+|24  |}                                                          |0.000           |        |      |        |    |          |                                   |              |       |              |
+|25  |}                                                          |0.000           |        |      |        |    |          |                                   |              |       |              |
+|26  |}                                                          |0.000           |        |      |        |    |          |                                   |              |       |              |
+|27  |                                                           |0.000           |        |      |        |    |          |                                   |              |       |              |
+|28  |return 0;                                                  |0.002           |FLASH   |3.30  |10.00   |2   |83c8      |mov r3, #0                         |0.002         |1      |0.002         |
+|29  |}                                                          |0.016           |FLASH   |3.30  |10.00   |2   |83cc      |mov r0, r3                         |0.002         |1      |0.002         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |3   |83d0      |add sp, r11, #0                    |0.002         |1      |0.002         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |83d4      |pop {r11} ; (ldr r11, [sp], #4)    |0.005         |1      |0.005         |
+|    |                                                           |                |FLASH   |3.30  |10.00   |1   |83d8      |bx lr                              |0.007         |1      |0.007         |
+|    |                                                           |                |        |3.30  |10.00   |0   |83dc      |; <UNDEFINED> instruction: 0x000088b4|0.000         |1      |0.000         |
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Elapsed time of simulation: 21 ms
+(powotsimulator) Finished!
+
