@@ -20,53 +20,45 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::readconfiguration()
-{
+void powotsimulator::readconfiguration(void){
     QStringList contents;
     QString path;
 
     path = configfile_dir + "/" + arch_name + ".cfg";
 
     cout<<"(powotsimulator) Reading configuration ..."<<endl;
-    if(config_file.read_entire_config_file(&path, &contents))
-    {
-       for(qint32 i=0; i < contents.size(); i++)
-       {
-            if(contents.at(i).contains("GDBDUMP_COMMAND"))
-            {
+    if(config_file.read_entire_config_file(&path, &contents)){
+       for(qint32 i=0; i < contents.size(); i++){
+            if(contents.at(i).contains("GDBDUMP_COMMAND")){
                gdbdump_cmd = contents.at(i).section(' ', 1, -1);
                gdbdump_cmd += ' ';
             }
 
-            if(contents.at(i).contains("SYMBOLLIST_COMMAND"))
-            {
+            if(contents.at(i).contains("SYMBOLLIST_COMMAND")){
                symbollist_cmd = contents.at(i).section(' ', 1, -1);
                symbollist_cmd += ' ';
             }
 
-            if(contents.at(i).contains("OBJDUMP_COMMAND"))
-            {
+            if(contents.at(i).contains("OBJDUMP_COMMAND")){
                objdump_cmd = contents.at(i).section(' ', 1, -1);
                objdump_cmd += ' ';
             }
         }
     }
-    else
-    {
+    else{
         err_message.display_error(CONFIG_NOT_LOADED, &path);
         cout<<"(powotsimulator) Aborting ..."<<endl;
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
 
     path = modelsdir + "/mcu/" + provider_name + '/' + mcu_name + ".mdl";
 
     cout<<"(powotsimulator) model file: "<<path.toStdString()<<endl;
 
-    if(!config_file.read_entire_config_file(&path, &mcu_model))
-    {
+    if(!config_file.read_entire_config_file(&path, &mcu_model)){
         err_message.display_error(MODEL_NOT_LOADED);
         cout<<"(powotsimulator) Aborting ..."<<endl;
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
 
     remove_empty_lines(&mcu_model);

@@ -26,12 +26,9 @@
 #include <QTextStream>
 #include "errormsg.h"
 
-class fileio
-{
-
+class fileio{
 private:
     errormsg error;
-
 public:
     fileio();
     ~fileio();
@@ -39,8 +36,6 @@ public:
     bool read_entire_config_file(const QString *filename, QStringList *contents);
     bool write_entire_file(QString *filename, QStringList *contents);
 };
-
-
 
 #endif // FILEIO_H
 

@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::objdump_file(QString *filepath, QStringList *objfile_contents)
-{
+void powotsimulator::objdump_file(QString *filepath, QStringList *objfile_contents){
     QString cmd;
     cmd = objdump_cmd + *filepath;
     cout<<"(powotsimulator) objdump all cmd:"<<cmd.toStdString()<<endl;

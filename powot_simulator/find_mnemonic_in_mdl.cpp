@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-bool powotsimulator::find_mnemonic_in_mdl(QString *asm_mnemonic)
-{
+bool powotsimulator::find_mnemonic_in_mdl(QString *asm_mnemonic){
     bool instr_found = 0;
 
     //cout<<"find_mnemonic_in_mdl: asm_mnemonic = "<<asm_mnemonic->toStdString()<<endl;

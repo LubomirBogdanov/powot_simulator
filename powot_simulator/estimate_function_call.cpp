@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-float powotsimulator::estimate_function_call(QString function_name)
-{
+float powotsimulator::estimate_function_call(QString function_name){
     QStringList symbol_contents;
     energyfield_t *table;
     unsigned long table_size;
@@ -38,7 +37,6 @@ float powotsimulator::estimate_function_call(QString function_name)
     gdbdump_file(&objectfile_dir, &function_name, &symbol_contents);
 
     if(!symbol_contents.isEmpty()){
-
         table_size = count_number_of_statements(&symbol_contents, &no_debug_info);
         //cout<<"(powotsimulator) Function "<<function_name.toStdString()<<" consists of "<<table_size<<" lines! "<<endl;
 
@@ -50,20 +48,17 @@ float powotsimulator::estimate_function_call(QString function_name)
             analyze_statements(&symbol_contents, table);
 
             //Produce C statement energy costs out of the assembly costs.
-            for(unsigned long i = 0; i < table_size; i++)
-            {
+            for(unsigned long i = 0; i < table_size; i++){
                 if(!table[i].function_call){
                     table[i].statement_energy_cost = 0.0;
                 }
 
-                for(long j = 0; j < table[i].asm_instr.size(); j++)
-                {
+                for(long j = 0; j < table[i].asm_instr.size(); j++){
                     table[i].statement_energy_cost += table[i].asm_repeated.at(j);
                 }
             }
 
-            for(unsigned long i = 0; i < table_size; i++)
-            {
+            for(unsigned long i = 0; i < table_size; i++){
                 total_base_cost += table[i].statement_energy_cost;
             }
 

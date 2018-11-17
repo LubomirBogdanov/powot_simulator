@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-bool powotsimulator::check_if_function_call(QString statement)
-{    
+bool powotsimulator::check_if_function_call(QString statement){    
     bool is_function_call = 0;
 
 /*    if(

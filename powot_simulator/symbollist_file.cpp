@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::symbollist_file(QString *filepath, QStringList *symbol_list)
-{
+void powotsimulator::symbollist_file(QString *filepath, QStringList *symbol_list){
     QStringList symbol_dump;
     QString cmd;
     cmd = symbollist_cmd + *filepath;
@@ -34,15 +33,13 @@ void powotsimulator::symbollist_file(QString *filepath, QStringList *symbol_list
     QByteArray temp = terminal.readAllStandardOutput();
     convert_bytearray_stringlist(&temp, &symbol_dump);
 
-    if(symbol_dump.isEmpty())
-    {
+    if(symbol_dump.isEmpty()){
         err_message.display_error(SYMBOLLIST_FAILED);
         cout<<"(powotsimulator) Aborting ..."<<endl;
         exit(-1);
     }
 
-    for(int i = 0; i < symbol_dump.size(); i++)
-    {
+    for(int i = 0; i < symbol_dump.size(); i++){
         *symbol_list << symbol_dump.at(i).section(' ', 2, 2);
     }
 

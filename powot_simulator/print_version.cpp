@@ -21,8 +21,7 @@
 #include "powotsimulator.h"
 #include "version.h"
 
-void powotsimulator::print_version()
-{
+void powotsimulator::print_version(void){
     cout<<"                     --********--"<<endl;
     cout<<"                     --********--"<<endl;
     cout<<"                     --**----**--"<<endl;

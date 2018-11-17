@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::remove_empty_lines(QStringList *file_contents)
-{
+void powotsimulator::remove_empty_lines(QStringList *file_contents){
     QString line;
     unsigned long size;
 

@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-unsigned long powotsimulator::estimate_for_loop(QString statement)
-{
+unsigned long powotsimulator::estimate_for_loop(QString statement){
     QString low_str, high_str, increment_str;
     unsigned long low = 0;
     unsigned long high = 0;
@@ -135,8 +134,7 @@ unsigned long powotsimulator::estimate_for_loop(QString statement)
     return result;
 }
 
-unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *expression)
-{
+unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *expression){
     QString temp_str;
     unsigned long temp_values;
     bool ok;
@@ -270,8 +268,7 @@ unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *exp
     return result;
 }
 
-unsigned long powotsimulator::process_increments_in_loops(QString *expression, unsigned long low, unsigned long high, bool *non_linear, bool greater_than_and_equal)
-{
+unsigned long powotsimulator::process_increments_in_loops(QString *expression, unsigned long low, unsigned long high, bool *non_linear, bool greater_than_and_equal){
     bool ok = 0;
     unsigned long increment = 1;
     unsigned long power;
@@ -323,8 +320,7 @@ unsigned long powotsimulator::process_increments_in_loops(QString *expression, u
     return increment;
 }
 
-unsigned long powotsimulator::check_if_defined(QString *for_loop_cond)
-{
+unsigned long powotsimulator::check_if_defined(QString *for_loop_cond){
     QString temp_str;
     unsigned long increment = 0;
     bool ok = 0;

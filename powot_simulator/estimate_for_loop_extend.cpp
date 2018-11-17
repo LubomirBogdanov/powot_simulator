@@ -27,8 +27,7 @@
  *
  * \return An integer showing how many statements after the beginning of the for( ) loop are included in it.
  */
-unsigned long powotsimulator::estimate_for_loop_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num)
-{
+unsigned long powotsimulator::estimate_for_loop_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num){
     unsigned long open_bracket = 0;
     unsigned long close_bracket = 0;
     unsigned long i;
@@ -36,7 +35,6 @@ unsigned long powotsimulator::estimate_for_loop_extend(energyfield_t *arr, unsig
     //cout<<"***"<<arr[current_statement].statement.toStdString()<<endl;
 
     for(i = current_statement; i <= energy_field_num; i++){
-
         if(arr[i].statement.contains("{")){
             open_bracket++;
         }

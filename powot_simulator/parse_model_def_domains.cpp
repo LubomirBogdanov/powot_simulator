@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::parse_model_def_domains(default_model_domains_t *source_domain, default_model_domains_t *dest_domain)
-{
+void powotsimulator::parse_model_def_domains(default_model_domains_t *source_domain, default_model_domains_t *dest_domain){
     if(source_domain->default_addr_range.isEmpty()){
         dest_domain->default_addr_range = mdl_domains.addr_ranges_names.at(0);
     }

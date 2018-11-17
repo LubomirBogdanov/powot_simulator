@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents)
-{
+void powotsimulator::gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents){
     bool symbol_not_found = 0;
     QString cmd;
     cmd = gdbdump_cmd + *filepath + " -ex=\"disas /m " + *source_entry_point + "\" -ex=quit --quiet";
@@ -40,15 +39,13 @@ void powotsimulator::gdbdump_file(QString *filepath, QString *source_entry_point
         cout<<"+++"<<symbol_contents->at(i).toStdString()<<endl;
     }*/
 
-    if(symbol_contents->isEmpty())
-    {
+    if(symbol_contents->isEmpty()){
         err_message.display_error(GDBDUMP_FAILED);
         //cout<<"(powotsimulator) Aborting ..."<<endl;
         //exit(-1);
     }
     else {
-        for(int i = 0; i < symbol_contents->size(); i++)
-        {
+        for(int i = 0; i < symbol_contents->size(); i++){
             if(symbol_contents->at(i).contains("No symbol")){
                 cout<<"(powotsimulator) Symbol "<<source_entry_point->toStdString()<<" not found!"<<endl;
                 symbol_not_found = 1;

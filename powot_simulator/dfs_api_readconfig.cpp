@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::dfs_api_readconfig()
-{
+void powotsimulator::dfs_api_readconfig(void){
     QString line;
     QString param;
     bool ok;

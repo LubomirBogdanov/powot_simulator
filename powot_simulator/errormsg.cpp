@@ -22,13 +22,11 @@
 #include <iostream>
 using namespace std;
 
-errormsg::errormsg()
-{
+errormsg::errormsg(){
 
 }
 
-errormsg::~errormsg()
-{
+errormsg::~errormsg(){
 
 }
 
@@ -42,10 +40,8 @@ errormsg::~errormsg()
   \b msg - additional message to be displayed if needed. It
   defaults to a <space>.
   */
-void errormsg::display_error(int errnum, const QString *msg)
-{
-    switch(errnum)
-    {
+void errormsg::display_error(int errnum, const QString *msg){
+    switch(errnum){
     case CANT_OPEN_FILE:
         cout<<"(powotsimulator) ERROR: Can't open file: "<<msg->toStdString()<<"!"<<endl;
         break;

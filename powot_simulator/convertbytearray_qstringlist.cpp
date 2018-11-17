@@ -20,21 +20,20 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::convert_bytearray_stringlist(QByteArray *input, QStringList *output)
-{
+void powotsimulator::convert_bytearray_stringlist(QByteArray *input, QStringList *output){
     quint32 cnt = 0;
     char linebuff[300];
 
-    for(qint32 i = 0; i < input->size(); i++)
-    {
+    for(qint32 i = 0; i < input->size(); i++){
         linebuff[cnt++] = input->at(i);
-        if(input->at(i) == '\n')
-        {
+        if(input->at(i) == '\n'){
             linebuff[cnt+1] = '\0';
             QString temp = linebuff;
             *output << temp;
             cnt = 0;
-            for(int j = 0; j < 300; j++) linebuff[j] = '\0';
+            for(int j = 0; j < 300; j++){
+                linebuff[j] = '\0';
+            }
         }
     }
 }

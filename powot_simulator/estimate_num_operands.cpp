@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-unsigned long powotsimulator::estimate_num_operands(QString asm_instruction)
-{  
+unsigned long powotsimulator::estimate_num_operands(QString asm_instruction){  
     unsigned long result = 0;
 
     //qDebug()<<"estimate_num_operands: asm = "<<asm_instruction;

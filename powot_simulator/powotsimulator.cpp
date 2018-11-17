@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-powotsimulator::powotsimulator()
-{
+powotsimulator::powotsimulator(void){
     e_table = NULL;
     e_table_size = 0;
     mdl_domains.addr_ranges = NULL;
@@ -29,8 +28,7 @@ powotsimulator::powotsimulator()
     cout<<"(powotsimulator) Starting ..."<<endl;
 }
 
-powotsimulator::~powotsimulator()
-{    
+powotsimulator::~powotsimulator(void){
     if(e_table){
         delete [] e_table;
     }
@@ -46,8 +44,7 @@ powotsimulator::~powotsimulator()
     cout<<"(powotsimulator) Finished!"<<endl;
 }
 
-powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu)
-{
+powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu){
     provider_name = *provider;
     arch_name = *arch;
     mcu_name = *mcu;
@@ -63,8 +60,7 @@ powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu)
     cout<<"(powotsimulator) MCU: "<<mcu_name.toStdString()<<endl;
 }
 
-powotsimulator::powotsimulator(QString *objectfile_path, QString *provider, QString *arch, QString *mcu, QString *entry, bool print_ver, default_model_domains_t *default_domains)
-{
+powotsimulator::powotsimulator(QString *objectfile_path, QString *provider, QString *arch, QString *mcu, QString *entry, bool print_ver, default_model_domains_t *default_domains){
     if(print_ver){
         print_version();
     }
@@ -90,7 +86,7 @@ powotsimulator::powotsimulator(QString *objectfile_path, QString *provider, QStr
     cout<<"(powotsimulator) MCU provider: "<<provider_name.toStdString()<<endl;
     cout<<"(powotsimulator) MCU: "<<mcu_name.toStdString()<<endl;
     cout<<"(powotsimulator) source entry point: "<<source_entry_point.toStdString()<<endl;    
-    cout<<"(powotsimulator) objfile: "<<objectfile_path->toStdString()<<endl; 
+    cout<<"(powotsimulator) objfile: "<<objectfile_path->toStdString()<<endl;
 
     /*  
     cout<<"Default domains------------------------------------------"<<endl;
@@ -101,13 +97,11 @@ powotsimulator::powotsimulator(QString *objectfile_path, QString *provider, QStr
     cout<<"VOLT: "<<def_domains.default_voltage<<" V"<<endl;
     cout<<"---------------------------------------------------------"<<endl;
 
-    for(int i = 0; i < source_file_contents.size(); i++)
-    {
+    for(int i = 0; i < source_file_contents.size(); i++){
         cout<<"(powotsimulator) src: "<<source_file_contents.at(i).toStdString()<<endl;
     }
 
-    for(int i = 0; i < object_file_contents.size(); i++)
-    {
+    for(int i = 0; i < object_file_contents.size(); i++){
         cout<<"(powotsimulator) obj: "<<object_file_contents.at(i).toStdString();
     }
     */

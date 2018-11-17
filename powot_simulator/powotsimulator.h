@@ -67,8 +67,7 @@ typedef struct {
     QList<float> energy;
 } energyfield_t;
 
-class POWOT_SIMULATORSHARED_EXPORT powotsimulator
-{
+class POWOT_SIMULATORSHARED_EXPORT powotsimulator{
 private:
     errormsg err_message;
     fileio config_file;
@@ -103,19 +102,19 @@ private:
     void objdump_file(QString *filepath, QStringList *objfile_contents);
     void gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents);
     void symbollist_file(QString *filepath, QStringList *symbol_list);
-    void readconfiguration();
+    void readconfiguration(void);
     void remove_empty_lines(QStringList *file_contents);
     void convert_bytearray_stringlist(QByteArray *input, QStringList *output);
-    void parsestatements();
-    void find_entry_point();
-    void link_source_and_object();
-    void object_to_sequential();
+    void parsestatements(void);
+    void find_entry_point(void);
+    void link_source_and_object(void);
+    void object_to_sequential(void);
     void analyze_statements(QStringList *sym_cont, energyfield_t *arr);
     float analyze_assembly(QStringList *asm_section);
     unsigned long count_number_of_statements(QStringList *sym_cont, bool *no_debug_info);
     void assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield);
-    void parse_model_data();
-    void parse_model_domains();
+    void parse_model_data(void);
+    void parse_model_domains(void);
     bool check_if_function_call(QString statement);
     float estimate_function_call(QString function_name);
     bool check_if_for_loop(QString statement);
@@ -128,25 +127,25 @@ private:
     void multiply_nested_loops(unsigned long *arr_loop_boundaries, unsigned long num_of_loops, unsigned long loop_index, energyfield_t *arr, unsigned long energy_field_num);
     void parse_model_def_domains(default_model_domains_t *source_domain, default_model_domains_t *dest_domain);
     bool find_mnemonic_in_mdl(QString *asm_mneumonic);
-    void dvs_api_readconfig();
+    void dvs_api_readconfig(void);
     bool check_if_dvs_api(QString *function_name);
     float estimate_dvs_api(QString *statement, float *dvs_api_energy);
     unsigned long estimate_dvs_api_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num);
-    void dfs_api_readconfig();
+    void dfs_api_readconfig(void);
     bool check_if_dfs_api(QString *function_name);
     float estimate_dfs_api(QString *statement, float *dfs_api_energy);
     unsigned long estimate_dfs_api_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num);
     unsigned long estimate_num_operands(QString asm_instruction);
 
 public:
-    powotsimulator();
-    ~powotsimulator();
+    powotsimulator(void);
+    ~powotsimulator(void);
     powotsimulator(QString *provider, QString *arch, QString *mcu);
     powotsimulator(QString *objectfile_path, QString *provider, QString *arch, QString *mcu, QString *entry, bool print_ver, default_model_domains_t *default_domains);
     energyfield_t* start_simulation(quint32 *size);
     void get_modeldomains(model_domains_t *mdl_dom);
-    void print_version();
-    QString get_model_metrics();
+    void print_version(void);
+    QString get_model_metrics(void);
 
 };
 

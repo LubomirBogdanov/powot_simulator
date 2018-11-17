@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-bool powotsimulator::check_if_dvs_api(QString *function_name)
-{
+bool powotsimulator::check_if_dvs_api(QString *function_name){
     bool result = 0;
 
     for(long i = 0; i < dvs_api.dvs_api.size(); i++){

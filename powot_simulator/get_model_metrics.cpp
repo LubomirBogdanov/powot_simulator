@@ -20,7 +20,6 @@
 */
 #include "powotsimulator.h"
 
-QString powotsimulator::get_model_metrics()
-{
+QString powotsimulator::get_model_metrics(){
     return mdl_domains.metrics;
 }

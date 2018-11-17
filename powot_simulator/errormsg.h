@@ -29,8 +29,7 @@
 
   \var errors
   */
-enum errors
-{
+enum errors{
     CANT_OPEN_FILE, //Requires a file name as the second parameter.
     CANT_WRITE_FILE, //Requires a file name as the second parameter.
     GDBDUMP_FAILED,
@@ -49,8 +48,7 @@ enum errors
 };
 
 
-class errormsg
-{
+class errormsg{
 private:
 
 public:

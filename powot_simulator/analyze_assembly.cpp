@@ -28,8 +28,7 @@
  * \param asm_section - a list of assembly instructions to be analyzed.
  * \return A float number of the base energy cost.
  */
-float powotsimulator::analyze_assembly(QStringList *asm_section)
-{
+float powotsimulator::analyze_assembly(QStringList *asm_section){
     energyfield_t e_field;
     QString asm_mnemonic;
     QString asm_instruction;

@@ -20,13 +20,11 @@
 */
 #include "fileio.h"
 
-fileio::fileio()
-{
+fileio::fileio(){
     //error.display_error(CANT_OPEN_FILE, (const QString *)"String");
 }
 
-fileio::~fileio()
-{
+fileio::~fileio(){
 
 }
 
@@ -38,27 +36,23 @@ fileio::~fileio()
 
   \param contents - a buffer containing all the lines in the file.
   */
-bool fileio::read_entire_file(const QString *filename, QStringList *contents)
-{
+bool fileio::read_entire_file(const QString *filename, QStringList *contents){
     bool err = 0;
     QString currentline;
 
     QFile file(*filename);
     err = file.open(QIODevice::ReadOnly|QIODevice::Text);
-    if(err)
-    {
+    if(err){
         err = 1;
         QTextStream FileStream(&file);
-        while(!FileStream.atEnd())
-        {
+        while(!FileStream.atEnd()){
             //Do not use *Contents << FileStream.readLine(); because it will remove the newlines from the file.
             currentline = FileStream.readLine();
             *contents << currentline;
         }
         file.close();
     }
-    else
-    {
+    else{
         error.display_error(CANT_OPEN_FILE, filename);
     }
 
@@ -72,8 +66,7 @@ bool fileio::read_entire_file(const QString *filename, QStringList *contents)
 
   \param contents - a buffer containing all the lines in the configuration file.
   */
-bool fileio::read_entire_config_file(const QString *filename, QStringList *contents)
-{
+bool fileio::read_entire_config_file(const QString *filename, QStringList *contents){
     bool err = 0;
     QString currentline;
 
@@ -99,8 +92,7 @@ bool fileio::read_entire_config_file(const QString *filename, QStringList *conte
         }
         file.close();
     }
-    else
-    {
+    else{
         error.display_error(CANT_OPEN_FILE, filename);
     }
 
@@ -115,26 +107,22 @@ bool fileio::read_entire_config_file(const QString *filename, QStringList *conte
 
   \param Contents - a buffer containing all the lines to be written to the file.
   */
-bool fileio::write_entire_file(QString *filename, QStringList *contents)
-{
+bool fileio::write_entire_file(QString *filename, QStringList *contents){
     bool err = 0;
 
     QFile file(*filename);
     err = file.open(QIODevice::WriteOnly | QIODevice::Text);
-    if(err)
-    {
+    if(err){
         err = 1;
         QTextStream FileStream(&file);
-        for(qint32 i = 0; i < contents->size(); i++)
-        {
+        for(qint32 i = 0; i < contents->size(); i++){
             FileStream << contents->at(i);
             FileStream << endl;
         }
 
         file.close();
     }
-    else
-    {
+    else{
        error.display_error(CANT_WRITE_FILE, filename);
     }
 

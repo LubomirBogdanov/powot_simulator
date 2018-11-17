@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-unsigned long powotsimulator::estimate_dfs_api_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num)
-{
+unsigned long powotsimulator::estimate_dfs_api_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num){
     unsigned long i;
     unsigned long dfs_extend = 0;
     bool end_found = 0;

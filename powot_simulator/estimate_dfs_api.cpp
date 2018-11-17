@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-float powotsimulator::estimate_dfs_api(QString *statement, float *dfs_api_energy)
-{
+float powotsimulator::estimate_dfs_api(QString *statement, float *dfs_api_energy){
     float result = 0.0;
 
     for(long i = 0; i < dfs_api.dfs_api.size(); i++){

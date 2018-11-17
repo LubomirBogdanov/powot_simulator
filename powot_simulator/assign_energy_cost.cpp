@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield)
-{
+void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield){
     float energy = 0;
     long index_addr = -1;
     long index_temp = -1;
@@ -35,8 +34,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
     //--------------------------------------------------------------------
     //Extract the corresponding energy value from the model file----------
     //--------------------------------------------------------------------
-    for(unsigned long i = 0; i < num_instr_in_mdl_file; i++)
-    {
+    for(unsigned long i = 0; i < num_instr_in_mdl_file; i++){
         if(mdl[i].mnemonic == asm_mnemonic){
 
             //cout<<"assign_energy_cost: mdl[i].mnemonic = "<<mdl[i].mnemonic.toStdString()<<endl;

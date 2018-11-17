@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-float powotsimulator::estimate_dvs_api(QString *statement, float *dvs_api_energy)
-{
+float powotsimulator::estimate_dvs_api(QString *statement, float *dvs_api_energy){
     float result = 0.0;
 
     for(long i = 0; i < dvs_api.dvs_api.size(); i++){

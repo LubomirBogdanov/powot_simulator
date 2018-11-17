@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::remove_white_spaces(QString *str)
-{
+void powotsimulator::remove_white_spaces(QString *str){
     unsigned long i;
     unsigned long size;
 

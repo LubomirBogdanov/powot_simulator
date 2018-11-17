@@ -31,8 +31,7 @@
  * source file.
  * \param arr_size - the number of elements present in the array "arr".
  */
-void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *arr)
-{
+void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *arr){
     QString line, line1, line2, asm_mnemonic;
     bool is_digit;
     bool flag = 0;
@@ -45,8 +44,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
     unsigned long loop_count = 0;
     unsigned long *arr_loop_boundaries;
 
-    for(long i = 0; i < sym_cont->size(); i++)
-    {
+    for(long i = 0; i < sym_cont->size(); i++){
         line = sym_cont->at(i).simplified();
         line = line.trimmed();
 
@@ -117,7 +115,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             arr[energy_field_num-1].asm_repeated << (arr[energy_field_num-1].asm_base_energy_cost.last() * arr[energy_field_num-1].repeated);
         }
         else {
-
             if(!line.isEmpty()){
 
                 //Extract C statement
@@ -162,7 +159,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
 
         e_field.line_number = line1.toInt(&is_digit, 10);
         if(is_digit){
-
             //Extract line number of the C statement
             arr[energy_field_num].line_number = e_field.line_number;                                    
             e_field.asm_instr.clear();
@@ -287,7 +283,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
    memset(for_loop_deps, 0, num_loops);
 
    for(i = 0; i < num_loops; i+=3){
-
        loop_nest_factor = 0;
 
         if(arr_loop_boundaries[i+1] > arr_loop_boundaries[i+4]){
@@ -435,10 +430,8 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
            //    qDebug()<<arr[i].dvs_start<<" <-> "<<arr[i].dvs_end;
            //}
        for(long j = 0; j < arr[i].asm_mnemonic.size(); j++){
-
            assign_energy_cost(arr[i].asm_mnemonic.at(j), j, &arr[i]);
            arr[i].asm_repeated << (arr[i].asm_base_energy_cost.last() * arr[i].repeated);
-
        }
    }
 
@@ -459,8 +452,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
    }*/   
 }
 
-void powotsimulator::multiply_nested_loops(unsigned long *arr_loop_boundaries, unsigned long num_of_loops, unsigned long loop_index, energyfield_t *arr, unsigned long energy_field_num)
-{
+void powotsimulator::multiply_nested_loops(unsigned long *arr_loop_boundaries, unsigned long num_of_loops, unsigned long loop_index, energyfield_t *arr, unsigned long energy_field_num){
     unsigned long loop;
     unsigned long next_loop;
 

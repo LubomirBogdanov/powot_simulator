@@ -32,19 +32,18 @@ extern int opterr;
 static const char *short_options = "vhzt:w:f:o:d:j:p:m:e:a:";
 
 static const struct option long_options[] = {
-    { "version", no_argument, 0, 'v' },
-    { "help", no_argument, 0, 'h' },    
-    { "obj_path", required_argument, 0, 'j' },
-    { "provider", required_argument, 0, 'p' },
-    { "arch", required_argument, 0, 'a' },
-    { "mcu", required_argument, 0, 'm' },
-    { "entry", required_argument, 0, 'e' },
-    { "get_model_domains", no_argument, 0, 'z' },
-    { 0, 0, 0, 0 }
+{ "version", no_argument, 0, 'v' },
+{ "help", no_argument, 0, 'h' },
+{ "obj_path", required_argument, 0, 'j' },
+{ "provider", required_argument, 0, 'p' },
+{ "arch", required_argument, 0, 'a' },
+{ "mcu", required_argument, 0, 'm' },
+{ "entry", required_argument, 0, 'e' },
+{ "get_model_domains", no_argument, 0, 'z' },
+{ 0, 0, 0, 0 }
 };
 
-void printusage()
-{
+void printusage(){
     cout<<"\n\nUsage:\n"
           "powot -[SHORT COMMAND] [PARAMETER]\n"
           "or\n"
@@ -54,7 +53,7 @@ void printusage()
           "-a [ARCH NAME] or - -arch [ARCH NAME] - pass the name of the target microprocessor architecture (check the simulator_configs directory)\n"
           "-j [PATH] or - -obj_path [PATH] - pass absolute path to the linked object file to be simulated.\n"
           "-p [PROVIDER NAME] or - -provider [PROVIDER NAME] - pass the name of the mcu's provider (check the models directory)\n"
-          "-m [MCU NAME] or - -mcu [MCU NAME] - pass the name of the target microcontroller (check the models directory)\n"          
+          "-m [MCU NAME] or - -mcu [MCU NAME] - pass the name of the target microcontroller (check the models directory)\n"
           "-e [FUNCTION NAME] or - -entry [FUNCTION NAME] - the function in the source file to be considered as entry point. The simulator will calculate consumption starting from it.\n"
           "-t [0.0] - assign default temperature (float)\n"
           "-w [0.0] - assign default voltage (float)\n"
@@ -63,7 +62,7 @@ void printusage()
           "-d [MEMORY DOMAIN] - assign default memory domain (string)\n"
           "-z or - -get_model_domains - prints the available domains for a model. Must be used with provider, arch and mcu (-p, -a and -m)\n"
           "\nExample launch:"
-          "\n./powsimu -z -p test -a arm-cortex-m4 -m test_model_1\n\n"          
+          "\n./powsimu -z -p test -a arm-cortex-m4 -m test_model_1\n\n"
           "All your sources must be compiled with the -g -O0 options, including the libraries.\n"
           "\nExample launch:"
           "\n./powsimu -j /home/user/myproject/main.axf -a arm-cortex-m4 -p texas_instruments -m lm4f232 -e my_function\n"<<endl;
@@ -81,16 +80,14 @@ void printusage()
 #define INSTRREPEAT             7
 #define INSTRREPEATENERGY       14
 
-void draw_table(energyfield_t *e_table, quint32 e_table_size, QString metrics, quint64 elpsd_time)
-{
+void draw_table(energyfield_t *e_table, quint32 e_table_size, QString metrics, quint64 elpsd_time){
     bool flag = 0;
     long cstatement_max_size;
     long all;
 
     //Get the maximum string length
     cstatement_max_size = e_table[0].statement.size();
-    for(unsigned int i = 0; i < e_table_size-1; i++)
-    {
+    for(unsigned int i = 0; i < e_table_size-1; i++){
         if(!(cstatement_max_size > e_table[i+1].statement.size())){
             cstatement_max_size = e_table[i+1].statement.size();
         }
@@ -121,8 +118,7 @@ void draw_table(energyfield_t *e_table, quint32 e_table_size, QString metrics, q
         cout<<"-";
     cout<<endl;
 
-    for(unsigned long i = 0; i < e_table_size; i++)
-    {
+    for(unsigned long i = 0; i < e_table_size; i++){
 
         cout<<"|"<<setw(LINE)<<dec<<e_table[i].line_number<<"|";
         cout<<setw(cstatement_max_size)<<e_table[i].statement.toStdString()<<"|";
@@ -130,19 +126,18 @@ void draw_table(energyfield_t *e_table, quint32 e_table_size, QString metrics, q
         flag = 0;
 
         if(e_table[i].asm_instr.size() == 0){
-                cout<<setw(MEM)<<" "<<"|";
-                cout<<setw(VDD)<<" "<<"|";
-                cout<<setw(FREQ)<<" "<<"|";
-                cout<<setw(OPS)<<" "<<"|";
-                cout<<setw(VMA)<<" "<<"|";
-                cout<<setw(INSTRUCTION)<<" "<<"|";
-                cout<<setw(INSTRENERGY)<<" "<<"|";
-                cout<<setw(INSTRREPEAT)<<" "<<"|";
-                cout<<setw(INSTRREPEATENERGY)<<" "<<"|";
-                //cout<<endl;
+            cout<<setw(MEM)<<" "<<"|";
+            cout<<setw(VDD)<<" "<<"|";
+            cout<<setw(FREQ)<<" "<<"|";
+            cout<<setw(OPS)<<" "<<"|";
+            cout<<setw(VMA)<<" "<<"|";
+            cout<<setw(INSTRUCTION)<<" "<<"|";
+            cout<<setw(INSTRENERGY)<<" "<<"|";
+            cout<<setw(INSTRREPEAT)<<" "<<"|";
+            cout<<setw(INSTRREPEATENERGY)<<" "<<"|";
+            //cout<<endl;
         }
-        for(long j = 0; j < e_table[i].asm_instr.size(); j++)
-        {
+        for(long j = 0; j < e_table[i].asm_instr.size(); j++){
             if(flag){
                 cout<<"|"<<setw(LINE)<<" "<<"|";
                 cout<<setw(cstatement_max_size)<<" "<<"|";
@@ -155,10 +150,10 @@ void draw_table(energyfield_t *e_table, quint32 e_table_size, QString metrics, q
             cout<<setw(VDD)<<setiosflags(ios::left)<<setprecision(2)<<e_table[i].voltage_domain.at(j)<<"|";
             cout<<setw(FREQ)<<setiosflags(ios::left)<<setprecision(2)<<e_table[i].frequency_domain.at(j)<<"|";
             cout<<setw(OPS)<<setiosflags(ios::left)<<e_table[i].num_of_operands.at(j)<<"|";
-            cout<<setw(VMA)<<hex<<setiosflags(ios::left)<<e_table[i].asm_vma.at(j)<<"|";            
+            cout<<setw(VMA)<<hex<<setiosflags(ios::left)<<e_table[i].asm_vma.at(j)<<"|";
             cout<<setw(INSTRUCTION)<<e_table[i].asm_instr.at(j).toStdString()<<"|";
             cout<<setw(INSTRENERGY)<<dec<<fixed<<setprecision(3)<<e_table[i].asm_base_energy_cost.at(j)<<"|";
-            cout<<setw(INSTRREPEAT)<<dec<<e_table[i].repeated<<"|";            
+            cout<<setw(INSTRREPEAT)<<dec<<e_table[i].repeated<<"|";
             cout<<setw(INSTRREPEATENERGY)<<dec<<fixed<<setprecision(3)<<e_table[i].asm_repeated.at(j)<<"|";
             cout<<endl;
         }
@@ -214,14 +209,11 @@ void draw_model_domains(model_domains_t *mdl_dom)
 
 }
 
-int main(int argc, char *argv[])
-{
-    //QCoreApplication a(argc, argv);
-
+int main(int argc, char *argv[]){    
     quint8 no_opt_entered = 0;
     signed int opt = 0;
     signed int opt_index = 1;
-    quint8 display_version = 0;    
+    quint8 display_version = 0;
     QString obj_path;
     QString provider;
     QString mcu;
@@ -240,11 +232,10 @@ int main(int argc, char *argv[])
     QElapsedTimer performance_timer;
     quint64 elapsed_time;
 
-    opterr = 0; //Disable printing errors to stderr by getopt_long().    
+    opterr = 0; //Disable printing errors to stderr by getopt_long().
 
-    while(1)
-    {
-        opt = getopt_long(argc, argv, short_options, long_options, &opt_index);        
+    while(1){
+        opt = getopt_long(argc, argv, short_options, long_options, &opt_index);
 
         if(opt == -1){
             if(no_opt_entered == 0){
@@ -254,15 +245,14 @@ int main(int argc, char *argv[])
         }
         no_opt_entered = 1;
 
-        switch(opt)
-        {
+        switch(opt){
         case 'j':
             obj_path = optarg;
             break;
         case 'v':
             display_version = 1;
             break;
-        case 'p':            
+        case 'p':
             provider = optarg;
             break;
         case 'm':
@@ -298,40 +288,46 @@ int main(int argc, char *argv[])
             break;
         case 'h':
         case '?':
-        default:            
+        default:
             printusage();
             break;
         }
     }
 
     if(display_version){
-        powotsimulator sim;        
-        sim.print_version();        
-        return 0;
+        powotsimulator sim;
+        sim.print_version();
+        return EXIT_SUCCESS;
+    }
+
+    QFile file_check(obj_path);
+    if(!file_check.exists()){
+        cout<<"ERROR: file \""<<obj_path.toStdString()<<"\" does not exist!"<<endl;
+        return EXIT_FAILURE;
     }
 
     if(display_model_domains){
         if(provider.isEmpty() || arch.isEmpty() || mcu.isEmpty()){
             cout<<"ERROR: You must specify all: provider + arch + mcu!"<<endl<<endl;
             printusage();
-            return 0;
+            return EXIT_FAILURE;
         }
         powotsimulator sim(&provider, &arch, &mcu);
         sim.get_modeldomains(&mdl_dom);
         draw_model_domains(&mdl_dom);
 
-        return 0;
+        return EXIT_SUCCESS;
     }
 
-    if(!obj_path.isEmpty()){        
+    if(!obj_path.isEmpty()){
         powotsimulator sim(&obj_path, &provider, &arch, &mcu, &entry, 1, &def_mdl_dom);
         performance_timer.start();
-        e_table = sim.start_simulation(&e_table_size);        
+        e_table = sim.start_simulation(&e_table_size);
         metrics = sim.get_model_metrics();
         elapsed_time = performance_timer.elapsed();
         draw_table(e_table, e_table_size, metrics, elapsed_time);
     }
 
 
-    return 0;
+    return EXIT_SUCCESS;
 }

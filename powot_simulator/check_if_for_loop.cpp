@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-bool powotsimulator::check_if_for_loop(QString statement)
-{
+bool powotsimulator::check_if_for_loop(QString statement){
     bool flag = 0;
     int num_of_semicolon = 0;
     int i = 0;

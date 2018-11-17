@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::parse_model_domains()
-{
+void powotsimulator::parse_model_domains(void){
     QString line;
     QString temp_str;
     unsigned long addr_temp;
@@ -119,7 +118,6 @@ void powotsimulator::parse_model_domains()
             mdl_domains.addr_ranges = new QList<unsigned long>[mdl_domains.num_addr_ranges];
             unsigned long k = 0;
             for(long j = i; j < mcu_model.size(); j++){
-
                 line = mcu_model.at(j);
 
                 if(line.contains("DOMAIN_END")){
@@ -172,7 +170,6 @@ void powotsimulator::parse_model_domains()
         if(line.contains("METRICS")){
             mdl_domains.metrics = line.section('\t', 1, 1);
             //qDebug()<<"metrics: "<<mdl_domains.metrics;
-
         }
 
         if(line.contains("DIVISOR")){

@@ -20,16 +20,14 @@
 */
 #include "powotsimulator.h"
 
-unsigned long powotsimulator::count_number_of_statements(QStringList *sym_cont, bool *no_debug_info)
-{
+unsigned long powotsimulator::count_number_of_statements(QStringList *sym_cont, bool *no_debug_info){
     QString line;
     QStringList temp_symbol;
     long temp_symbol_size;
     bool is_digit;    
 
     //Get the line numbers from the source file that correspond to each statement in the symbol (function)
-    for(long i = 0; i < sym_cont->size(); i++)
-    {
+    for(long i = 0; i < sym_cont->size(); i++){
         line = sym_cont->at(i).simplified();
         line = line.trimmed();
 
@@ -47,8 +45,7 @@ unsigned long powotsimulator::count_number_of_statements(QStringList *sym_cont, 
 
     //Remove all lines not containing line numbers at the beginning
     temp_symbol_size = temp_symbol.size();
-    for(long i = 0; i < temp_symbol_size; i++)
-    {
+    for(long i = 0; i < temp_symbol_size; i++){
         if(temp_symbol.at(i).isEmpty()){
             temp_symbol.removeAt(i);
             temp_symbol_size--;
@@ -63,8 +60,7 @@ unsigned long powotsimulator::count_number_of_statements(QStringList *sym_cont, 
     //accordingly.
     temp_symbol_size = temp_symbol.size();
     if(temp_symbol_size == 0){
-        for(long i = 0; i < sym_cont->size(); i++)
-        {
+        for(long i = 0; i < sym_cont->size(); i++){
             line = sym_cont->at(i).simplified();
             line = line.trimmed();
 
@@ -75,7 +71,6 @@ unsigned long powotsimulator::count_number_of_statements(QStringList *sym_cont, 
         }
 
         *no_debug_info = 1;
-
     }
 
 

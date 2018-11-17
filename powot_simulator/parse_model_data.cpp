@@ -20,8 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::parse_model_data()
-{
+void powotsimulator::parse_model_data(void){
     QString line;
     QString temp_str;
 
@@ -39,8 +38,7 @@ void powotsimulator::parse_model_data()
     num_instr_in_mdl_file = 0;
 
     //Count the number of instructions in the entire file
-    for(long i = 0; i < mcu_model.size(); i++)
-    {
+    for(long i = 0; i < mcu_model.size(); i++){
         line = mcu_model.at(i);
         if(line.contains("INSTR")){
             num_instr_in_mdl_file++;
@@ -74,7 +72,6 @@ void powotsimulator::parse_model_data()
             mdl[instruction_count].instr_type = line.section('\t', 1, 1);
 
             for(long j = i+2; j < mcu_model.size(); j++){
-
                 line = mcu_model.at(j);
                 //cout<<"----"<<line.toStdString()<<endl;
 
