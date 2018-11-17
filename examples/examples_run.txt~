@@ -1,6 +1,6 @@
 cd /path/to/powot_simulator_v2/powot_simulator_build/powsimu
 LD_LIBRARY_PATH=/path/to/powot_simulator_v2/powot_simulator_build/powot_simulator
-./powsimu -j ../../examples/dk_tm4c123g_bubble_sort.axf -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e main
+./powsimu -j ../../examples/bubble_sort.axf -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e main
 ./powsimu -j ../../examples/dk_tm4c123g_odd_even_transposition_sort.axf -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e main
 
 
