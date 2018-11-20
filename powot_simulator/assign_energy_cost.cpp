@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -20,7 +20,7 @@
 */
 #include "powotsimulator.h"
 
-void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield){
+void powotsimulator::assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield){
     float energy = 0;
     long index_addr = -1;
     long index_temp = -1;
@@ -29,7 +29,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
     long index_operands = -1;
     bool err = 0;    
 
-    //cout<<"assign_energy_cost: asm_mnemonic = "<<asm_mnemonic.toStdString()<<endl;
+    qDebug()<<"assign_energy_cost: asm_mnemonic = "<<asm_mnemonic<<" asm_mnemonic_num = "<<asm_mnemonic_num;
 
     //--------------------------------------------------------------------
     //Extract the corresponding energy value from the model file----------
@@ -37,7 +37,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
     for(unsigned long i = 0; i < num_instr_in_mdl_file; i++){
         if(mdl[i].mnemonic == asm_mnemonic){
 
-            //cout<<"assign_energy_cost: mdl[i].mnemonic = "<<mdl[i].mnemonic.toStdString()<<endl;
+            //qDebug()<<"assign_energy_cost: mdl[i].mnemonic = "<<mdl[i].mnemonic;
 
             for(long j = 0; j < mdl[i].addr_range_name.size(); j++){
                 if(enrgfield->addr_range_name.at(asm_mnemonic_num) == mdl[i].addr_range_name.at(j)){
@@ -46,7 +46,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
                 }
             }
             if(index_addr == -1){
-                cout<<"(powotsimulator) ERROR: index_addr <<"<<enrgfield->addr_range_name.at(asm_mnemonic_num).toStdString()<<">> domain error!"<<endl;
+                qDebug()<<"(powotsimulator) ERROR: index_addr <<"<<enrgfield->addr_range_name.at(asm_mnemonic_num)<<">> domain error!";
                 err = 1;
                 index_addr = 0;
             }
@@ -58,7 +58,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
                 }
             }
             if(index_temp == -1){
-                cout<<"(powotsimulator) ERROR: index_temp <<"<<enrgfield->temperature_domain.at(asm_mnemonic_num)<<">> domain error!"<<endl;
+                qDebug()<<"(powotsimulator) ERROR: index_temp <<"<<enrgfield->temperature_domain.at(asm_mnemonic_num)<<">> domain error!";
                 err = 1;
                 index_temp = 0;
             }
@@ -70,7 +70,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
                 }
             }
             if(index_voltage == -1){
-                cout<<"(powotsimulator) ERROR: index_voltage <<"<<enrgfield->voltage_domain.at(asm_mnemonic_num)<<">> domain error!"<<endl;
+                qDebug()<<"(powotsimulator) ERROR: index_voltage <<"<<enrgfield->voltage_domain.at(asm_mnemonic_num)<<">> domain error!";
                 err = 1;
                 index_voltage = 0;
             }
@@ -82,7 +82,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
                 }
             }
             if(index_frequency == -1){
-                cout<<"(powotsimulator) ERROR: index_frequency <<"<<enrgfield->frequency_domain.at(asm_mnemonic_num)<<">> domain error!"<<endl;
+                qDebug()<<"(powotsimulator) ERROR: index_frequency <<"<<enrgfield->frequency_domain.at(asm_mnemonic_num)<<">> domain error!";
                 err = 1;
                 index_frequency = 0;
             }
@@ -94,7 +94,7 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
                 }
             }
             if(index_operands == -1){
-                cout<<"(powotsimulator) ERROR: index_operands <<"<<enrgfield->num_of_operands.at(asm_mnemonic_num)<<">> domain error!"<<endl;
+                qDebug()<<"(powotsimulator) ERROR: index_operands <<"<<enrgfield->num_of_operands.at(asm_mnemonic_num)<<">> domain error!";
                 err = 1;
                 index_operands = 0;
             }
@@ -129,48 +129,9 @@ void powotsimulator::assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_
     enrgfield->asm_base_energy_cost << energy;    
 }
 
-/*
-void powotsimulator::assign_energy_cost(QString asm_mnemonic, energyfield_t *enrgfield)
-{
-    float energy = 0;
-    long index_addr = 0;
-    long index_temp = 0;
-    long index_voltage = 0;
-    long index_frequency = 0;
-    long index_main = 0;    
+void powotsimulator::assign_energy_cost_binary(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield){
+    float energy = 1.0;
 
-    //--------------------------------------------------------------------
-    //Extract the corresponding energy value from the model file----------
-    //--------------------------------------------------------------------
-    for(unsigned long i = 0; i < num_instr_in_mdl_file; i++)
-    {        
-        if(mdl[i].mnemonic == asm_mnemonic){            
-            index_addr = mdl[i].addr_range_name.indexOf(enrgfield->addr_range_name.last(), 0);                        
-            if(index_addr == -1) break;                        
-            index_temp = mdl[i].temperature_domain.indexOf(enrgfield->temperature_domain.last(), index_addr);                        
-            if(index_temp == -1) break;                        
-            index_voltage = mdl[i].voltage_domain.indexOf(enrgfield->voltage_domain.last(), index_temp);                        
-            if(index_voltage == -1) break;            
-            index_frequency = mdl[i].frequency_domain.indexOf(enrgfield->frequency_domain.last(), index_voltage);
-            if(index_frequency == -1) break;
-            index_main = index_addr + index_temp + index_voltage + index_frequency;            
-            energy = mdl[i].energy.at(index_main);                        
-            break;
-        }
-
-        if((index_addr == -1)||
-           (index_temp == -1)||
-           (index_voltage == -1)||
-           (index_frequency == -1)
-          ){            
-            err_message.display_error(DOMAIN_NOT_FOUND_IN_MDL, &asm_mnemonic);
-            energy = 0.0;
-        }
-    }
-    //--------------------------------------------------------------------
-    //--------------------------------------------------------------------
-    //--------------------------------------------------------------------
-
-    enrgfield->asm_base_energy_cost << energy;    
+    enrgfield->asm_base_energy_cost << energy;
 }
-*/
+

@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -26,7 +26,7 @@ void powotsimulator::readconfiguration(void){
 
     path = configfile_dir + "/" + arch_name + ".cfg";
 
-    cout<<"(powotsimulator) Reading configuration ..."<<endl;
+    qDebug()<<"(powotsimulator) Reading configuration ...";
     if(config_file.read_entire_config_file(&path, &contents)){
        for(qint32 i=0; i < contents.size(); i++){
             if(contents.at(i).contains("GDBDUMP_COMMAND")){
@@ -47,17 +47,17 @@ void powotsimulator::readconfiguration(void){
     }
     else{
         err_message.display_error(CONFIG_NOT_LOADED, &path);
-        cout<<"(powotsimulator) Aborting ..."<<endl;
+        qDebug()<<"(powotsimulator) Aborting ...";
         exit(EXIT_FAILURE);
     }
 
     path = modelsdir + "/mcu/" + provider_name + '/' + mcu_name + ".mdl";
 
-    cout<<"(powotsimulator) model file: "<<path.toStdString()<<endl;
+    qDebug()<<"(powotsimulator) model file: "<<path;
 
     if(!config_file.read_entire_config_file(&path, &mcu_model)){
         err_message.display_error(MODEL_NOT_LOADED);
-        cout<<"(powotsimulator) Aborting ..."<<endl;
+        qDebug()<<"(powotsimulator) Aborting ...";
         exit(EXIT_FAILURE);
     }
 

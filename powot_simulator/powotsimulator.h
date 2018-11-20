@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -26,14 +26,25 @@
 #include <QTextStream>
 #include <QString>
 #include <QDebug>
-#include <iostream>
-#include <iomanip>
 #include "fileio.h"
 #include "configfilepaths.h"
 #include "errormsg.h"
-#include "model.h"
+#include "model_lut.h"
 
-using namespace std;
+typedef enum{
+    MODEL_TAB_LUT,
+    MODEL_BINARY
+}model_type_t;
+
+typedef struct{
+    QString objectfile_path;
+    QString provider;
+    QString arch;
+    QString mcu;
+    QString entry;
+    default_model_domains_t default_domains;
+    model_type_t arch_model_type;
+}sim_params_t;
 
 //C statement info extracted by analyze_statements method
 typedef struct {
@@ -97,7 +108,7 @@ private:
     default_model_domains_t def_domains;
     dvs_api_t dvs_api;
     dfs_api_t dfs_api;
-
+    model_type_t arch_model_type;
 
     void objdump_file(QString *filepath, QStringList *objfile_contents);
     void gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents);
@@ -112,7 +123,8 @@ private:
     void analyze_statements(QStringList *sym_cont, energyfield_t *arr);
     float analyze_assembly(QStringList *asm_section);
     unsigned long count_number_of_statements(QStringList *sym_cont, bool *no_debug_info);
-    void assign_energy_cost(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield);
+    void assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield);
+    void assign_energy_cost_binary(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield);
     void parse_model_data(void);
     void parse_model_domains(void);
     bool check_if_function_call(QString statement);
@@ -141,10 +153,12 @@ public:
     powotsimulator(void);
     ~powotsimulator(void);
     powotsimulator(QString *provider, QString *arch, QString *mcu);
-    powotsimulator(QString *objectfile_path, QString *provider, QString *arch, QString *mcu, QString *entry, bool print_ver, default_model_domains_t *default_domains);
+    powotsimulator(sim_params_t *sim_prms);
     energyfield_t* start_simulation(quint32 *size);
     void get_modeldomains(model_domains_t *mdl_dom);
-    void print_version(void);
+    double get_version(void);
+    QString get_build_info(void);
+    QString get_copyright_info(void);
     QString get_model_metrics(void);
 
 };

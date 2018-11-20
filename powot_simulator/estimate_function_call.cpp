@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -27,18 +27,18 @@ float powotsimulator::estimate_function_call(QString function_name){
     float total_base_cost;
     bool no_debug_info;
 
-    //cout<<"estimate_function_call: function_name = "<<function_name.toStdString()<<endl;
+    //qDebug()<<"estimate_function_call: function_name = "<<function_name;
 
     if(function_name.contains('=')){
         function_name = function_name.section('=', -1, 1);
-        //cout<<"estimate_function_call: function_name AFTER: "<<function_name.toStdString()<<endl;
+        //qDebug()<<"estimate_function_call: function_name AFTER: "<<function_name;
     }
 
     gdbdump_file(&objectfile_dir, &function_name, &symbol_contents);
 
     if(!symbol_contents.isEmpty()){
         table_size = count_number_of_statements(&symbol_contents, &no_debug_info);
-        //cout<<"(powotsimulator) Function "<<function_name.toStdString()<<" consists of "<<table_size<<" lines! "<<endl;
+        //qDebug()<<"(powotsimulator) Function "<<function_name<<" consists of "<<table_size<<" lines! ";
 
         if(no_debug_info){
             total_base_cost = analyze_assembly(&symbol_contents);            
@@ -66,7 +66,7 @@ float powotsimulator::estimate_function_call(QString function_name){
         }
     }
 
-    cout<<"(powotsimulator) Total function "<<function_name.toStdString()<<" base energy cost: "<<fixed<<setprecision(3)<<total_base_cost<<" "<<mdl_domains.metrics.toStdString()<<endl;
+    qDebug()<<"(powotsimulator) Total function "<<function_name<<" base energy cost: "<<total_base_cost<<" "<<mdl_domains.metrics;
 
     return total_base_cost;
 }

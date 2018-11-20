@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -52,7 +52,7 @@ void powotsimulator::parse_model_domains(void){
         if(line.contains("DOMAIN_START")){
             for(long j = i; j < mcu_model.size(); j++){
                 line = mcu_model.at(j);
-                //cout<<"---"<<mcu_model.at(j).toStdString()<<endl;
+                //qDebug()<<"---"<<mcu_model.at(j);
                 if(line.contains("DOMAIN_END")){
                     break;
                 }
@@ -146,23 +146,23 @@ void powotsimulator::parse_model_domains(void){
 
 
             /*for(unsigned long m = 0; m < mdl_domains.num_addr_ranges; m++){
-                cout<<mdl_domains.addr_ranges_names.at(m).toStdString()<<hex<<" low: "<<mdl_domains.addr_ranges[m].at(0)<<" high:"<<mdl_domains.addr_ranges[m].at(1)<<endl;
+                qDebug()<<mdl_domains.addr_ranges_names.at(m)<<hex<<" low: "<<mdl_domains.addr_ranges[m].at(0)<<" high:"<<mdl_domains.addr_ranges[m].at(1);
             }*/
 
             /*for(long m = 0; m < mdl_domains.voltage_domains.size(); m++){
-                cout<<"VOLTAGES: "<<mdl_domains.voltage_domains.at(m)<<endl;
+                qDebug()<<"VOLTAGES: "<<mdl_domains.voltage_domains.at(m);
             }*/
 
             /*for(long m = 0; m < mdl_domains.frequency_domains.size(); m++){
-                cout<<"FREQUENCIES: "<<mdl_domains.frequency_domains.at(m)<<endl;
+                qDebug()<<"FREQUENCIES: "<<mdl_domains.frequency_domains.at(m);
             }*/
 
             /*for(long m = 0; m < mdl_domains.temperature_domains.size(); m++){
-                cout<<"TEMPERATURES: "<<mdl_domains.temperature_domains.at(m)<<endl;
+                qDebug()<<"TEMPERATURES: "<<mdl_domains.temperature_domains.at(m);
             }*/
 
             /*for(long m = 0; m < mdl_domains.operand_domains.size(); m++){
-                cout<<"OPERANDS: "<<mdl_domains.operand_domains.at(m)<<endl;
+                qDebug()<<"OPERANDS: "<<mdl_domains.operand_domains.at(m);
             }*/
             break;
         }

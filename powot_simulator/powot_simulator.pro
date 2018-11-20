@@ -30,7 +30,6 @@ SOURCES += powotsimulator.cpp \
     estimate_for_loop.cpp \
     estimate_for_loop_extend.cpp \
     remove_white_spaces.cpp \
-    print_version.cpp \
     objdump_file.cpp \
     remove_empty_lines.cpp \
     parse_model_domains.cpp \
@@ -46,7 +45,8 @@ SOURCES += powotsimulator.cpp \
     estimate_dfs_api_extend.cpp \
     check_if_dfs_api.cpp \
     estimate_num_operands.cpp \
-    get_model_metrics.cpp
+    get_model_metrics.cpp \
+    version.cpp
 
 HEADERS += powotsimulator.h\
         powot_simulator_global.h \
@@ -54,7 +54,7 @@ HEADERS += powotsimulator.h\
     errormsg.h \
     configfilepaths.h \
     version.h \
-    model.h
+    model_lut.h
 
 unix {
     target.path = /usr/lib

@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -78,7 +78,7 @@ float powotsimulator::analyze_assembly(QStringList *asm_section){
             //Match the address asm_vma with the corresponding address domain name from the model file and fill in the corresponding ASM field.
             for(unsigned long j = 0; j < mdl_domains.num_addr_ranges; j++){
                 if((mdl_domains.addr_ranges[j].at(0) <= e_field.asm_vma.last()) && (e_field.asm_vma.last() <= mdl_domains.addr_ranges[j].at(1))){
-                    //cout<<"instruction "<<asm_mnemonic.toStdString()<<" at 0x"<<hex<<asm_vma<<" is in: "<<mdl_domains.addr_ranges_names[i].toStdString()<<endl;
+                    //qDebug()<<"instruction "<<asm_mnemonic<<" at 0x"<<hex<<asm_vma<<" is in: "<<mdl_domains.addr_ranges_names[i];
                     e_field.addr_range_name << mdl_domains.addr_ranges_names[j];
                     instr_found = 1;
                     break;
@@ -91,7 +91,14 @@ float powotsimulator::analyze_assembly(QStringList *asm_section){
                 e_field.addr_range_name << def_domains.default_addr_range;
             }
 
-            assign_energy_cost(asm_mnemonic, i, &e_field);
+            switch(arch_model_type){
+            case MODEL_TAB_LUT:
+                assign_energy_cost_tab_lut(asm_mnemonic, i, &e_field);
+                break;
+            case MODEL_BINARY:
+                assign_energy_cost_binary(asm_mnemonic, i, &e_field);
+                break;
+            }
         }
         else{
                 e_field.asm_base_energy_cost << 0.0;

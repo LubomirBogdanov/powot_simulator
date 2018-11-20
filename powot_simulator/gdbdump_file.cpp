@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -24,7 +24,7 @@ void powotsimulator::gdbdump_file(QString *filepath, QString *source_entry_point
     bool symbol_not_found = 0;
     QString cmd;
     cmd = gdbdump_cmd + *filepath + " -ex=\"disas /m " + *source_entry_point + "\" -ex=quit --quiet";
-    cout<<"(powotsimulator) objdump of a symbol cmd:"<<cmd.toStdString()<<endl;
+    qDebug()<<"(powotsimulator) objdump of a symbol cmd:"<<cmd;
 
     QProcess terminal;
     //terminal.setReadChannel(QProcess::StandardOutput);
@@ -34,26 +34,25 @@ void powotsimulator::gdbdump_file(QString *filepath, QString *source_entry_point
     QByteArray temp = terminal.readAllStandardOutput();
     convert_bytearray_stringlist(&temp, symbol_contents);    
 
- /*   for(int i = 0; i < symbol_contents->size(); i++)
-    {
-        cout<<"+++"<<symbol_contents->at(i).toStdString()<<endl;
+    /*for(int i = 0; i < symbol_contents->size(); i++){
+        qDebug()<<"+++"<<symbol_contents->at(i);
     }*/
 
     if(symbol_contents->isEmpty()){
         err_message.display_error(GDBDUMP_FAILED);
-        //cout<<"(powotsimulator) Aborting ..."<<endl;
-        //exit(-1);
+        //qDebug()<<"(powotsimulator) Aborting ...";
+        //exit(EXIT_FAILURE);
     }
     else {
         for(int i = 0; i < symbol_contents->size(); i++){
             if(symbol_contents->at(i).contains("No symbol")){
-                cout<<"(powotsimulator) Symbol "<<source_entry_point->toStdString()<<" not found!"<<endl;
+                qDebug()<<"(powotsimulator) Symbol "<<*source_entry_point<<" not found!";
                 symbol_not_found = 1;
                 break;
             }
 
             if(symbol_contents->at(i).contains("No frame selected")){
-                cout<<"(powotsimulator) Empty symbol! Ignoring ..."<<endl;
+                qDebug()<<"(powotsimulator) Empty symbol! Ignoring ...";
                 symbol_not_found = 1;
                 break;
             }
@@ -79,11 +78,9 @@ void powotsimulator::gdbdump_file(QString *filepath, QString *source_entry_point
         }
     }
 
- /*   cout<<"symbol_contents--------------"<<endl;
+    /*qDebug()<<"symbol_contents--------------";
     for(int i = 0; i < symbol_contents->size(); i++){
-        cout<<symbol_contents->at(i).toStdString();
+        qDebug()<<symbol_contents->at(i);
     }
-    cout<<"------------------------"<<endl;*/
-
-
+    qDebug()<<"------------------------"<<endl;*/
 }

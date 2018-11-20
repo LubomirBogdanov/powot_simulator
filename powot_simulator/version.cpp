@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -21,15 +21,29 @@
 #include "powotsimulator.h"
 #include "version.h"
 
-void powotsimulator::print_version(void){
-    cout<<"                     --********--"<<endl;
-    cout<<"                     --********--"<<endl;
-    cout<<"                     --**----**--"<<endl;
-    cout<<"                     --******----"<<endl;
-    cout<<"                     --***-------"<<endl;
-    cout<<"                     --***-------"<<endl;
-    cout<<"                     --***-------"<<endl;
-    cout<<COPYRIGHT<<endl;
-    cout<<"(powotsimulator) Powot Simulator version "<<fixed<<setprecision(2)<<POWOT_SIMULATOR_VERSION<<endl;
-    cout<<"(powotsimulator) "<<OS_X86_X64<<"-bit, compiled on "<<OS_NAME<<endl;    
+double powotsimulator::get_version(void){
+    return POWOT_SIMULATOR_VERSION;
+}
+
+QString powotsimulator::get_build_info(void){
+    QString build_info;
+    build_info = OS_X86_X64;
+    build_info += "-bit, compiled on ";
+    build_info += OS_NAME;
+    return build_info;
+}
+
+QString powotsimulator::get_copyright_info(void){
+    QString copyright_notice;
+
+    copyright_notice = "                     --********--\n";
+    copyright_notice += "                     --********--\n";
+    copyright_notice += "                     --**----**--\n";
+    copyright_notice += "                     --******----\n";
+    copyright_notice += "                     --***-------\n";
+    copyright_notice += "                     --***-------\n";
+    copyright_notice += "                     --***-------\n";
+    copyright_notice += COPYRIGHT;
+
+    return copyright_notice;
 }

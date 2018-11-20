@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -23,7 +23,7 @@
 void powotsimulator::objdump_file(QString *filepath, QStringList *objfile_contents){
     QString cmd;
     cmd = objdump_cmd + *filepath;
-    cout<<"(powotsimulator) objdump all cmd:"<<cmd.toStdString()<<endl;
+    qDebug()<<"(powotsimulator) objdump all cmd:"<<cmd;
 
     QProcess terminal;
     //terminal.setReadChannel(QProcess::StandardOutput);
@@ -34,7 +34,7 @@ void powotsimulator::objdump_file(QString *filepath, QStringList *objfile_conten
     convert_bytearray_stringlist(&temp, objfile_contents);
 
     /*for(int i = 0; i < objfile_contents->size(); i++){
-        cout<<"+++"<<objfile_contents->at(i).toStdString();
+        qDebug()<<"+++"<<objfile_contents->at(i);
     }*/
 
     if(objfile_contents->isEmpty()){

@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -23,7 +23,7 @@
 bool powotsimulator::find_mnemonic_in_mdl(QString *asm_mnemonic){
     bool instr_found = 0;
 
-    //cout<<"find_mnemonic_in_mdl: asm_mnemonic = "<<asm_mnemonic->toStdString()<<endl;
+    //qDebug()<<"find_mnemonic_in_mdl: asm_mnemonic = "<<asm_mnemonic;
 
     //Check to see if we can find the asm_mnemonic in the model file
     for(unsigned long i = 0; i < num_instr_in_mdl_file; i++){

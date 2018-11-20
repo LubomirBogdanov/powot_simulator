@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -43,48 +43,48 @@ errormsg::~errormsg(){
 void errormsg::display_error(int errnum, const QString *msg){
     switch(errnum){
     case CANT_OPEN_FILE:
-        cout<<"(powotsimulator) ERROR: Can't open file: "<<msg->toStdString()<<"!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Can't open file: "<<*msg<<"!";
         break;
     case CANT_WRITE_FILE:
-        cout<<"(powotsimulator) ERROR: Can't write to the file: "<<msg->toStdString()<<"!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Can't write to the file: "<<*msg<<"!";
         break;
     case GDBDUMP_FAILED:
-        cout<<"(powotsimulator) ERROR: dump of a single symbol command failed!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: dump of a single symbol command failed!";
         break;
     case OBJDUMP_FAILED:
-        cout<<"(powotsimulator) ERROR: dump of all symbols command failed!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: dump of all symbols command failed!";
         break;
     case SYMBOLLIST_FAILED:
-        cout<<"(powotsimulator) ERROR: symbol list command failed!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: symbol list command failed!";
         break;
     case MODEL_NOT_LOADED:
-        cout<<"(powotsimulator) ERROR: model failed to load!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: model failed to load!";
         break;
     case CONFIG_NOT_LOADED:
-        cout<<"(powotsimulator) ERROR: config file "<<msg->toStdString()<<" failed to load!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: config file "<<*msg<<" failed to load!";
         break;
     case SRC_ENTRY_NOT_FOUND:
-         cout<<"(powotsimulator) ERROR: Entry point <<"<<msg->toStdString()<<">> not found in object file!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Entry point <<"<<*msg<<">> not found in object file!";
         break;
     case LOOP_LOW_INVALID:
-        cout<<"(powotsimulator) ERROR: Low boundary of loop cannot be processed (assigning 1 for repeat)! "<<msg->toStdString()<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Low boundary of loop cannot be processed (assigning 1 for repeat)! "<<*msg;
         break;
     case LOOP_HIGH_INVALID:
-        cout<<"(powotsimulator) ERROR: High boundary of loop cannot be processed (assigning 1 for repeat)! "<<msg->toStdString()<<endl;
+        qDebug()<<"(powotsimulator) ERROR: High boundary of loop cannot be processed (assigning 1 for repeat)! "<<*msg;
         break;
     case LOOP_WRONG_EXPR:
-        cout<<"(powotsimulator) ERROR: Integer expression cannot be converted"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Integer expression cannot be converted";
         break;
     case LOOP_WRONG_COND:
-        cout<<"(powotsimulator) ERROR: Inside for( ; COND ; ) loop the COND cannot be evaluated (assigning 1 for repeat)! "<<msg->toStdString()<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Inside for( ; COND ; ) loop the COND cannot be evaluated (assigning 1 for repeat)! ";
         break;
     case INSTR_NOT_FOUND_IN_MDL:
-        cout<<"(powotsimulator) ERROR: Instruction <<"<<msg->toStdString()<<">> not found in model file!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Instruction <<"<<*msg<<">> not found in model file!";
         break;
     case DOMAIN_NOT_FOUND_IN_MDL:
-        cout<<"(powotsimulator) ERROR: Instruction <<"<<msg->toStdString()<<">> does not have data for this domain in the model file!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: Instruction <<"<<*msg<<">> does not have data for this domain in the model file!";
         break;
     default:
-        cout<<"(powotsimulator) ERROR: General error!"<<endl;
+        qDebug()<<"(powotsimulator) ERROR: General error!";
     }
 }

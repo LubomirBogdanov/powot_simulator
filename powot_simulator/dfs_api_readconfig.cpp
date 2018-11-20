@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -36,12 +36,12 @@ void powotsimulator::dfs_api_readconfig(void){
                 if(line.contains("DFS_API_END")){
                     break;
                 }
-                //cout<<"---"<<mcu_model.at(j).toStdString()<<endl;
+                //qDebug()<<"---"<<mcu_model.at(j);
 
 
                 param = line.section('\t', 0, 0);
                 dfs_api.dfs_api<<param;
-                //cout<<"+++param "<<param.toStdString()<<endl;
+                //qDebug()<<"+++param "<<param;
 
                 param = line.section('\t', 1, 1);
                 fl_param = param.toFloat(&ok);
@@ -51,7 +51,7 @@ void powotsimulator::dfs_api_readconfig(void){
                 else{
                     dfs_api.api_frequency << fl_param;
                 }
-                //cout<<"+++param "<<dvs_api.api_voltage.last()<<endl;
+                //qDebug()<<"+++param "<<dvs_api.api_voltage.last();
 
                 param = line.section('\t', 2, 2);
                 fl_param = param.toFloat(&ok);
@@ -61,7 +61,7 @@ void powotsimulator::dfs_api_readconfig(void){
                 else{
                     dfs_api.exec_time << fl_param;
                 }
-                //cout<<"+++param "<<dvs_api.exec_time.last()<<endl;
+                //qDebug()<<"+++param "<<dvs_api.exec_time.last();
 
                 param = line.section('\t', 3, 3);
                 fl_param = param.toFloat(&ok);
@@ -71,7 +71,7 @@ void powotsimulator::dfs_api_readconfig(void){
                 else{
                     dfs_api.exec_energy << fl_param;
                 }
-                //cout<<"+++param "<<dvs_api.exec_energy.last()<<endl;
+                //qDebug()<<"+++param "<<dvs_api.exec_energy.last();
             }
         }
     }

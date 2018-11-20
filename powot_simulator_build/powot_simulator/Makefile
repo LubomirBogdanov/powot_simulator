@@ -69,7 +69,6 @@ SOURCES       = ../../powot_simulator/powotsimulator.cpp \
 		../../powot_simulator/estimate_for_loop.cpp \
 		../../powot_simulator/estimate_for_loop_extend.cpp \
 		../../powot_simulator/remove_white_spaces.cpp \
-		../../powot_simulator/print_version.cpp \
 		../../powot_simulator/objdump_file.cpp \
 		../../powot_simulator/remove_empty_lines.cpp \
 		../../powot_simulator/parse_model_domains.cpp \
@@ -85,7 +84,8 @@ SOURCES       = ../../powot_simulator/powotsimulator.cpp \
 		../../powot_simulator/estimate_dfs_api_extend.cpp \
 		../../powot_simulator/check_if_dfs_api.cpp \
 		../../powot_simulator/estimate_num_operands.cpp \
-		../../powot_simulator/get_model_metrics.cpp 
+		../../powot_simulator/get_model_metrics.cpp \
+		../../powot_simulator/version.cpp 
 OBJECTS       = powotsimulator.o \
 		fileio.o \
 		errormsg.o \
@@ -105,7 +105,6 @@ OBJECTS       = powotsimulator.o \
 		estimate_for_loop.o \
 		estimate_for_loop_extend.o \
 		remove_white_spaces.o \
-		print_version.o \
 		objdump_file.o \
 		remove_empty_lines.o \
 		parse_model_domains.o \
@@ -121,7 +120,8 @@ OBJECTS       = powotsimulator.o \
 		estimate_dfs_api_extend.o \
 		check_if_dfs_api.o \
 		estimate_num_operands.o \
-		get_model_metrics.o
+		get_model_metrics.o \
+		version.o
 DIST          = /home/programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/common/unix.conf \
 		/home/programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/common/linux.conf \
@@ -315,7 +315,7 @@ DIST          = /home/programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/features/spec_pre
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
 		../../powot_simulator/version.h \
-		../../powot_simulator/model.h ../../powot_simulator/powotsimulator.cpp \
+		../../powot_simulator/model_lut.h ../../powot_simulator/powotsimulator.cpp \
 		../../powot_simulator/fileio.cpp \
 		../../powot_simulator/errormsg.cpp \
 		../../powot_simulator/readconfiguration.cpp \
@@ -334,7 +334,6 @@ DIST          = /home/programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/features/spec_pre
 		../../powot_simulator/estimate_for_loop.cpp \
 		../../powot_simulator/estimate_for_loop_extend.cpp \
 		../../powot_simulator/remove_white_spaces.cpp \
-		../../powot_simulator/print_version.cpp \
 		../../powot_simulator/objdump_file.cpp \
 		../../powot_simulator/remove_empty_lines.cpp \
 		../../powot_simulator/parse_model_domains.cpp \
@@ -350,7 +349,8 @@ DIST          = /home/programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/features/spec_pre
 		../../powot_simulator/estimate_dfs_api_extend.cpp \
 		../../powot_simulator/check_if_dfs_api.cpp \
 		../../powot_simulator/estimate_num_operands.cpp \
-		../../powot_simulator/get_model_metrics.cpp
+		../../powot_simulator/get_model_metrics.cpp \
+		../../powot_simulator/version.cpp
 QMAKE_TARGET  = powot_simulator
 DESTDIR       = 
 TARGET        = libpowot_simulator.so.1.0.0
@@ -773,8 +773,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../powot_simulator/powotsimulator.h ../../powot_simulator/powot_simulator_global.h ../../powot_simulator/fileio.h ../../powot_simulator/errormsg.h ../../powot_simulator/configfilepaths.h ../../powot_simulator/version.h ../../powot_simulator/model.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../powot_simulator/powotsimulator.cpp ../../powot_simulator/fileio.cpp ../../powot_simulator/errormsg.cpp ../../powot_simulator/readconfiguration.cpp ../../powot_simulator/convertbytearray_qstringlist.cpp ../../powot_simulator/startsimulation.cpp ../../powot_simulator/gdbdump_file.cpp ../../powot_simulator/analyze_statements.cpp ../../powot_simulator/count_number_of_statements.cpp ../../powot_simulator/assign_energy_cost.cpp ../../powot_simulator/parse_model_data.cpp ../../powot_simulator/check_if_function_call.cpp ../../powot_simulator/estimate_function_call.cpp ../../powot_simulator/analyze_assembly.cpp ../../powot_simulator/symbollist_file.cpp ../../powot_simulator/check_if_for_loop.cpp ../../powot_simulator/estimate_for_loop.cpp ../../powot_simulator/estimate_for_loop_extend.cpp ../../powot_simulator/remove_white_spaces.cpp ../../powot_simulator/print_version.cpp ../../powot_simulator/objdump_file.cpp ../../powot_simulator/remove_empty_lines.cpp ../../powot_simulator/parse_model_domains.cpp ../../powot_simulator/get_model_domains.cpp ../../powot_simulator/parse_model_def_domains.cpp ../../powot_simulator/find_mnemonic_in_mdl.cpp ../../powot_simulator/dvs_api_readconfig.cpp ../../powot_simulator/check_if_dvs_api.cpp ../../powot_simulator/estimate_dvs_api_extend.cpp ../../powot_simulator/estimate_dvs_api.cpp ../../powot_simulator/dfs_api_readconfig.cpp ../../powot_simulator/estimate_dfs_api.cpp ../../powot_simulator/estimate_dfs_api_extend.cpp ../../powot_simulator/check_if_dfs_api.cpp ../../powot_simulator/estimate_num_operands.cpp ../../powot_simulator/get_model_metrics.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../powot_simulator/powotsimulator.h ../../powot_simulator/powot_simulator_global.h ../../powot_simulator/fileio.h ../../powot_simulator/errormsg.h ../../powot_simulator/configfilepaths.h ../../powot_simulator/version.h ../../powot_simulator/model_lut.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../powot_simulator/powotsimulator.cpp ../../powot_simulator/fileio.cpp ../../powot_simulator/errormsg.cpp ../../powot_simulator/readconfiguration.cpp ../../powot_simulator/convertbytearray_qstringlist.cpp ../../powot_simulator/startsimulation.cpp ../../powot_simulator/gdbdump_file.cpp ../../powot_simulator/analyze_statements.cpp ../../powot_simulator/count_number_of_statements.cpp ../../powot_simulator/assign_energy_cost.cpp ../../powot_simulator/parse_model_data.cpp ../../powot_simulator/check_if_function_call.cpp ../../powot_simulator/estimate_function_call.cpp ../../powot_simulator/analyze_assembly.cpp ../../powot_simulator/symbollist_file.cpp ../../powot_simulator/check_if_for_loop.cpp ../../powot_simulator/estimate_for_loop.cpp ../../powot_simulator/estimate_for_loop_extend.cpp ../../powot_simulator/remove_white_spaces.cpp ../../powot_simulator/objdump_file.cpp ../../powot_simulator/remove_empty_lines.cpp ../../powot_simulator/parse_model_domains.cpp ../../powot_simulator/get_model_domains.cpp ../../powot_simulator/parse_model_def_domains.cpp ../../powot_simulator/find_mnemonic_in_mdl.cpp ../../powot_simulator/dvs_api_readconfig.cpp ../../powot_simulator/check_if_dvs_api.cpp ../../powot_simulator/estimate_dvs_api_extend.cpp ../../powot_simulator/estimate_dvs_api.cpp ../../powot_simulator/dfs_api_readconfig.cpp ../../powot_simulator/estimate_dfs_api.cpp ../../powot_simulator/estimate_dfs_api_extend.cpp ../../powot_simulator/check_if_dfs_api.cpp ../../powot_simulator/estimate_num_operands.cpp ../../powot_simulator/get_model_metrics.cpp ../../powot_simulator/version.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -898,7 +898,7 @@ powotsimulator.o: ../../powot_simulator/powotsimulator.cpp ../../powot_simulator
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o powotsimulator.o ../../powot_simulator/powotsimulator.cpp
 
@@ -972,7 +972,8 @@ fileio.o: ../../powot_simulator/fileio.cpp ../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qshareddata.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		../../powot_simulator/errormsg.h
+		../../powot_simulator/errormsg.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fileio.o ../../powot_simulator/fileio.cpp
 
 errormsg.o: ../../powot_simulator/errormsg.cpp ../../powot_simulator/errormsg.h \
@@ -1007,7 +1008,40 @@ errormsg.o: ../../powot_simulator/errormsg.cpp ../../powot_simulator/errormsg.h 
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringliteral.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringalgorithms.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringview.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringbuilder.h
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qdebug.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qhash.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qiterator.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlist.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qpair.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringlist.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qregexp.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmap.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qtextstream.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qiodevice.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobject.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmetatype.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlocale.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvariant.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qshareddata.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvector.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qpoint.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qset.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o errormsg.o ../../powot_simulator/errormsg.cpp
 
 readconfiguration.o: ../../powot_simulator/readconfiguration.cpp ../../powot_simulator/powotsimulator.h \
@@ -1086,7 +1120,7 @@ readconfiguration.o: ../../powot_simulator/readconfiguration.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o readconfiguration.o ../../powot_simulator/readconfiguration.cpp
 
@@ -1166,7 +1200,7 @@ convertbytearray_qstringlist.o: ../../powot_simulator/convertbytearray_qstringli
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o convertbytearray_qstringlist.o ../../powot_simulator/convertbytearray_qstringlist.cpp
 
@@ -1246,7 +1280,7 @@ startsimulation.o: ../../powot_simulator/startsimulation.cpp ../../powot_simulat
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o startsimulation.o ../../powot_simulator/startsimulation.cpp
 
@@ -1326,7 +1360,7 @@ gdbdump_file.o: ../../powot_simulator/gdbdump_file.cpp ../../powot_simulator/pow
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gdbdump_file.o ../../powot_simulator/gdbdump_file.cpp
 
@@ -1406,7 +1440,7 @@ analyze_statements.o: ../../powot_simulator/analyze_statements.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o analyze_statements.o ../../powot_simulator/analyze_statements.cpp
 
@@ -1486,7 +1520,7 @@ count_number_of_statements.o: ../../powot_simulator/count_number_of_statements.c
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o count_number_of_statements.o ../../powot_simulator/count_number_of_statements.cpp
 
@@ -1566,7 +1600,7 @@ assign_energy_cost.o: ../../powot_simulator/assign_energy_cost.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o assign_energy_cost.o ../../powot_simulator/assign_energy_cost.cpp
 
@@ -1646,7 +1680,7 @@ parse_model_data.o: ../../powot_simulator/parse_model_data.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parse_model_data.o ../../powot_simulator/parse_model_data.cpp
 
@@ -1726,7 +1760,7 @@ check_if_function_call.o: ../../powot_simulator/check_if_function_call.cpp ../..
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o check_if_function_call.o ../../powot_simulator/check_if_function_call.cpp
 
@@ -1806,7 +1840,7 @@ estimate_function_call.o: ../../powot_simulator/estimate_function_call.cpp ../..
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_function_call.o ../../powot_simulator/estimate_function_call.cpp
 
@@ -1886,7 +1920,7 @@ analyze_assembly.o: ../../powot_simulator/analyze_assembly.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o analyze_assembly.o ../../powot_simulator/analyze_assembly.cpp
 
@@ -1966,7 +2000,7 @@ symbollist_file.o: ../../powot_simulator/symbollist_file.cpp ../../powot_simulat
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o symbollist_file.o ../../powot_simulator/symbollist_file.cpp
 
@@ -2046,7 +2080,7 @@ check_if_for_loop.o: ../../powot_simulator/check_if_for_loop.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o check_if_for_loop.o ../../powot_simulator/check_if_for_loop.cpp
 
@@ -2126,7 +2160,7 @@ estimate_for_loop.o: ../../powot_simulator/estimate_for_loop.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_for_loop.o ../../powot_simulator/estimate_for_loop.cpp
 
@@ -2206,7 +2240,7 @@ estimate_for_loop_extend.o: ../../powot_simulator/estimate_for_loop_extend.cpp .
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_for_loop_extend.o ../../powot_simulator/estimate_for_loop_extend.cpp
 
@@ -2286,90 +2320,9 @@ remove_white_spaces.o: ../../powot_simulator/remove_white_spaces.cpp ../../powot
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o remove_white_spaces.o ../../powot_simulator/remove_white_spaces.cpp
-
-print_version.o: ../../powot_simulator/print_version.cpp ../../powot_simulator/powotsimulator.h \
-		../../powot_simulator/powot_simulator_global.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qglobal.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qconfig.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qtcore-config.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsystemdetection.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qprocessordetection.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcompilerdetection.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qtypeinfo.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsysinfo.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlogging.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qflags.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qbasicatomic.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qgenericatomic.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic_cxx11.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic_msvc.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qglobalstatic.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmutex.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qnumeric.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qversiontagging.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QProcess \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qprocess.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qiodevice.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobject.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobjectdefs.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qnamespace.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstring.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qchar.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qbytearray.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qrefcount.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qarraydata.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringliteral.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringalgorithms.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringview.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringbuilder.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlist.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qalgorithms.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qiterator.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qhashfunctions.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qpair.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qbytearraylist.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringlist.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qregexp.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringmatcher.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcoreevent.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qscopedpointer.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmetatype.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvarlengtharray.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcontainerfwd.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobject_impl.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qshareddata.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qhash.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QTextStream \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qtextstream.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlocale.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvariant.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmap.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qdebug.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvector.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qpoint.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qset.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcontiguouscache.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
-		../../powot_simulator/fileio.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
-		../../powot_simulator/errormsg.h \
-		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
-		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList \
-		../../powot_simulator/version.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o print_version.o ../../powot_simulator/print_version.cpp
 
 objdump_file.o: ../../powot_simulator/objdump_file.cpp ../../powot_simulator/powotsimulator.h \
 		../../powot_simulator/powot_simulator_global.h \
@@ -2447,7 +2400,7 @@ objdump_file.o: ../../powot_simulator/objdump_file.cpp ../../powot_simulator/pow
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o objdump_file.o ../../powot_simulator/objdump_file.cpp
 
@@ -2527,7 +2480,7 @@ remove_empty_lines.o: ../../powot_simulator/remove_empty_lines.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o remove_empty_lines.o ../../powot_simulator/remove_empty_lines.cpp
 
@@ -2607,7 +2560,7 @@ parse_model_domains.o: ../../powot_simulator/parse_model_domains.cpp ../../powot
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parse_model_domains.o ../../powot_simulator/parse_model_domains.cpp
 
@@ -2687,7 +2640,7 @@ get_model_domains.o: ../../powot_simulator/get_model_domains.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o get_model_domains.o ../../powot_simulator/get_model_domains.cpp
 
@@ -2767,7 +2720,7 @@ parse_model_def_domains.o: ../../powot_simulator/parse_model_def_domains.cpp ../
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parse_model_def_domains.o ../../powot_simulator/parse_model_def_domains.cpp
 
@@ -2847,7 +2800,7 @@ find_mnemonic_in_mdl.o: ../../powot_simulator/find_mnemonic_in_mdl.cpp ../../pow
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o find_mnemonic_in_mdl.o ../../powot_simulator/find_mnemonic_in_mdl.cpp
 
@@ -2927,7 +2880,7 @@ dvs_api_readconfig.o: ../../powot_simulator/dvs_api_readconfig.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dvs_api_readconfig.o ../../powot_simulator/dvs_api_readconfig.cpp
 
@@ -3007,7 +2960,7 @@ check_if_dvs_api.o: ../../powot_simulator/check_if_dvs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o check_if_dvs_api.o ../../powot_simulator/check_if_dvs_api.cpp
 
@@ -3087,7 +3040,7 @@ estimate_dvs_api_extend.o: ../../powot_simulator/estimate_dvs_api_extend.cpp ../
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_dvs_api_extend.o ../../powot_simulator/estimate_dvs_api_extend.cpp
 
@@ -3167,7 +3120,7 @@ estimate_dvs_api.o: ../../powot_simulator/estimate_dvs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_dvs_api.o ../../powot_simulator/estimate_dvs_api.cpp
 
@@ -3247,7 +3200,7 @@ dfs_api_readconfig.o: ../../powot_simulator/dfs_api_readconfig.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dfs_api_readconfig.o ../../powot_simulator/dfs_api_readconfig.cpp
 
@@ -3327,7 +3280,7 @@ estimate_dfs_api.o: ../../powot_simulator/estimate_dfs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_dfs_api.o ../../powot_simulator/estimate_dfs_api.cpp
 
@@ -3407,7 +3360,7 @@ estimate_dfs_api_extend.o: ../../powot_simulator/estimate_dfs_api_extend.cpp ../
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_dfs_api_extend.o ../../powot_simulator/estimate_dfs_api_extend.cpp
 
@@ -3487,7 +3440,7 @@ check_if_dfs_api.o: ../../powot_simulator/check_if_dfs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o check_if_dfs_api.o ../../powot_simulator/check_if_dfs_api.cpp
 
@@ -3567,7 +3520,7 @@ estimate_num_operands.o: ../../powot_simulator/estimate_num_operands.cpp ../../p
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o estimate_num_operands.o ../../powot_simulator/estimate_num_operands.cpp
 
@@ -3647,9 +3600,90 @@ get_model_metrics.o: ../../powot_simulator/get_model_metrics.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o get_model_metrics.o ../../powot_simulator/get_model_metrics.cpp
+
+version.o: ../../powot_simulator/version.cpp ../../powot_simulator/powotsimulator.h \
+		../../powot_simulator/powot_simulator_global.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qglobal.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qconfig.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlogging.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qflags.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmutex.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qnumeric.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QProcess \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qprocess.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qiodevice.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobject.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qnamespace.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstring.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qchar.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qbytearray.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qrefcount.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qarraydata.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringview.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlist.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qiterator.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qpair.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringlist.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qregexp.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmetatype.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qshareddata.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qhash.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QTextStream \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qtextstream.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qlocale.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvariant.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qmap.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qdebug.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qvector.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qpoint.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qset.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/fileio.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
+		../../powot_simulator/errormsg.h \
+		../../powot_simulator/configfilepaths.h \
+		../../powot_simulator/model_lut.h \
+		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList \
+		../../powot_simulator/version.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o version.o ../../powot_simulator/version.cpp
 
 ####### Install
 

@@ -770,7 +770,7 @@ main.o: ../../powsimu/main.cpp ../../../../programs/Qt_5_11_2/5.11.2/gcc_64/incl
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
-		../../powot_simulator/model.h \
+		../../powot_simulator/model_lut.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../powsimu/main.cpp
 

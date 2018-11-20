@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -24,7 +24,7 @@ void powotsimulator::symbollist_file(QString *filepath, QStringList *symbol_list
     QStringList symbol_dump;
     QString cmd;
     cmd = symbollist_cmd + *filepath;
-    cout<<"(powotsimulator) symbollist cmd:"<<cmd.toStdString()<<endl;
+    qDebug()<<"(powotsimulator) symbollist cmd:"<<cmd;
 
     QProcess terminal;
     terminal.setProcessChannelMode(QProcess::MergedChannels);
@@ -35,7 +35,7 @@ void powotsimulator::symbollist_file(QString *filepath, QStringList *symbol_list
 
     if(symbol_dump.isEmpty()){
         err_message.display_error(SYMBOLLIST_FAILED);
-        cout<<"(powotsimulator) Aborting ..."<<endl;
+        qDebug()<<"(powotsimulator) Aborting ...";
         exit(-1);
     }
 
@@ -43,9 +43,9 @@ void powotsimulator::symbollist_file(QString *filepath, QStringList *symbol_list
         *symbol_list << symbol_dump.at(i).section(' ', 2, 2);
     }
 
-    /*cout<<"SYMBOLS:"<<endl;
+    /*qDebug()<<"SYMBOLS:";
     for(int i = 0; i < symbol_list->size(); i++)
     {
-        cout<<"symbollist_file: ***"<<symbol_list->at(i).toStdString()<<" size: "<<symbol_list->at(i).size()<<endl;
+        qDebug()<<"symbollist_file: ***"<<symbol_list->at(i)<<" size: "<<symbol_list->at(i).size();
     }*/
 }

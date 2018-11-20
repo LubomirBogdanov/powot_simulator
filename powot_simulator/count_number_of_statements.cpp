@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -74,9 +74,8 @@ unsigned long powotsimulator::count_number_of_statements(QStringList *sym_cont, 
     }
 
 
- /*   for(long i = 0; i < temp_symbol.size(); i++)
-    {
-        cout<<"vvv"<<temp_symbol.at(i).toStdString()<<endl;
+ /*   for(long i = 0; i < temp_symbol.size(); i++){
+        qDebug()<<"vvv"<<temp_symbol.at(i);
     }*/
 
     return temp_symbol.size();

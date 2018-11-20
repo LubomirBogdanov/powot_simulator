@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -20,16 +20,18 @@
 */
 #include <getopt.h>
 #include <iostream>
+#include <iomanip>
 #include <QString>
 #include <QDebug>
 #include <QElapsedTimer>
 #include "../powot_simulator/powotsimulator.h"
-#include "../powot_simulator/model.h"
+#include "../powot_simulator/model_lut.h"
+
 using namespace std;
 
 extern int opterr;
 
-static const char *short_options = "vhzt:w:f:o:d:j:p:m:e:a:";
+static const char *short_options = "vhzbt:w:f:o:d:j:p:m:e:a:";
 
 static const struct option long_options[] = {
 { "version", no_argument, 0, 'v' },
@@ -40,6 +42,7 @@ static const struct option long_options[] = {
 { "mcu", required_argument, 0, 'm' },
 { "entry", required_argument, 0, 'e' },
 { "get_model_domains", no_argument, 0, 'z' },
+{ "use_bin_models", no_argument, 0, 'b' },
 { 0, 0, 0, 0 }
 };
 
@@ -61,6 +64,7 @@ void printusage(){
           "-o [0] - assign default number of operands (int)\n"
           "-d [MEMORY DOMAIN] - assign default memory domain (string)\n"
           "-z or - -get_model_domains - prints the available domains for a model. Must be used with provider, arch and mcu (-p, -a and -m)\n"
+          "-b or - -use_bin_models - use binary arch models instead of LUT, text-based, TAB-separated ones\n"
           "\nExample launch:"
           "\n./powsimu -z -p test -a arm-cortex-m4 -m test_model_1\n\n"
           "All your sources must be compiled with the -g -O0 options, including the libraries.\n"
@@ -214,23 +218,22 @@ int main(int argc, char *argv[]){
     signed int opt = 0;
     signed int opt_index = 1;
     quint8 display_version = 0;
-    QString obj_path;
-    QString provider;
-    QString mcu;
-    QString arch;
-    QString entry;
+    sim_params_t sim_prms;
     energyfield_t *e_table;
     quint32 e_table_size;
     model_domains_t mdl_dom;
-    default_model_domains_t def_mdl_dom = {
-        " ", 0, 0, 0, 0, " ", 0
-    };
     QString metrics;
     QString tempr, volt, freq, ops, addr;
     quint8 display_model_domains = 0;
     bool ok;
     QElapsedTimer performance_timer;
     quint64 elapsed_time;
+
+    sim_prms.default_domains = {
+        " ", 0, 0, 0, 0, " ", 0
+    };
+
+    sim_prms.arch_model_type = MODEL_TAB_LUT;
 
     opterr = 0; //Disable printing errors to stderr by getopt_long().
 
@@ -247,44 +250,47 @@ int main(int argc, char *argv[]){
 
         switch(opt){
         case 'j':
-            obj_path = optarg;
+            sim_prms.objectfile_path = optarg;
+            break;
+        case 'b':
+            sim_prms.arch_model_type = MODEL_BINARY;
             break;
         case 'v':
             display_version = 1;
             break;
         case 'p':
-            provider = optarg;
+            sim_prms.provider = optarg;
             break;
         case 'm':
-            mcu = optarg;
+            sim_prms.mcu = optarg;
             break;
         case 'a':
-            arch = optarg;
+            sim_prms.arch = optarg;
             break;
         case 'e':
-            entry = optarg;
+            sim_prms.entry = optarg;
             break;
         case 'z':
             display_model_domains = 1;
             break;
         case 't':
             tempr = optarg;
-            def_mdl_dom.default_temperature = tempr.toFloat(&ok);
+            sim_prms.default_domains.default_temperature = tempr.toFloat(&ok);
             break;
         case 'w':
             volt = optarg;
-            def_mdl_dom.default_voltage = volt.toFloat(&ok);
+            sim_prms.default_domains.default_voltage = volt.toFloat(&ok);
             break;
         case 'f':
             freq = optarg;
-            def_mdl_dom.default_frequency = freq.toFloat(&ok);
+            sim_prms.default_domains.default_frequency = freq.toFloat(&ok);
             break;
         case 'o':
             ops = optarg;
-            def_mdl_dom.default_operand = ops.toInt(&ok, 10);
+            sim_prms.default_domains.default_operand = ops.toInt(&ok, 10);
             break;
         case 'd':
-            def_mdl_dom.default_addr_range = optarg;
+            sim_prms.default_domains.default_addr_range = optarg;
             break;
         case 'h':
         case '?':
@@ -295,32 +301,39 @@ int main(int argc, char *argv[]){
     }
 
     if(display_version){
-        powotsimulator sim;
-        sim.print_version();
+        QString version_string;
+        powotsimulator sim;        
+        version_string = sim.get_copyright_info();
+        version_string += "\n\nVersion ";
+        version_string += QString::number(sim.get_version(), 'f', 2);
+        version_string += "\n";
+        version_string += sim.get_build_info();
+        cout<<version_string.toStdString()<<endl;
+
         return EXIT_SUCCESS;
     }
 
-    QFile file_check(obj_path);
+    QFile file_check(sim_prms.objectfile_path);
     if(!file_check.exists()){
-        cout<<"ERROR: file \""<<obj_path.toStdString()<<"\" does not exist!"<<endl;
+        cout<<"ERROR: file \""<<sim_prms.objectfile_path.toStdString()<<"\" does not exist!"<<endl;
         return EXIT_FAILURE;
     }
 
     if(display_model_domains){
-        if(provider.isEmpty() || arch.isEmpty() || mcu.isEmpty()){
+        if(sim_prms.provider.isEmpty() || sim_prms.arch.isEmpty() || sim_prms.mcu.isEmpty()){
             cout<<"ERROR: You must specify all: provider + arch + mcu!"<<endl<<endl;
             printusage();
             return EXIT_FAILURE;
         }
-        powotsimulator sim(&provider, &arch, &mcu);
+        powotsimulator sim(&sim_prms.provider, &sim_prms.arch, &sim_prms.mcu);
         sim.get_modeldomains(&mdl_dom);
         draw_model_domains(&mdl_dom);
 
         return EXIT_SUCCESS;
     }
 
-    if(!obj_path.isEmpty()){
-        powotsimulator sim(&obj_path, &provider, &arch, &mcu, &entry, 1, &def_mdl_dom);
+    if(!sim_prms.objectfile_path.isEmpty()){
+        powotsimulator sim(&sim_prms);
         performance_timer.start();
         e_table = sim.start_simulation(&e_table_size);
         metrics = sim.get_model_metrics();

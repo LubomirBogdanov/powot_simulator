@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -21,12 +21,12 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#define POWOT_SIMULATOR_VERSION 2.3
-#define OS_X86_X64              64
+#define POWOT_SIMULATOR_VERSION 2.4
+#define OS_X86_X64              "64"
 #define OS_NAME                 "Ubuntu 14.04"
 #define COPYRIGHT               "Copyright (C) 2016 Lubomir Bogdanov"\
 "\n"\
-"Contributor Lubomir Bogdanov <lubomirb@yahoo.com>"\
+"Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>"\
 "\n"\
 "This program is part of Powot Simulator.\n"\
 "\n"\

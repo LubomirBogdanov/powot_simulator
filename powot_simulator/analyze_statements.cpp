@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -29,7 +29,6 @@
  * of the symbol as seen in the object file dumped by GDB.
  * \param arr - an array of energyfield values. Every field represents one line of code in the
  * source file.
- * \param arr_size - the number of elements present in the array "arr".
  */
 void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *arr){
     QString line, line1, line2, asm_mnemonic;
@@ -37,25 +36,29 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
     bool flag = 0;
     bool instr_found = 0;
     energyfield_t e_field;
-    unsigned long energy_field_num = 0;    
+    unsigned long energy_field_num = 0;
     unsigned long for_loop_start = 0;
     unsigned long for_loop_end = 0;
     unsigned long num_loops = 0;
     unsigned long loop_count = 0;
     unsigned long *arr_loop_boundaries;
 
+    //    for(int i = 0; i < sym_cont->size(); i++){
+    //        qDebug()<<"***"<<sym_cont->at(i);
+    //    }
+
     for(long i = 0; i < sym_cont->size(); i++){
         line = sym_cont->at(i).simplified();
         line = line.trimmed();
 
-        //cout<<"----"<<line.toStdString()<<endl;
+        //qDebug()<<"----"<<line;
         line1 = line.section(' ', 0, 0);
         if(line1.contains("0x")){
 
             //Extract assembly instruction
             e_field.asm_instr << line.section(' ', 2);
             arr[energy_field_num-1].asm_instr << e_field.asm_instr.last();
-            //cout<<e_field.asm_instr.last().toStdString()<<endl;
+            //qDebug()<<e_field.asm_instr.last();
 
             //Extract virtual memory address of the assembly instruction
             line2 = line1.section('x', 1);
@@ -68,14 +71,14 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             //-------------------------------------------------------------------------------------------------------------
             asm_mnemonic = e_field.asm_instr.last().section(' ', 0, 0);
             arr[energy_field_num-1].asm_mnemonic << asm_mnemonic;
-            //cout<<"analyze_statements: asm_mnemonic = "<<asm_mnemonic.toStdString()<<endl;
+            //qDebug()<<"analyze_statements: asm_mnemonic = "<<asm_mnemonic;
 
             if(find_mnemonic_in_mdl(&asm_mnemonic)){
 
                 //Match the address asm_vma with the corresponding address domain name from the model file and fill in the corresponding ASM field.
                 for(unsigned long j = 0; j < mdl_domains.num_addr_ranges; j++){
                     if((mdl_domains.addr_ranges[j].at(0) <= e_field.asm_vma.last()) && (e_field.asm_vma.last() <= mdl_domains.addr_ranges[j].at(1))){
-                        //cout<<"instruction "<<asm_mnemonic.toStdString()<<" at 0x"<<hex<<asm_vma<<" is in: "<<mdl_domains.addr_ranges_names[i].toStdString()<<endl;
+                        //qDebug()<<"instruction "<<asm_mnemonic<<" at 0x"<<hex<<asm_vma<<" is in: "<<mdl_domains.addr_ranges_names[i];
                         arr[energy_field_num-1].addr_range_name << mdl_domains.addr_ranges_names[j];
                         instr_found = 1;
                         break;
@@ -89,7 +92,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
                 }
 
                 //Assign defaults for the mnemonic
-                arr[energy_field_num-1].temperature_domain << def_domains.default_temperature;                
+                arr[energy_field_num-1].temperature_domain << def_domains.default_temperature;
                 arr[energy_field_num-1].voltage_domain << def_domains.default_voltage;
                 arr[energy_field_num-1].frequency_domain << def_domains.default_frequency;
                 arr[energy_field_num-1].num_of_operands << def_domains.default_operand;
@@ -111,35 +114,35 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             //-------------------------------------------------------------------------------------------------------------
 
             //Multiply the energy cost if the assembly instruction is inside a loop
-            //cout<<"+++"<<energy_cost<<" "<<arr[energy_field_num-1].repeated<<endl;
+            //qDebug()<<"+++"<<energy_cost<<" "<<arr[energy_field_num-1];
             arr[energy_field_num-1].asm_repeated << (arr[energy_field_num-1].asm_base_energy_cost.last() * arr[energy_field_num-1].repeated);
         }
         else {
             if(!line.isEmpty()){
 
                 //Extract C statement
-                e_field.statement = line.section(' ', 1);                
+                e_field.statement = line.section(' ', 1);
                 arr[energy_field_num].statement = e_field.statement;
 
                 //Check if statement is a function call----------------
                 e_field.function_call = check_if_function_call(e_field.statement);
                 arr[energy_field_num].function_call = e_field.function_call;
-                //cout<<"analyze_statements: ----function = "<<e_field.function_call<<" "<<e_field.statement.toStdString()<<endl;
+                //qDebug()<<"analyze_statements: ----function = "<<e_field.function_call<<" "<<e_field.statement;
                 arr[energy_field_num].dvs_api = 0;
                 arr[energy_field_num].dfs_api = 0;
 
-                if(e_field.function_call){                    
+                if(e_field.function_call){
                     if(check_if_dvs_api(&e_field.statement)){
-                        cout<<"(powotsimulator) DVS api detected on line "<<e_field.line_number+1<<endl;
+                        qDebug()<<"(powotsimulator) DVS api detected on line "<<e_field.line_number+1;
                         arr[energy_field_num].dvs_api = 1;
                     }
                     else if(check_if_dfs_api(&e_field.statement)){
-                        cout<<"(powotsimulator) DFS api detected on line "<<e_field.line_number+1<<endl;
+                        qDebug()<<"(powotsimulator) DFS api detected on line "<<e_field.line_number+1;
                         arr[energy_field_num].dfs_api = 1;
                     }
-                    else{                        
-                        //cout<<"analyze_statements: ----function name = "<<e_field.statement.section('(', 0, 0).toStdString()<<endl;
-                        e_field.statement = e_field.statement.section('(', 0, 0);                        
+                    else{
+                        //qDebug()<<"analyze_statements: ----function name = "<<e_field.statement.section('(', 0, 0);
+                        e_field.statement = e_field.statement.section('(', 0, 0);
                         if(!e_field.statement.isEmpty()){
                             arr[energy_field_num].statement_energy_cost = estimate_function_call(e_field.statement);
                         }
@@ -151,8 +154,8 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
                 arr[energy_field_num].repeated = 1;
                 e_field.for_loop = check_if_for_loop(e_field.statement);
                 arr[energy_field_num].for_loop = e_field.for_loop;
-                //cout<<e_field.for_loop<<":"<<e_field.statement.toStdString()<<endl;
-                //cout<<arr[energy_field_num].for_loop<<":"<<arr[energy_field_num].statement.toStdString()<<endl;
+                //qDebug()<<e_field.for_loop<<":"<<e_field.statement;
+                //qDebug()<<arr[energy_field_num].for_loop<<":"<<arr[energy_field_num].statement;
                 //----------------------------------------------------
             }
         }
@@ -160,17 +163,17 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
         e_field.line_number = line1.toInt(&is_digit, 10);
         if(is_digit){
             //Extract line number of the C statement
-            arr[energy_field_num].line_number = e_field.line_number;                                    
+            arr[energy_field_num].line_number = e_field.line_number;
             e_field.asm_instr.clear();
             energy_field_num++;
         }
     }
 
- /*   energy_field_num--;
+    /*   energy_field_num--;
     for(unsigned long i = 0; i < energy_field_num; i++){
-        cout<<"++++ "<<arr[i].statement.toStdString()<<endl;
+        qDebug()<<"++++ "<<arr[i].statement;
         for(unsigned long j = 0; j < arr[i].asm_instr.size(); j++){
-            cout<<"+++ "<<arr[i].asm_instr.at(j).toStdString()<<" "<<arr[i].asm_repeated.at(j)<<"mJ "<<arr[i].repeated<<endl;
+            qDebug()<<"+++ "<<arr[i].asm_instr.at(j)<<" "<<arr[i].asm_repeated.at(j)<<"mJ "<<arr[i];
         }
     }
     energy_field_num++;
@@ -186,11 +189,11 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
     energy_field_num--;
     //Estimate each loop start and end-----
     for(unsigned long i = 0; i < energy_field_num; i++){
-        //cout<<"+++ "<<arr[i].for_loop<<arr[i].statement.toStdString()<<endl;
-        if(arr[i].for_loop){            
+        //qDebug()<<"+++ "<<arr[i].for_loop<<arr[i].statement;
+        if(arr[i].for_loop){
             for_loop_start = arr[i].line_number;
             for_loop_end = estimate_for_loop_extend(arr, i, energy_field_num);
-            //cout<<"for_loop_extend: "<<for_loop_start<<" <--> "<<for_loop_end<<endl;
+            //qDebug()<<"for_loop_extend: "<<for_loop_start<<" <--> "<<for_loop_end;
 
             arr[i].for_loop_start = for_loop_start;
             arr[i].for_loop_end = for_loop_end;
@@ -199,23 +202,23 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
 
 
             for(unsigned long k = 0; k < energy_field_num; k++){
-                //cout<<"+++"<<arr[k].statement.toStdString()<<endl;
+                //qDebug()<<"+++"<<arr[k].statement;
                 if(arr[k].line_number == for_loop_start){
-                    //cout<<"---"<<arr[k].statement.toStdString()<<endl;
+                    //qDebug()<<"---"<<arr[k].statement;
                     flag = 1;
                 }
 
                 if(flag == 1){
-                    //cout<<"---"<<arr[k].statement.toStdString()<<" "<<arr[i].repeated<<endl;
+                    //qDebug()<<"---"<<arr[k].statement<<" "<<arr[i];
                     arr[k].repeated = arr[i].repeated;
                     for(long m = 0; m < arr[k].asm_repeated.size(); m++){
                         arr[k].asm_repeated.operator [](m) *= arr[i].repeated;
-                        //cout<<"+++"<<arr[k].asm_repeated.at(m)<<endl;
-                    }                    
+                        //qDebug()<<"+++"<<arr[k].asm_repeated.at(m);
+                    }
                 }
 
                 if(arr[k].line_number == for_loop_end){
-                    //cout<<"---"<<arr[k].statement.toStdString()<<endl;
+                    //qDebug()<<"---"<<arr[k].statement;
                     flag = 0;
                     arr[k].repeated *= arr[i].repeated;
                 }
@@ -223,11 +226,11 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
 
 
             /*
-            cout<<endl<<"i = "<<for_loop_start<<" for_loop_end = "<<for_loop_end<<endl;
+            qDebug()<<"i = "<<for_loop_start<<" for_loop_end = "<<for_loop_end;
             for(unsigned long j = for_loop_start; j <= for_loop_end; j++){
                 arr[j].repeated = arr[for_loop_start].repeated;
             }
-            cout<<"arr[i].repeated = "<<arr[i].repeated<<endl;
+            qDebug()<<"arr[i].repeated = "<<arr[i].repeated;
             */
         }
     }
@@ -241,65 +244,65 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
     //Count number of loops
     for(unsigned long i = 0; i < energy_field_num; i++){
         if(arr[i].for_loop){
-            num_loops++;            
-            //cout<<"for_loop_extend: "<<arr[i].for_loop_start<<" <--> "<<arr[i].for_loop_end<<endl;
-         }
+            num_loops++;
+            //qDebug()<<"for_loop_extend: "<<arr[i].for_loop_start<<" <--> "<<arr[i].for_loop_end;
+        }
     }
 
     //Make a list of the loops in an array. Use the format: loop_start <-> loop_end <-> statement number
     num_loops *= 3;
-    arr_loop_boundaries = new unsigned long[num_loops];    
+    arr_loop_boundaries = new unsigned long[num_loops];
 
     for(unsigned long i = 0; i < energy_field_num; i++){
 
-        //cout<<"|"<<i<<" "<<arr[i].statement.toStdString()<<endl;
+        //qDebug()<<"|"<<i<<" "<<arr[i].statement;
         if(arr[i].for_loop){
             arr_loop_boundaries[loop_count] = arr[i].for_loop_start;
             arr_loop_boundaries[loop_count+1] = arr[i].for_loop_end;
             arr_loop_boundaries[loop_count+2] = i;
             loop_count+=3;
-         }
+        }
     }
 
     /*for(unsigned long i = 0; i < num_loops; i++){
         if(i%3 == 0){
-            cout<<endl;
-            cout<<"arr_loop_boundaries["<<i<<"]: ";
+            qDebug()<<" ";
+            qDebug()<<"arr_loop_boundaries["<<i<<"]: ";
         }
-        cout<<arr_loop_boundaries[i]<<" ";
+        qDebug()<<arr_loop_boundaries[i]<<" ";
 
     }
-    cout<<endl;
+    qDebug()<<" ";
 
-    cout<<"starting check..."<<endl;
+    qDebug()<<" ";<<"starting check...";
     */
 
-   unsigned long last_loop_start = 0;   
-   unsigned long i;
-   unsigned long j;
-   unsigned long loop_nest_factor;
-   unsigned long *for_loop_deps;
-   for_loop_deps = new unsigned long[num_loops];
-   memset(for_loop_deps, 0, num_loops);
+    unsigned long last_loop_start = 0;
+    unsigned long i;
+    unsigned long j;
+    unsigned long loop_nest_factor;
+    unsigned long *for_loop_deps;
+    for_loop_deps = new unsigned long[num_loops];
+    memset(for_loop_deps, 0, num_loops);
 
-   for(i = 0; i < num_loops; i+=3){
-       loop_nest_factor = 0;
+    for(i = 0; i < num_loops; i+=3){
+        loop_nest_factor = 0;
 
         if(arr_loop_boundaries[i+1] > arr_loop_boundaries[i+4]){
 
         }
         else{
-            //cout<<"---------------------------------------------"<<endl;
-            //cout<<"Loop end: "<<arr_loop_boundaries[i]<<" "<<arr_loop_boundaries[i+1]<<" "<<arr_loop_boundaries[i+2]<<endl;
+            //qDebug()<<"---------------------------------------------";
+            //qDebug()<<"Loop end: "<<arr_loop_boundaries[i]<<" "<<arr_loop_boundaries[i+1]<<" "<<arr_loop_boundaries[i+2];
             for(j = last_loop_start; j < i; j+=3){
-                //cout<<"dependent loop: "<<arr_loop_boundaries[j]<<" "<<arr_loop_boundaries[j+1]<<" "<<arr_loop_boundaries[j+2]<<endl;
+                //qDebug()<<"dependent loop: "<<arr_loop_boundaries[j]<<" "<<arr_loop_boundaries[j+1]<<" "<<arr_loop_boundaries[j+2];
                 for_loop_deps[j] = arr_loop_boundaries[j];
                 for_loop_deps[j+1] = arr_loop_boundaries[j+1];
                 for_loop_deps[j+2] = arr_loop_boundaries[j+2];
 
                 loop_nest_factor++;
             }
-            //cout<<"dependent loop: "<<arr_loop_boundaries[i]<<" "<<arr_loop_boundaries[i+1]<<" "<<arr_loop_boundaries[i+2]<<endl;
+            //qDebug()<<"dependent loop: "<<arr_loop_boundaries[i]<<" "<<arr_loop_boundaries[i+1]<<" "<<arr_loop_boundaries[i+2];
             for_loop_deps[j] = arr_loop_boundaries[i];
             for_loop_deps[j+1] = arr_loop_boundaries[i+1];
             for_loop_deps[j+2] = arr_loop_boundaries[i+2];
@@ -319,12 +322,12 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
                 }
 
                 if(k%3 == 0){
-                    cout<<endl;
-                    cout<<"arr_loop_boundaries["<<k<<"]: ";
+                    qDebug()<<" ";
+                    qDebug()<<"arr_loop_boundaries["<<k<<"]: ";
                 }
-                cout<<arr_loop_boundaries[k]<<" ";
+                qDebug()<<arr_loop_boundaries[k]<<" ";
             }
-            cout<<endl;*/
+            qDebug()<<" ";*/
 
             for(unsigned long k = 0; k < j; k+=3){
                 if(k == loop_nest_factor){
@@ -334,122 +337,127 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             }
 
             last_loop_start = j+3;
-            i = j;           
+            i = j;
         }
     }
-   //-------------------------------------
+    //-------------------------------------
 
-   //Process voltage domains (DVS)--------------------------------------------------------------------------------
-   unsigned long dvs_api_extend;
-   float voltage = 0.0;
-   float dvs_energy = 0.0;
-   for(unsigned long i = 0; i < energy_field_num+1; i++){
-       //cout<<"+++"<<arr[i].dvs_api<<"   "<<arr[i].statement.toStdString()<<endl;
-       if(arr[i].dvs_api){
-           dvs_api_extend = estimate_dvs_api_extend(arr, i, energy_field_num);
+    //Process voltage domains (DVS)--------------------------------------------------------------------------------
+    unsigned long dvs_api_extend;
+    float voltage = 0.0;
+    float dvs_energy = 0.0;
+    for(unsigned long i = 0; i < energy_field_num+1; i++){
+        //qDebug()<<"+++"<<arr[i].dvs_api<<"   "<<arr[i].statement;
+        if(arr[i].dvs_api){
+            dvs_api_extend = estimate_dvs_api_extend(arr, i, energy_field_num);
 
-           arr[i].dvs_start = arr[i+1].line_number; //Exlude the DVS api itself
+            arr[i].dvs_start = arr[i+1].line_number; //Exlude the DVS api itself
 
+            arr[i].dvs_end = arr[i].dvs_start + dvs_api_extend;
+            //qDebug()<<"arr[i].dvs "<<arr[i].dvs_start<<" <-> "<<arr[i].dvs_end;
 
-           arr[i].dvs_end = arr[i].dvs_start + dvs_api_extend;
-           //cout<<"arr[i].dvs "<<arr[i].dvs_start<<" <-> "<<arr[i].dvs_end<<endl;
+            voltage = estimate_dvs_api(&arr[i].statement, &dvs_energy);
+            arr[i].statement_energy_cost = dvs_energy;
+            //qDebug()<<"assign to dvs api: "<<arr[i].statement<<" the following energy value: "<<dvs_energy;
 
-           voltage = estimate_dvs_api(&arr[i].statement, &dvs_energy);
-           arr[i].statement_energy_cost = dvs_energy;
-           //qDebug()<<"assign to dvs api: "<<arr[i].statement<<" the following energy value: "<<dvs_energy;
+            for(unsigned long j = i+1; j < energy_field_num+1; j++){
+                //qDebug()<<"line_number: "<<arr[j].line_number<<" dvs_end: "<<arr[i].dvs_end;
+                if(arr[j].line_number > arr[i].dvs_end){
+                    break;
+                }
 
-           for(unsigned long j = i+1; j < energy_field_num+1; j++){
-               //qDebug()<<"line_number: "<<arr[j].line_number<<" dvs_end: "<<arr[i].dvs_end;
-               if(arr[j].line_number > arr[i].dvs_end){
-                   break;
-               }
+                arr[j].voltage_domain.clear();
 
-               arr[j].voltage_domain.clear();
+                for(long k = 0; k < arr[j].asm_instr.size(); k++){
+                    arr[j].voltage_domain<<voltage;
+                    //qDebug()<<" ..."<<arr[j].voltage_domain.last();
+                }
+            }
+        }
+    }
+    //-------------------------------------------------------------------------------------------------------------
 
-               for(long k = 0; k < arr[j].asm_instr.size(); k++){
-                   arr[j].voltage_domain<<voltage;
-                   //cout<<" ..."<<arr[j].voltage_domain.last()<<endl;
-               }
-           }
-       }
-   }
-   //-------------------------------------------------------------------------------------------------------------
+    //Process frequency domains (DFS)------------------------------------------------------------------------------
+    unsigned long dfs_api_extend;
+    float frequency = 0.0;
+    float dfs_energy = 0.0;
+    for(unsigned long i = 0; i < energy_field_num+1; i++){
+        //qDebug()<<"+++"<<arr[i].dfs_api<<"   "<<arr[i].statement;
+        if(arr[i].dfs_api){
+            dfs_api_extend = estimate_dfs_api_extend(arr, i, energy_field_num);
 
-   //Process frequency domains (DFS)------------------------------------------------------------------------------
-   unsigned long dfs_api_extend;
-   float frequency = 0.0;
-   float dfs_energy = 0.0;
-   for(unsigned long i = 0; i < energy_field_num+1; i++){
-       //cout<<"+++"<<arr[i].dfs_api<<"   "<<arr[i].statement.toStdString()<<endl;
-       if(arr[i].dfs_api){
-           dfs_api_extend = estimate_dfs_api_extend(arr, i, energy_field_num);
+            arr[i].dfs_start = arr[i+1].line_number; //Exlude the DfS api itself
 
-           arr[i].dfs_start = arr[i+1].line_number; //Exlude the DfS api itself
+            arr[i].dfs_end = arr[i].dfs_start + dfs_api_extend;
+            //qDebug()<<"arr[i].dfs "<<arr[i].dfs_start<<" <-> "<<arr[i].dfs_end;
 
+            frequency = estimate_dfs_api(&arr[i].statement, &dfs_energy);
+            arr[i].statement_energy_cost = dfs_energy;
+            //qDebug()<<"assign to dfs api: "<<arr[i].statement<<" the following energy value: "<<dfs_energy;
 
-           arr[i].dfs_end = arr[i].dfs_start + dfs_api_extend;
-           //cout<<"arr[i].dfs "<<arr[i].dfs_start<<" <-> "<<arr[i].dfs_end<<endl;
+            for(unsigned long j = i+1; j < energy_field_num+1; j++){
+                //qDebug()<<"line_number: "<<arr[j].line_number<<" dfs_end: "<<arr[i].dfs_end;
+                if(arr[j].line_number > arr[i].dfs_end){
+                    break;
+                }
 
-           frequency = estimate_dfs_api(&arr[i].statement, &dfs_energy);
-           arr[i].statement_energy_cost = dfs_energy;
-           //qDebug()<<"assign to dfs api: "<<arr[i].statement<<" the following energy value: "<<dfs_energy;
+                arr[j].frequency_domain.clear();
 
-           for(unsigned long j = i+1; j < energy_field_num+1; j++){
-               //qDebug()<<"line_number: "<<arr[j].line_number<<" dfs_end: "<<arr[i].dfs_end;
-               if(arr[j].line_number > arr[i].dfs_end){
-                   break;
-               }
+                for(long k = 0; k < arr[j].asm_instr.size(); k++){
+                    arr[j].frequency_domain<<frequency;
+                    //qDebug()<<" ..."<<arr[j].frequency_domain.last();
+                }
+            }
+        }
+    }
+    //-------------------------------------------------------------------------------------------------------------
 
-               arr[j].frequency_domain.clear();
+    //Process number of operands-----------------------------------------------------------------------------------
+    for(unsigned long i = 0; i < energy_field_num+1; i++){
+        for(long j = 0; j < arr[i].asm_instr.size(); j++){
+            arr[i].num_of_operands.operator [](j) = estimate_num_operands(arr[i].asm_instr.at(j));
+        }
+    }
+    //-------------------------------------------------------------------------------------------------------------
 
-               for(long k = 0; k < arr[j].asm_instr.size(); k++){
-                   arr[j].frequency_domain<<frequency;
-                   //cout<<" ..."<<arr[j].frequency_domain.last()<<endl;
-               }
-           }
-       }
-   }
-   //-------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
+    //-----------------------Assign energy cost of the assembly mnemonic-------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
+    for(unsigned long i = 0; i < energy_field_num+1; i++){
+        arr[i].asm_base_energy_cost.clear();
+        arr[i].asm_repeated.clear();
+        //qDebug()<<"Processing statement: "<<arr[i].statement<<" dvs: "<<arr[i].voltage_domain;
+        //if(arr[i].dvs_api){
+        //    qDebug()<<arr[i].dvs_start<<" <-> "<<arr[i].dvs_end;
+        //}
+        for(long j = 0; j < arr[i].asm_mnemonic.size(); j++){
+            switch(arch_model_type){
+            case MODEL_TAB_LUT:
+                assign_energy_cost_tab_lut(arr[i].asm_mnemonic.at(j), j, &arr[i]);
+                break;
+            case MODEL_BINARY:
+                assign_energy_cost_binary(arr[i].asm_mnemonic.at(j), j, &arr[i]);
+                break;
+            }
+            arr[i].asm_repeated << (arr[i].asm_base_energy_cost.last() * arr[i].repeated);
+        }
+    }
 
-   //Process number of operands-----------------------------------------------------------------------------------
-   for(unsigned long i = 0; i < energy_field_num+1; i++){
+    /*for(unsigned long i = 0; i < energy_field_num; i++){
+       qDebug()<<"+++ "<<arr[i].statement;
        for(long j = 0; j < arr[i].asm_instr.size(); j++){
-           arr[i].num_of_operands.operator [](j) = estimate_num_operands(arr[i].asm_instr.at(j));
-       }
-   }
-   //-------------------------------------------------------------------------------------------------------------
-
-   //-------------------------------------------------------------------------------------------------------------
-   //-----------------------Assign energy cost of the assembly mnemonic-------------------------------------------
-   //-------------------------------------------------------------------------------------------------------------   
-   for(unsigned long i = 0; i < energy_field_num+1; i++){
-           arr[i].asm_base_energy_cost.clear();
-           arr[i].asm_repeated.clear();
-           //qDebug()<<"Processing statement: "<<arr[i].statement<<" dvs: "<<arr[i].voltage_domain;
-           //if(arr[i].dvs_api){
-           //    qDebug()<<arr[i].dvs_start<<" <-> "<<arr[i].dvs_end;
-           //}
-       for(long j = 0; j < arr[i].asm_mnemonic.size(); j++){
-           assign_energy_cost(arr[i].asm_mnemonic.at(j), j, &arr[i]);
-           arr[i].asm_repeated << (arr[i].asm_base_energy_cost.last() * arr[i].repeated);
-       }
-   }
-
-   /*for(unsigned long i = 0; i < energy_field_num; i++){
-       cout<<"+++ "<<arr[i].statement.toStdString()<<endl;
-       for(long j = 0; j < arr[i].asm_instr.size(); j++){
-           cout<<"arr[i].voltage_domain.size "<<arr[i].voltage_domain.size()<<endl;
-           //cout<<" "<<arr[i].asm_instr.at(j).toStdString()<<" "<<arr[i].voltage_domain.at(j)<<endl;
+           qDebug()<<"arr[i].voltage_domain.size "<<arr[i].voltage_domain.size();
+           qDebug()<<" "<<arr[i].asm_instr.at(j)<<" "<<arr[i].voltage_domain.at(j);
        }
    }*/
-   //-------------------------------------
+    //-------------------------------------
 
-  /* for(unsigned long i = 0; i < energy_field_num; i++){
+    /* for(unsigned long i = 0; i < energy_field_num; i++){
        for(long j = 0; j < arr[i].asm_instr.size(); j++){
            assign_energy_cost(arr[i].asm_instr.at(j), &arr[i]);
-           //cout<<" "<<arr[i].asm_instr.at(j).toStdString()<<" "<<arr[i].voltage_domain.at(j)<<endl;
+           //qDebug()<<" "<<arr[i].asm_instr.at(j)<<" "<<arr[i].voltage_domain.at(j);
        }
-   }*/   
+   }*/
 }
 
 void powotsimulator::multiply_nested_loops(unsigned long *arr_loop_boundaries, unsigned long num_of_loops, unsigned long loop_index, energyfield_t *arr, unsigned long energy_field_num){
@@ -459,7 +467,7 @@ void powotsimulator::multiply_nested_loops(unsigned long *arr_loop_boundaries, u
     loop = arr_loop_boundaries[loop_index];
     next_loop = arr_loop_boundaries[loop_index + 3];
 
-    //cout<<"multiply_nested_loops "<<loop<<" "<<next_loop<<" "<<""<<""<<endl;
+    //qDebug()<<"multiply_nested_loops "<<loop<<" "<<next_loop<<" "<<""<<"";
 
     if(loop_index < num_of_loops){
         arr[loop].repeated *= arr[next_loop].repeated;

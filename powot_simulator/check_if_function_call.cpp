@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -36,7 +36,7 @@ bool powotsimulator::check_if_function_call(QString statement){
     }
     */
 
-    //cout<<"check_if_function_call: statement = "<<statement.toStdString()<<endl;
+    //qDebug()<<"check_if_function_call: statement = "<<statement;
 
     if(statement.contains('(')){
         statement = statement.section('(', 0, 0);
@@ -53,8 +53,8 @@ bool powotsimulator::check_if_function_call(QString statement){
                 }
 
                 if(statement.trimmed() == symbollist_contents.at(i).trimmed()){
-                    //cout<<"check_if_function_call: #########found in list of symbols!###########"<<endl;
-                    //cout<<"check_if_function_call: statement.trimmed() = "<<statement.trimmed().toStdString()<<" <-> "<<symbollist_contents.at(i).trimmed().toStdString()<<endl;
+                    //qDebug()<<"check_if_function_call: #########found in list of symbols!###########";
+                    //qDebug()<<"check_if_function_call: statement.trimmed() = "<<statement.trimmed()<<" <-> "<<symbollist_contents.at(i).trimmed();
                     is_function_call = 1;
                     break;
                 }

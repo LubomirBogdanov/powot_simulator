@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -32,7 +32,7 @@ unsigned long powotsimulator::estimate_for_loop(QString statement){
     bool greater_than = 0;
     bool non_linear = 0;
 
-    //cout<<"****"<<statement.toStdString()<<endl;
+    //qDebug()<<"****"<<statement;
 
     //--------------LOW-------------------
     low_str = statement.section(';', 0, 0);
@@ -47,7 +47,7 @@ unsigned long powotsimulator::estimate_for_loop(QString statement){
             return 1;
         }
     }
-    //cout<<"low = "<<low<<endl;
+    //qDebug()<<"low = "<<low;
     //------------------------------------
 
     //--------------HIGH-------------------
@@ -85,7 +85,7 @@ unsigned long powotsimulator::estimate_for_loop(QString statement){
             return 1;
         }
     }
-    //cout<<"high = "<<high<<endl;
+    //qDebug()<<"high = "<<high;
     //-------------------------------------
 
     if(less_than_and_eq){
@@ -102,7 +102,7 @@ unsigned long powotsimulator::estimate_for_loop(QString statement){
     remove_white_spaces(&increment_str);
     increment_str = increment_str.section(')', 0, -2);    
     increment = process_increments_in_loops(&increment_str, low, high, &non_linear, greater_than_and_eq);
-    //cout<<"increment: "<<increment<<endl;
+    //qDebug()<<"increment: "<<increment;
     //------------------------------------
 
     if(non_linear){
@@ -146,7 +146,7 @@ unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *exp
 
     if(expression->contains('+')){
         occurences = expression->count('+');
-        //cout<<"occurences: "<<occurences<<endl;
+        //qDebug()<<"occurences: "<<occurences;
 
         arr_values = new unsigned long[occurences+1];
 
@@ -166,9 +166,9 @@ unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *exp
         }
 
         /*for(i = 0; i < occurences+1; i++){
-            cout<<"arr_values["<<i<<"] = "<<arr_values[i]<<endl;
+            qDebug()<<"arr_values["<<i<<"] = "<<arr_values[i];
         }
-        cout<<"result = "<<result<<endl;
+        qDebug()<<"result = "<<result;
         */
 
         delete [] arr_values;
@@ -195,9 +195,9 @@ unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *exp
         result = arr_values[0] - subtract;
 
         /*for(i = 0; i < occurences+1; i++){
-            cout<<"arr_values["<<i<<"] = "<<arr_values[i]<<endl;
+            qDebug()<<"arr_values["<<i<<"] = "<<arr_values[i];
         }
-        cout<<"result = "<<result<<endl;*/
+        qDebug()<<"result = "<<result;*/
 
         delete [] arr_values;
 
@@ -223,9 +223,9 @@ unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *exp
         }
 
         /*for(i = 0; i < occurences+1; i++){
-            cout<<"arr_values["<<i<<"] = "<<arr_values[i]<<endl;
+            qDebug()<<"arr_values["<<i<<"] = "<<arr_values[i];
         }
-        cout<<"result = "<<result<<endl;*/
+        qDebug()<<"result = "<<result;*/
 
         delete [] arr_values;
     }
@@ -251,9 +251,9 @@ unsigned long powotsimulator::process_arithmetic_operators_in_loops(QString *exp
         result = arr_values[0];
 
         /*for(i = 0; i < occurences+1; i++){
-            cout<<"arr_values["<<i<<"] = "<<arr_values[i]<<endl;
+            qDebug()<<"arr_values["<<i<<"] = "<<arr_values[i];
         }
-        cout<<"result = "<<result<<endl;*/
+        qDebug()<<"result = "<<result;*/
 
         delete [] arr_values;
     }
@@ -293,7 +293,7 @@ unsigned long powotsimulator::process_increments_in_loops(QString *expression, u
             for(unsigned long i = low; i < high; i *= power){
                 increment++;
             }
-            //cout<<"expression: "<<expression->toStdString()<<endl;
+            //qDebug()<<"expression: "<<expression;
         }
     }
     else if(expression->contains('/')){
@@ -303,7 +303,7 @@ unsigned long powotsimulator::process_increments_in_loops(QString *expression, u
         *expression = expression->section('/', 1, 2);
         power = expression->toInt(&ok, 10);
         //Simulate the loop
-        //cout<<"low: "<<low<<" high: "<<high<<" power: "<<power<<endl;
+        //qDebug()<<"low: "<<low<<" high: "<<high<<" power: "<<power;
         increment = 0;
         if(greater_than_and_equal){
             for(unsigned long i = low; i >= high; i /= power){

@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -32,7 +32,7 @@ unsigned long powotsimulator::estimate_for_loop_extend(energyfield_t *arr, unsig
     unsigned long close_bracket = 0;
     unsigned long i;
 
-    //cout<<"***"<<arr[current_statement].statement.toStdString()<<endl;
+    //qDebug()<<"***"<<arr[current_statement].statement;
 
     for(i = current_statement; i <= energy_field_num; i++){
         if(arr[i].statement.contains("{")){
@@ -43,11 +43,11 @@ unsigned long powotsimulator::estimate_for_loop_extend(energyfield_t *arr, unsig
         }
 
         if(open_bracket == close_bracket){
-            //cout<<"CLOSING:";
-            //cout<<"@@@@"<<arr[i].statement.toStdString()<<endl;
+            //qDebug()<<"CLOSING:";
+            //qDebug()<<"@@@@"<<arr[i].statement;
             break;
         }
-        //cout<<"@@@@"<<arr[i].statement.toStdString()<<endl;
+        //qDebug()<<"@@@@"<<arr[i].statement;
     }
 
     return arr[i].line_number;

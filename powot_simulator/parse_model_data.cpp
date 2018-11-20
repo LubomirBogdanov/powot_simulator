@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -44,19 +44,19 @@ void powotsimulator::parse_model_data(void){
             num_instr_in_mdl_file++;
         }
     }
-    //cout<<"num_instr_in_mdl_file = "<<num_instr_in_mdl_file<<endl;
+    //qDebug()<<"num_instr_in_mdl_file = "<<num_instr_in_mdl_file;
 
     mdl = new model_data_t[num_instr_in_mdl_file];
 
-    cout<<"(powotsimulator) Reading model data ... ";    
+    qDebug()<<"(powotsimulator) Reading model data ... ";
 
     //Read instruction data---------------------------------------------
     for(long i = 0; i < mcu_model.size(); i++){
         line = mcu_model.at(i);
-        //cout<<"****"<<line.toStdString()<<endl;
+        //qDebug()<<"****"<<line;
 
         if(line.contains("INSTR")){
-            //cout<<"++++instruction_count = "<<instruction_count<<" "<<line.toStdString()<<endl;
+            //qDebug()<<"++++instruction_count = "<<instruction_count<<" "<<line;
 
             if(instruction_count >= num_instr_in_mdl_file){
                 break;
@@ -73,16 +73,16 @@ void powotsimulator::parse_model_data(void){
 
             for(long j = i+2; j < mcu_model.size(); j++){
                 line = mcu_model.at(j);
-                //cout<<"----"<<line.toStdString()<<endl;
+                //qDebug()<<"----"<<line;
 
                 if(instruction_count >= num_instr_in_mdl_file){
                     break;
                 }
 
                 if(line.contains("INSTR")){ //INSTR is found a second time. This means that the previour intstruction has ended
-                    //cout<<",,,,INSTR tag found for 2nd time!"<<endl;
+                    //qDebug()<<",,,,INSTR tag found for 2nd time!";
                     //if((unsigned long) j >= num_instr_in_mdl_file){//Instruction processing completed
-                    //    cout<<"\\\\\\\\Instruction processing completed!"<<endl;
+                    //    qDebug()<<"\\\\\\\\Instruction processing completed!";
 
                     //    break;
                     //}
@@ -144,23 +144,14 @@ void powotsimulator::parse_model_data(void){
         }
     }
 
-/*    cout<<endl;
+/*  qDebug()<<" ";
     for(unsigned long i = 0; i < num_instr_in_mdl_file; i++){
-        cout<<"@@@ "<<mdl[i].mnemonic.toStdString()<<endl;
-        cout<<"@@@ "<<mdl[i].instr_type.toStdString()<<endl;
+        qDebug()<<"@@@ "<<mdl[i].mnemonic;
+        qDebug()<<"@@@ "<<mdl[i].instr_type;
 
         for(long j = 0; j < mdl[i].addr_range_name.size(); j++){
-            cout<<"@@@ "<<mdl[i].addr_range_name.at(j).toStdString();
-            cout<<" "<<fixed<<setprecision(3)<<mdl[i].temperature_domain.at(j);
-            cout<<" "<<mdl[i].voltage_domain.at(j);
-            cout<<" "<<mdl[i].frequency_domain.at(j);
-            cout<<" "<<mdl[i].num_of_operands.at(j);
-            cout<<" "<<mdl[i].current.at(j);
-            cout<<" "<<mdl[i].exec_time.at(j);
-            cout<<" "<<mdl[i].energy.at(j)<<endl;
+            qDebug()<<"@@@ "<<mdl[i].addr_range_name.at(j)<<" "<<mdl[i].temperature_domain.at(j)<<" "<<mdl[i].voltage_domain.at(j)<<" "<<mdl[i].frequency_domain.at(j)<<" "<<mdl[i].num_of_operands.at(j)<<" "<<mdl[i].current.at(j)" "<<mdl[i].exec_time.at(j)<<" "<<mdl[i].energy.at(j);
         }
     }
 */
-
-    cout<<"done!"<<endl;
 }

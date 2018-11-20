@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -29,10 +29,10 @@ bool powotsimulator::check_if_for_loop(QString statement){
         int start = statement.indexOf('/');
         int end = statement.indexOf('/', start+1);
         statement.remove(start, end);
-        //cout<<"check_if_for_loop: no comments statement = "<<statement.toStdString()<<endl;
+        //qDebug()<<"check_if_for_loop: no comments statement = "<<statement;
     }
 
-    //cout<<"statement: "<<statement.toStdString();
+    //qDebug()<<"statement: "<<statement;
     if(statement.contains("for")){
         if(statement.contains(";")){
             while(statement.indexOf(";", i) != -1){
@@ -45,7 +45,7 @@ bool powotsimulator::check_if_for_loop(QString statement){
             }
         }
     }
-    //cout<<endl;
+    //qDebug()<<" ";
 
     return flag;
 }

@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -25,7 +25,8 @@ powotsimulator::powotsimulator(void){
     e_table_size = 0;
     mdl_domains.addr_ranges = NULL;
     mdl = NULL;
-    cout<<"(powotsimulator) Starting ..."<<endl;
+    arch_model_type = MODEL_TAB_LUT;
+    qDebug()<<"(powotsimulator) Starting ...";
 }
 
 powotsimulator::~powotsimulator(void){
@@ -38,10 +39,10 @@ powotsimulator::~powotsimulator(void){
     }
 
     if(mdl_domains.addr_ranges){
-      delete [] mdl_domains.addr_ranges;
+        delete [] mdl_domains.addr_ranges;
     }
 
-    cout<<"(powotsimulator) Finished!"<<endl;
+    qDebug()<<"(powotsimulator) Finished!";
 }
 
 powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu){
@@ -56,22 +57,19 @@ powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu){
 
     readconfiguration();
 
-    cout<<"(powotsimulator) MCU provider: "<<provider_name.toStdString()<<endl;
-    cout<<"(powotsimulator) MCU: "<<mcu_name.toStdString()<<endl;
+    qDebug()<<"(powotsimulator) MCU provider: "<<provider_name;
+    qDebug()<<"(powotsimulator) MCU: "<<mcu_name;
 }
 
-powotsimulator::powotsimulator(QString *objectfile_path, QString *provider, QString *arch, QString *mcu, QString *entry, bool print_ver, default_model_domains_t *default_domains){
-    if(print_ver){
-        print_version();
-    }
+powotsimulator::powotsimulator(sim_params_t *sim_prms){
+    qDebug()<<"(powotsimulator) Starting ...";
 
-    cout<<"(powotsimulator) Starting ..."<<endl;
-
-    provider_name = *provider;
-    arch_name = *arch;
-    mcu_name = *mcu;
-    source_entry_point = *entry;
-    objectfile_dir = *objectfile_path;
+    provider_name = sim_prms->provider;
+    arch_name = sim_prms->arch;
+    mcu_name = sim_prms->mcu;
+    source_entry_point = sim_prms->entry;
+    objectfile_dir = sim_prms->objectfile_path;
+    arch_model_type = sim_prms->arch_model_type;
 
     e_table = NULL;
     e_table_size = 0;
@@ -80,29 +78,37 @@ powotsimulator::powotsimulator(QString *objectfile_path, QString *provider, QStr
 
     readconfiguration();
 
-    parse_model_def_domains(default_domains, &def_domains);
+    parse_model_def_domains(&sim_prms->default_domains, &def_domains);
 
-    cout<<"(powotsimulator) Architecture: "<<arch_name.toStdString()<<endl;
-    cout<<"(powotsimulator) MCU provider: "<<provider_name.toStdString()<<endl;
-    cout<<"(powotsimulator) MCU: "<<mcu_name.toStdString()<<endl;
-    cout<<"(powotsimulator) source entry point: "<<source_entry_point.toStdString()<<endl;    
-    cout<<"(powotsimulator) objfile: "<<objectfile_path->toStdString()<<endl;
+    qDebug()<<"(powotsimulator) Architecture: "<<arch_name;
+    qDebug()<<"(powotsimulator) MCU provider: "<<provider_name;
+    qDebug()<<"(powotsimulator) MCU: "<<mcu_name;
+    qDebug()<<"(powotsimulator) source entry point: "<<source_entry_point;
+    qDebug()<<"(powotsimulator) objfile: "<<objectfile_dir;
+    switch(arch_model_type){
+    case MODEL_TAB_LUT:
+        qDebug()<<"(powotsimulator) Model type: TAB_LUT";
+        break;
+    case MODEL_BINARY:
+        qDebug()<<"(powotsimulator) Model type: BIN";
+        break;
+    }
 
-    /*  
-    cout<<"Default domains------------------------------------------"<<endl;
-    cout<<"MEM: "<<def_domains.default_addr_range.toStdString()<<endl;
-    cout<<"FREQ: "<<def_domains.default_frequency<<" MHz"<<endl;
-    cout<<"OPS: "<<def_domains.default_operand<<endl;
-    cout<<"TEMP: "<<def_domains.default_temperature<<" C"<<endl;
-    cout<<"VOLT: "<<def_domains.default_voltage<<" V"<<endl;
-    cout<<"---------------------------------------------------------"<<endl;
+    /*
+    qDebug()<<"Default domains------------------------------------------";
+    qDebug()<<"MEM: "<<def_domains.default_addr_range;
+    qDebug()<<"FREQ: "<<def_domains.default_frequency<<" MHz";
+    qDebug()<<"OPS: "<<def_domains.default_operand;
+    qDebug()<<"TEMP: "<<def_domains.default_temperature<<" C";
+    qDebug()<<"VOLT: "<<def_domains.default_voltage<<" V";
+    qDebug()<<"---------------------------------------------------------";
 
     for(int i = 0; i < source_file_contents.size(); i++){
-        cout<<"(powotsimulator) src: "<<source_file_contents.at(i).toStdString()<<endl;
+        qDebug()<<"(powotsimulator) src: "<<source_file_contents.at(i);
     }
 
     for(int i = 0; i < object_file_contents.size(); i++){
-        cout<<"(powotsimulator) obj: "<<object_file_contents.at(i).toStdString();
+        qDebug()<<"(powotsimulator) obj: "<<object_file_contents.at(i);
     }
     */
 }

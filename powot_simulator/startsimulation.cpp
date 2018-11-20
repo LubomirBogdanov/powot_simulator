@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2016 Lubomir Bogdanov
 
-    Contributor Lubomir Bogdanov <lubomirb@yahoo.com>
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
 
     This file is part of Powot Simulator.
 
@@ -38,7 +38,7 @@ energyfield_t *powotsimulator::start_simulation(quint32 *size){
     gdbdump_file(&objectfile_dir, &source_entry_point, &entry_point_symbol_contents);
 
  /*   for(long i = 0; i < entry_point_symbol_contents.size(); i++){
-        cout<<"entry_point_symbol_contents "<<entry_point_symbol_contents.at(i).toStdString()<<endl;
+        qDebug()<<"entry_point_symbol_contents "<<entry_point_symbol_contents.at(i);
     }
  */
 
@@ -50,7 +50,7 @@ energyfield_t *powotsimulator::start_simulation(quint32 *size){
 
     if(!entry_point_symbol_contents.isEmpty() && symbol_found){
         e_table_size = count_number_of_statements(&entry_point_symbol_contents, &no_debug_info);
-        cout<<"(powotsimulator) Function "<<source_entry_point.toStdString()<<" consists of "<<e_table_size<<" lines! "<<endl;        
+        qDebug()<<"(powotsimulator) Function "<<source_entry_point<<" consists of "<<e_table_size<<" lines! ";
         e_table = new energyfield_t[e_table_size];        
         analyze_statements(&entry_point_symbol_contents, e_table);        
 
@@ -72,13 +72,13 @@ energyfield_t *powotsimulator::start_simulation(quint32 *size){
         for(unsigned long i = 0; i < e_table_size; i++){
             total_base_cost += e_table[i].statement_energy_cost;
         }
-        cout<<"(powotsimulator) Total function "<<source_entry_point.toStdString()<<" base energy cost: "<<fixed<<setprecision(3)<<total_base_cost<<" "<<mdl_domains.metrics.toStdString()<<endl;
+        qDebug()<<"(powotsimulator) Total function "<<source_entry_point<<" base energy cost: "<<total_base_cost<<" "<<mdl_domains.metrics;
 
         *size = e_table_size;
     }
     else{
         err_message.display_error(SRC_ENTRY_NOT_FOUND, &source_entry_point);
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
 
     return e_table;
