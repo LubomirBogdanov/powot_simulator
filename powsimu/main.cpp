@@ -313,12 +313,6 @@ int main(int argc, char *argv[]){
         return EXIT_SUCCESS;
     }
 
-    QFile file_check(sim_prms.objectfile_path);
-    if(!file_check.exists()){
-        cout<<"ERROR: file \""<<sim_prms.objectfile_path.toStdString()<<"\" does not exist!"<<endl;
-        return EXIT_FAILURE;
-    }
-
     if(display_model_domains){
         if(sim_prms.provider.isEmpty() || sim_prms.arch.isEmpty() || sim_prms.mcu.isEmpty()){
             cout<<"ERROR: You must specify all: provider + arch + mcu!"<<endl<<endl;
@@ -330,6 +324,12 @@ int main(int argc, char *argv[]){
         draw_model_domains(&mdl_dom);
 
         return EXIT_SUCCESS;
+    }
+
+    QFile file_check(sim_prms.objectfile_path);
+    if(!file_check.exists()){
+        cout<<"ERROR: file \""<<sim_prms.objectfile_path.toStdString()<<"\" does not exist!"<<endl;
+        return EXIT_FAILURE;
     }
 
     if(!sim_prms.objectfile_path.isEmpty()){
