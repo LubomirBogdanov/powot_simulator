@@ -91,14 +91,7 @@ float powotsimulator::analyze_assembly(QStringList *asm_section){
                 e_field.addr_range_name << def_domains.default_addr_range;
             }
 
-            switch(arch_model_type){
-            case MODEL_TAB_LUT:
-                assign_energy_cost_tab_lut(asm_mnemonic, i, &e_field);
-                break;
-            case MODEL_BINARY:
-                assign_energy_cost_binary(asm_mnemonic, i, &e_field);
-                break;
-            }
+            assign_energy_cost_tab_lut(asm_mnemonic, i, &e_field);
         }
         else{
                 e_field.asm_base_energy_cost << 0.0;

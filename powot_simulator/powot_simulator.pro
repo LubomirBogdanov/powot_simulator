@@ -54,7 +54,8 @@ HEADERS += powotsimulator.h\
     errormsg.h \
     configfilepaths.h \
     version.h \
-    model_lut.h
+    model_lut.h \
+    config.h
 
 unix {
     target.path = /usr/lib

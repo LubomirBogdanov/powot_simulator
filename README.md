@@ -48,6 +48,7 @@ contains energy estimates for each instruction, in:
 powot_simulator/models/mcu/[provider name]/[target name].mdl
 
 If you can't make a model yourself check the existing ones.
+
 3. Compile and link the code you want to analyze with NO 
 optimizations, e.g.:
 

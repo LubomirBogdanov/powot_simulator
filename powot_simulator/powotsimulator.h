@@ -26,6 +26,7 @@
 #include <QTextStream>
 #include <QString>
 #include <QDebug>
+#include "config.h"
 #include "fileio.h"
 #include "configfilepaths.h"
 #include "errormsg.h"
@@ -109,6 +110,8 @@ private:
     dvs_api_t dvs_api;
     dfs_api_t dfs_api;
     model_type_t arch_model_type;
+    unsigned long bin_model_prev_instr_max;
+    unsigned long bin_model_follow_instr_max;
 
     void objdump_file(QString *filepath, QStringList *objfile_contents);
     void gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents);
@@ -124,7 +127,7 @@ private:
     float analyze_assembly(QStringList *asm_section);
     unsigned long count_number_of_statements(QStringList *sym_cont, bool *no_debug_info);
     void assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield);
-    void assign_energy_cost_binary(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield);
+    void assign_energy_cost_binary(energyfield_t *enrgfield, unsigned long enrgfield_size, unsigned long statement_num, long asm_mnemonic_num);
     void parse_model_data(void);
     void parse_model_domains(void);
     bool check_if_function_call(QString statement);
@@ -160,6 +163,7 @@ public:
     QString get_build_info(void);
     QString get_copyright_info(void);
     QString get_model_metrics(void);
+    void set_bin_model_params(unsigned long max_previous, unsigned long max_following);
 
 };
 

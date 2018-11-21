@@ -315,7 +315,8 @@ DIST          = /home/programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/features/spec_pre
 		../../powot_simulator/errormsg.h \
 		../../powot_simulator/configfilepaths.h \
 		../../powot_simulator/version.h \
-		../../powot_simulator/model_lut.h ../../powot_simulator/powotsimulator.cpp \
+		../../powot_simulator/model_lut.h \
+		../../powot_simulator/config.h ../../powot_simulator/powotsimulator.cpp \
 		../../powot_simulator/fileio.cpp \
 		../../powot_simulator/errormsg.cpp \
 		../../powot_simulator/readconfiguration.cpp \
@@ -773,7 +774,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../programs/Qt_5_11_2/5.11.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../powot_simulator/powotsimulator.h ../../powot_simulator/powot_simulator_global.h ../../powot_simulator/fileio.h ../../powot_simulator/errormsg.h ../../powot_simulator/configfilepaths.h ../../powot_simulator/version.h ../../powot_simulator/model_lut.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../powot_simulator/powotsimulator.h ../../powot_simulator/powot_simulator_global.h ../../powot_simulator/fileio.h ../../powot_simulator/errormsg.h ../../powot_simulator/configfilepaths.h ../../powot_simulator/version.h ../../powot_simulator/model_lut.h ../../powot_simulator/config.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../powot_simulator/powotsimulator.cpp ../../powot_simulator/fileio.cpp ../../powot_simulator/errormsg.cpp ../../powot_simulator/readconfiguration.cpp ../../powot_simulator/convertbytearray_qstringlist.cpp ../../powot_simulator/startsimulation.cpp ../../powot_simulator/gdbdump_file.cpp ../../powot_simulator/analyze_statements.cpp ../../powot_simulator/count_number_of_statements.cpp ../../powot_simulator/assign_energy_cost.cpp ../../powot_simulator/parse_model_data.cpp ../../powot_simulator/check_if_function_call.cpp ../../powot_simulator/estimate_function_call.cpp ../../powot_simulator/analyze_assembly.cpp ../../powot_simulator/symbollist_file.cpp ../../powot_simulator/check_if_for_loop.cpp ../../powot_simulator/estimate_for_loop.cpp ../../powot_simulator/estimate_for_loop_extend.cpp ../../powot_simulator/remove_white_spaces.cpp ../../powot_simulator/objdump_file.cpp ../../powot_simulator/remove_empty_lines.cpp ../../powot_simulator/parse_model_domains.cpp ../../powot_simulator/get_model_domains.cpp ../../powot_simulator/parse_model_def_domains.cpp ../../powot_simulator/find_mnemonic_in_mdl.cpp ../../powot_simulator/dvs_api_readconfig.cpp ../../powot_simulator/check_if_dvs_api.cpp ../../powot_simulator/estimate_dvs_api_extend.cpp ../../powot_simulator/estimate_dvs_api.cpp ../../powot_simulator/dfs_api_readconfig.cpp ../../powot_simulator/estimate_dfs_api.cpp ../../powot_simulator/estimate_dfs_api_extend.cpp ../../powot_simulator/check_if_dfs_api.cpp ../../powot_simulator/estimate_num_operands.cpp ../../powot_simulator/get_model_metrics.cpp ../../powot_simulator/version.cpp $(DISTDIR)/
 
 
@@ -892,6 +893,7 @@ powotsimulator.o: ../../powot_simulator/powotsimulator.cpp ../../powot_simulator
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1114,6 +1116,7 @@ readconfiguration.o: ../../powot_simulator/readconfiguration.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1194,6 +1197,7 @@ convertbytearray_qstringlist.o: ../../powot_simulator/convertbytearray_qstringli
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1274,6 +1278,7 @@ startsimulation.o: ../../powot_simulator/startsimulation.cpp ../../powot_simulat
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1354,6 +1359,7 @@ gdbdump_file.o: ../../powot_simulator/gdbdump_file.cpp ../../powot_simulator/pow
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1434,6 +1440,7 @@ analyze_statements.o: ../../powot_simulator/analyze_statements.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1514,6 +1521,7 @@ count_number_of_statements.o: ../../powot_simulator/count_number_of_statements.c
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1594,6 +1602,7 @@ assign_energy_cost.o: ../../powot_simulator/assign_energy_cost.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1674,6 +1683,7 @@ parse_model_data.o: ../../powot_simulator/parse_model_data.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1754,6 +1764,7 @@ check_if_function_call.o: ../../powot_simulator/check_if_function_call.cpp ../..
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1834,6 +1845,7 @@ estimate_function_call.o: ../../powot_simulator/estimate_function_call.cpp ../..
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1914,6 +1926,7 @@ analyze_assembly.o: ../../powot_simulator/analyze_assembly.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -1994,6 +2007,7 @@ symbollist_file.o: ../../powot_simulator/symbollist_file.cpp ../../powot_simulat
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2074,6 +2088,7 @@ check_if_for_loop.o: ../../powot_simulator/check_if_for_loop.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2154,6 +2169,7 @@ estimate_for_loop.o: ../../powot_simulator/estimate_for_loop.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2234,6 +2250,7 @@ estimate_for_loop_extend.o: ../../powot_simulator/estimate_for_loop_extend.cpp .
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2314,6 +2331,7 @@ remove_white_spaces.o: ../../powot_simulator/remove_white_spaces.cpp ../../powot
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2394,6 +2412,7 @@ objdump_file.o: ../../powot_simulator/objdump_file.cpp ../../powot_simulator/pow
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2474,6 +2493,7 @@ remove_empty_lines.o: ../../powot_simulator/remove_empty_lines.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2554,6 +2574,7 @@ parse_model_domains.o: ../../powot_simulator/parse_model_domains.cpp ../../powot
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2634,6 +2655,7 @@ get_model_domains.o: ../../powot_simulator/get_model_domains.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2714,6 +2736,7 @@ parse_model_def_domains.o: ../../powot_simulator/parse_model_def_domains.cpp ../
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2794,6 +2817,7 @@ find_mnemonic_in_mdl.o: ../../powot_simulator/find_mnemonic_in_mdl.cpp ../../pow
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2874,6 +2898,7 @@ dvs_api_readconfig.o: ../../powot_simulator/dvs_api_readconfig.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -2954,6 +2979,7 @@ check_if_dvs_api.o: ../../powot_simulator/check_if_dvs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3034,6 +3060,7 @@ estimate_dvs_api_extend.o: ../../powot_simulator/estimate_dvs_api_extend.cpp ../
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3114,6 +3141,7 @@ estimate_dvs_api.o: ../../powot_simulator/estimate_dvs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3194,6 +3222,7 @@ dfs_api_readconfig.o: ../../powot_simulator/dfs_api_readconfig.cpp ../../powot_s
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3274,6 +3303,7 @@ estimate_dfs_api.o: ../../powot_simulator/estimate_dfs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3354,6 +3384,7 @@ estimate_dfs_api_extend.o: ../../powot_simulator/estimate_dfs_api_extend.cpp ../
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3434,6 +3465,7 @@ check_if_dfs_api.o: ../../powot_simulator/check_if_dfs_api.cpp ../../powot_simul
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3514,6 +3546,7 @@ estimate_num_operands.o: ../../powot_simulator/estimate_num_operands.cpp ../../p
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3594,6 +3627,7 @@ get_model_metrics.o: ../../powot_simulator/get_model_metrics.cpp ../../powot_sim
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \
@@ -3674,6 +3708,7 @@ version.o: ../../powot_simulator/version.cpp ../../powot_simulator/powotsimulato
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QString \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QDebug \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \

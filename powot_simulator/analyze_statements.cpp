@@ -436,7 +436,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
                 assign_energy_cost_tab_lut(arr[i].asm_mnemonic.at(j), j, &arr[i]);
                 break;
             case MODEL_BINARY:
-                assign_energy_cost_binary(arr[i].asm_mnemonic.at(j), j, &arr[i]);
+                assign_energy_cost_binary(arr, energy_field_num+1, i, j);
                 break;
             }
             arr[i].asm_repeated << (arr[i].asm_base_energy_cost.last() * arr[i].repeated);

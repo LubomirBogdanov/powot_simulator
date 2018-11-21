@@ -26,6 +26,8 @@ powotsimulator::powotsimulator(void){
     mdl_domains.addr_ranges = NULL;
     mdl = NULL;
     arch_model_type = MODEL_TAB_LUT;
+    bin_model_prev_instr_max = BIN_MODEL_MAX_PREVIOUS_INSTRUCTIONS;
+    bin_model_follow_instr_max = BIN_MODEL_MAX_FOLLOWING_INSTRUCTIONS;
     qDebug()<<"(powotsimulator) Starting ...";
 }
 
@@ -54,6 +56,8 @@ powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu){
     e_table = NULL;
     mdl_domains.addr_ranges = NULL;
     mdl = NULL;
+    bin_model_prev_instr_max = BIN_MODEL_MAX_PREVIOUS_INSTRUCTIONS;
+    bin_model_follow_instr_max = BIN_MODEL_MAX_FOLLOWING_INSTRUCTIONS;
 
     readconfiguration();
 
@@ -75,6 +79,8 @@ powotsimulator::powotsimulator(sim_params_t *sim_prms){
     e_table_size = 0;
     mdl_domains.addr_ranges = NULL;
     mdl = NULL;
+    bin_model_prev_instr_max = BIN_MODEL_MAX_PREVIOUS_INSTRUCTIONS;
+    bin_model_follow_instr_max = BIN_MODEL_MAX_FOLLOWING_INSTRUCTIONS;
 
     readconfiguration();
 
@@ -111,4 +117,9 @@ powotsimulator::powotsimulator(sim_params_t *sim_prms){
         qDebug()<<"(powotsimulator) obj: "<<object_file_contents.at(i);
     }
     */
+}
+
+void powotsimulator::set_bin_model_params(unsigned long max_previous, unsigned long max_following){
+    bin_model_prev_instr_max = max_previous;
+    bin_model_follow_instr_max = max_following;
 }

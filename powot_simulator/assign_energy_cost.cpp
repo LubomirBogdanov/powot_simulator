@@ -27,9 +27,7 @@ void powotsimulator::assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_m
     long index_voltage = -1;
     long index_frequency = -1;
     long index_operands = -1;
-    bool err = 0;    
-
-    qDebug()<<"assign_energy_cost: asm_mnemonic = "<<asm_mnemonic<<" asm_mnemonic_num = "<<asm_mnemonic_num;
+    bool err = 0;
 
     //--------------------------------------------------------------------
     //Extract the corresponding energy value from the model file----------
@@ -126,12 +124,64 @@ void powotsimulator::assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_m
     //--------------------------------------------------------------------
     //--------------------------------------------------------------------
 
-    enrgfield->asm_base_energy_cost << energy;    
+    enrgfield->asm_base_energy_cost << energy;
 }
 
-void powotsimulator::assign_energy_cost_binary(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield){
+void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigned long enrgfield_size, unsigned long statement_num, long asm_mnemonic_num){
+    QStringList asm_following;
+    unsigned long asm_following_count = 0;
+    unsigned long asm_mnemonics_in_statement;
+    bool continue_through_statements = 0;
+    bool stop_through_statements = 0;
+    unsigned long temp_statement_num;
     float energy = 1.0;
 
-    enrgfield->asm_base_energy_cost << energy;
+    if(statement_num < enrgfield_size){
+
+    qDebug()<<"Current instruction: "<<enrgfield[statement_num].asm_instr.at(asm_mnemonic_num);
+
+    //--------------------------------------------------------------------
+    //List the next [bin_model_follow_instr_max] instructions in sym file-
+    //--------------------------------------------------------------------
+    asm_mnemonics_in_statement = enrgfield[statement_num].asm_mnemonic.size();
+    for(unsigned long j = asm_mnemonic_num+1; j < asm_mnemonics_in_statement; j++){
+        asm_following << enrgfield[statement_num].asm_instr.at(j);
+        asm_following_count++;
+        if(asm_following_count >= bin_model_follow_instr_max){
+            break;
+        }
+    }
+
+    if(asm_following_count < bin_model_follow_instr_max){
+        continue_through_statements = 1;
+    }
+
+    if(continue_through_statements){
+        qDebug()<<"continue_through_statements";
+        temp_statement_num = statement_num + 1;
+        for(unsigned long i = temp_statement_num; i < enrgfield_size; i++){
+            asm_mnemonics_in_statement = enrgfield[i].asm_mnemonic.size();
+            for(unsigned long j = 0; j < asm_mnemonics_in_statement; j++){
+                asm_following << enrgfield[i].asm_instr.at(j);
+                asm_following_count++;
+                if(asm_following_count >= bin_model_follow_instr_max){
+                    stop_through_statements = 1;
+                    break;
+                }
+            }
+            if(stop_through_statements){
+                break;
+            }
+        }
+    }
+
+    for(int i = 0; i < asm_following.size(); i++){
+        qDebug()<<"****Next instruction: "<<asm_following.at(i);
+    }
+    //--------------------------------------------------------------------
+    //--------------------------------------------------------------------
+    //--------------------------------------------------------------------
+    }
+    enrgfield[statement_num].asm_base_energy_cost << energy;
 }
 
