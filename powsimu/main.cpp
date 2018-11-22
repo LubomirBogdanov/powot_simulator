@@ -179,7 +179,7 @@ void draw_table(energyfield_t *e_table, quint32 e_table_size, QString metrics, q
     cout<<"Elapsed time of simulation: "<<elpsd_time<<" ms"<<endl;
 }
 
-void draw_model_domains(model_domains_t *mdl_dom, quint16 pipln_backward, quint16 pipln_forward)
+void draw_model_domains(model_domains_t *mdl_dom, unsigned long pipln_backward, unsigned long pipln_forward)
 {
     cout<<"----------------------------------------"<<endl;
     cout<<"Model domains:"<<endl;
@@ -218,8 +218,7 @@ void draw_model_domains(model_domains_t *mdl_dom, quint16 pipln_backward, quint1
         cout<<"e"<<mdl_dom->dvs_api.exec_energy.at(i)<<endl;
     }
 
-    cout<<"Binary model: pipeline_forward ="<<pipln_forward<<endl;
-    cout<<"Binary model: pipeline_backward ="<<pipln_backward<<endl;
+    cout<<dec<<"Binary model: pipeline = [-"<<pipln_backward<<", +"<<pipln_forward<<"]"<<endl;
 }
 
 int main(int argc, char *argv[]){    
@@ -319,18 +318,18 @@ int main(int argc, char *argv[]){
         }
     }
 
-    if(pipeline_backward != 0xFFFF){
-        sim_prms.pipeline_previous = pipeline_backward;
-    }
-    else{
+    if(pipeline_backward == 0xFFFF){
         sim_prms.pipeline_previous = 5;
     }
+    else{
+        sim_prms.pipeline_previous = pipeline_backward;
+    }
 
-    if(pipeline_forward != 0xFFFF){
-        sim_prms.pipeline_following = pipeline_forward;
+    if(pipeline_forward == 0xFFFF){
+        sim_prms.pipeline_following = 5;
     }
     else{
-        sim_prms.pipeline_following = 5;
+        sim_prms.pipeline_following = pipeline_forward;
     }
 
     if(display_version){
@@ -352,13 +351,9 @@ int main(int argc, char *argv[]){
             printusage();
             return EXIT_FAILURE;
         }        
-        powotsimulator sim(&sim_prms.provider, &sim_prms.arch, &sim_prms.mcu);
-        if(pipeline_backward != 0xFFFF){
-            sim.bin_model_prev_instr_max = pipeline_backward;
-        }
-        if(pipeline_forward != 0xFFFF){
-            sim.bin_model_follow_instr_max = pipeline_forward;
-        }
+        powotsimulator sim(&sim_prms.provider, &sim_prms.arch, &sim_prms.mcu);        
+        sim.bin_model_prev_instr_max = sim_prms.pipeline_previous;
+        sim.bin_model_follow_instr_max = sim_prms.pipeline_following;
         sim.get_modeldomains(&mdl_dom);        
         draw_model_domains(&mdl_dom, sim.bin_model_prev_instr_max, sim.bin_model_follow_instr_max);
 
