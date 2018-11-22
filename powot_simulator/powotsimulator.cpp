@@ -74,13 +74,13 @@ powotsimulator::powotsimulator(sim_params_t *sim_prms){
     source_entry_point = sim_prms->entry;
     objectfile_dir = sim_prms->objectfile_path;
     arch_model_type = sim_prms->arch_model_type;
+    bin_model_prev_instr_max = sim_prms->pipeline_previous;
+    bin_model_follow_instr_max = sim_prms->pipeline_following;
 
     e_table = NULL;
     e_table_size = 0;
     mdl_domains.addr_ranges = NULL;
     mdl = NULL;
-    bin_model_prev_instr_max = BIN_MODEL_MAX_PREVIOUS_INSTRUCTIONS;
-    bin_model_follow_instr_max = BIN_MODEL_MAX_FOLLOWING_INSTRUCTIONS;
 
     readconfiguration();
 
@@ -97,6 +97,7 @@ powotsimulator::powotsimulator(sim_params_t *sim_prms){
         break;
     case MODEL_BINARY:
         qDebug()<<"(powotsimulator) Model type: BIN";
+        qDebug()<<"(powotsimulator) Pipeline depth: [-"<<bin_model_prev_instr_max<<", +"<<bin_model_follow_instr_max<<"]";
         break;
     }
 
@@ -117,9 +118,4 @@ powotsimulator::powotsimulator(sim_params_t *sim_prms){
         qDebug()<<"(powotsimulator) obj: "<<object_file_contents.at(i);
     }
     */
-}
-
-void powotsimulator::set_bin_model_params(unsigned long max_previous, unsigned long max_following){
-    bin_model_prev_instr_max = max_previous;
-    bin_model_follow_instr_max = max_following;
 }

@@ -45,6 +45,8 @@ typedef struct{
     QString entry;
     default_model_domains_t default_domains;
     model_type_t arch_model_type;
+    unsigned long pipeline_previous;
+    unsigned long pipeline_following;
 }sim_params_t;
 
 //C statement info extracted by analyze_statements method
@@ -110,8 +112,6 @@ private:
     dvs_api_t dvs_api;
     dfs_api_t dfs_api;
     model_type_t arch_model_type;
-    unsigned long bin_model_prev_instr_max;
-    unsigned long bin_model_follow_instr_max;
 
     void objdump_file(QString *filepath, QStringList *objfile_contents);
     void gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents);
@@ -153,6 +153,9 @@ private:
     unsigned long estimate_num_operands(QString asm_instruction);
 
 public:
+    unsigned long bin_model_prev_instr_max;
+    unsigned long bin_model_follow_instr_max;
+
     powotsimulator(void);
     ~powotsimulator(void);
     powotsimulator(QString *provider, QString *arch, QString *mcu);
@@ -162,9 +165,7 @@ public:
     double get_version(void);
     QString get_build_info(void);
     QString get_copyright_info(void);
-    QString get_model_metrics(void);
-    void set_bin_model_params(unsigned long max_previous, unsigned long max_following);
-
+    QString get_model_metrics(void);    
 };
 
 #endif // POWOTSIMULATOR_H

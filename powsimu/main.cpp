@@ -27,6 +27,9 @@
 #include "../powot_simulator/powotsimulator.h"
 #include "../powot_simulator/model_lut.h"
 
+#define PIPELINE_FORWARD_OPT    3000
+#define PIPELINE_BACKWARD_OPT   3001
+
 using namespace std;
 
 extern int opterr;
@@ -43,6 +46,8 @@ static const struct option long_options[] = {
 { "entry", required_argument, 0, 'e' },
 { "get_model_domains", no_argument, 0, 'z' },
 { "use_bin_models", no_argument, 0, 'b' },
+{ "set_pipeline_forward", required_argument, 0, PIPELINE_FORWARD_OPT },
+{ "set_pipeline_backward", required_argument, 0, PIPELINE_BACKWARD_OPT },
 { 0, 0, 0, 0 }
 };
 
@@ -65,6 +70,8 @@ void printusage(){
           "-d [MEMORY DOMAIN] - assign default memory domain (string)\n"
           "-z or - -get_model_domains - prints the available domains for a model. Must be used with provider, arch and mcu (-p, -a and -m)\n"
           "-b or - -use_bin_models - use binary arch models instead of LUT, text-based, TAB-separated ones\n"
+          "- -set_pipeline_forward [5] - pass to binary model that many instructions ahead of the current one (int)\n"
+          "- -set_pipeline_backward [5] - pass to binary model that many instructions before the current one (int)\n"
           "\nExample launch:"
           "\n./powsimu -z -p test -a arm-cortex-m4 -m test_model_1\n\n"
           "All your sources must be compiled with the -g -O0 options, including the libraries.\n"
@@ -172,7 +179,7 @@ void draw_table(energyfield_t *e_table, quint32 e_table_size, QString metrics, q
     cout<<"Elapsed time of simulation: "<<elpsd_time<<" ms"<<endl;
 }
 
-void draw_model_domains(model_domains_t *mdl_dom)
+void draw_model_domains(model_domains_t *mdl_dom, quint16 pipln_backward, quint16 pipln_forward)
 {
     cout<<"----------------------------------------"<<endl;
     cout<<"Model domains:"<<endl;
@@ -211,6 +218,8 @@ void draw_model_domains(model_domains_t *mdl_dom)
         cout<<"e"<<mdl_dom->dvs_api.exec_energy.at(i)<<endl;
     }
 
+    cout<<"Binary model: pipeline_forward ="<<pipln_forward<<endl;
+    cout<<"Binary model: pipeline_backward ="<<pipln_backward<<endl;
 }
 
 int main(int argc, char *argv[]){    
@@ -224,10 +233,12 @@ int main(int argc, char *argv[]){
     model_domains_t mdl_dom;
     QString metrics;
     QString tempr, volt, freq, ops, addr;
+    QString pipeline_depth;
     quint8 display_model_domains = 0;
     bool ok;
     QElapsedTimer performance_timer;
     quint64 elapsed_time;
+    unsigned long pipeline_forward = 0xFFFF, pipeline_backward = 0xFFFF;
 
     sim_prms.default_domains = {
         " ", 0, 0, 0, 0, " ", 0
@@ -292,12 +303,34 @@ int main(int argc, char *argv[]){
         case 'd':
             sim_prms.default_domains.default_addr_range = optarg;
             break;
+        case PIPELINE_FORWARD_OPT:
+            pipeline_depth = optarg;
+            pipeline_forward = pipeline_depth.toInt(&ok, 10);
+            break;
+        case PIPELINE_BACKWARD_OPT:
+            pipeline_depth = optarg;
+            pipeline_backward = pipeline_depth.toInt(&ok, 10);
+            break;
         case 'h':
         case '?':
         default:
             printusage();
             break;
         }
+    }
+
+    if(pipeline_backward != 0xFFFF){
+        sim_prms.pipeline_previous = pipeline_backward;
+    }
+    else{
+        sim_prms.pipeline_previous = 5;
+    }
+
+    if(pipeline_forward != 0xFFFF){
+        sim_prms.pipeline_following = pipeline_forward;
+    }
+    else{
+        sim_prms.pipeline_following = 5;
     }
 
     if(display_version){
@@ -318,10 +351,16 @@ int main(int argc, char *argv[]){
             cout<<"ERROR: You must specify all: provider + arch + mcu!"<<endl<<endl;
             printusage();
             return EXIT_FAILURE;
-        }
+        }        
         powotsimulator sim(&sim_prms.provider, &sim_prms.arch, &sim_prms.mcu);
-        sim.get_modeldomains(&mdl_dom);
-        draw_model_domains(&mdl_dom);
+        if(pipeline_backward != 0xFFFF){
+            sim.bin_model_prev_instr_max = pipeline_backward;
+        }
+        if(pipeline_forward != 0xFFFF){
+            sim.bin_model_follow_instr_max = pipeline_forward;
+        }
+        sim.get_modeldomains(&mdl_dom);        
+        draw_model_domains(&mdl_dom, sim.bin_model_prev_instr_max, sim.bin_model_follow_instr_max);
 
         return EXIT_SUCCESS;
     }
@@ -340,7 +379,6 @@ int main(int argc, char *argv[]){
         elapsed_time = performance_timer.elapsed();
         draw_table(e_table, e_table_size, metrics, elapsed_time);
     }
-
 
     return EXIT_SUCCESS;
 }
