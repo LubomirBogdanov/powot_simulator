@@ -142,38 +142,40 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         //----------------------------------------------------------------------
         //List the previous [bin_model_prev_instr_max] instructions in sym file-
         //----------------------------------------------------------------------
-        for(int j = asm_mnemonic_num-1; j >= 0; j--){
-            asm_previous << enrgfield[statement_num].asm_instr.at(j);
-            asm_previous_count++;
-            if(asm_previous_count >= bin_model_prev_instr_max){
-                break;
-            }
-        }
-
-        if(asm_previous_count < bin_model_follow_instr_max){
-            continue_through_statements = 1;
-        }
-
-        if(continue_through_statements){
-            temp_statement_num = statement_num - 1;
-            for(int i = temp_statement_num; i >= 0; i--){
-                asm_mnemonics_in_statement = enrgfield[i].asm_mnemonic.size();
-                for(int j = asm_mnemonics_in_statement-1; j >= 0; j--){
-                    asm_previous << enrgfield[i].asm_instr.at(j);
-                    asm_previous_count++;
-                    if(asm_previous_count >= bin_model_follow_instr_max){
-                        stop_through_statements = 1;
-                        break;
-                    }
-                }
-                if(stop_through_statements){
+        if(bin_model_prev_instr_max){
+            for(int j = asm_mnemonic_num-1; j >= 0; j--){
+                asm_previous << enrgfield[statement_num].asm_instr.at(j);
+                asm_previous_count++;
+                if(asm_previous_count >= bin_model_prev_instr_max){
                     break;
                 }
             }
-        }
 
-        for(int i = asm_previous.size()-1; i >= 0; i--){
-            qDebug()<<"----Prev instruction: "<<asm_previous.at(i);
+            if(asm_previous_count < bin_model_prev_instr_max){
+                continue_through_statements = 1;
+            }
+
+            if(continue_through_statements){
+                temp_statement_num = statement_num - 1;
+                for(int i = temp_statement_num; i >= 0; i--){
+                    asm_mnemonics_in_statement = enrgfield[i].asm_mnemonic.size();
+                    for(int j = asm_mnemonics_in_statement-1; j >= 0; j--){
+                        asm_previous << enrgfield[i].asm_instr.at(j);
+                        asm_previous_count++;
+                        if(asm_previous_count >= bin_model_prev_instr_max){
+                            stop_through_statements = 1;
+                            break;
+                        }
+                    }
+                    if(stop_through_statements){
+                        break;
+                    }
+                }
+            }
+
+            for(int i = asm_previous.size()-1; i >= 0; i--){
+                qDebug()<<"----Prev instruction: "<<asm_previous.at(i);
+            }
         }
         //----------------------------------------------------------------------
         //----------------------------------------------------------------------
@@ -184,41 +186,43 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         //--------------------------------------------------------------------
         //List the next [bin_model_follow_instr_max] instructions in sym file-
         //--------------------------------------------------------------------
-        continue_through_statements = 0;
-        stop_through_statements = 0;
-        asm_mnemonics_in_statement = enrgfield[statement_num].asm_mnemonic.size();
-        for(unsigned long j = asm_mnemonic_num+1; j < asm_mnemonics_in_statement; j++){
-            asm_following << enrgfield[statement_num].asm_instr.at(j);
-            asm_following_count++;
-            if(asm_following_count >= bin_model_follow_instr_max){
-                break;
-            }
-        }
-
-        if(asm_following_count < bin_model_follow_instr_max){
-            continue_through_statements = 1;
-        }
-
-        if(continue_through_statements){
-            temp_statement_num = statement_num + 1;
-            for(unsigned long i = temp_statement_num; i < enrgfield_size; i++){
-                asm_mnemonics_in_statement = enrgfield[i].asm_mnemonic.size();
-                for(unsigned long j = 0; j < asm_mnemonics_in_statement; j++){
-                    asm_following << enrgfield[i].asm_instr.at(j);
-                    asm_following_count++;
-                    if(asm_following_count >= bin_model_follow_instr_max){
-                        stop_through_statements = 1;
-                        break;
-                    }
-                }
-                if(stop_through_statements){
+        if(bin_model_follow_instr_max){
+            continue_through_statements = 0;
+            stop_through_statements = 0;
+            asm_mnemonics_in_statement = enrgfield[statement_num].asm_mnemonic.size();
+            for(unsigned long j = asm_mnemonic_num+1; j < asm_mnemonics_in_statement; j++){
+                asm_following << enrgfield[statement_num].asm_instr.at(j);
+                asm_following_count++;
+                if(asm_following_count >= bin_model_follow_instr_max){
                     break;
                 }
             }
-        }
 
-        for(int i = 0; i < asm_following.size(); i++){
-            qDebug()<<"++++Next instruction: "<<asm_following.at(i);
+            if(asm_following_count < bin_model_follow_instr_max){
+                continue_through_statements = 1;
+            }
+
+            if(continue_through_statements){
+                temp_statement_num = statement_num + 1;
+                for(unsigned long i = temp_statement_num; i < enrgfield_size; i++){
+                    asm_mnemonics_in_statement = enrgfield[i].asm_mnemonic.size();
+                    for(unsigned long j = 0; j < asm_mnemonics_in_statement; j++){
+                        asm_following << enrgfield[i].asm_instr.at(j);
+                        asm_following_count++;
+                        if(asm_following_count >= bin_model_follow_instr_max){
+                            stop_through_statements = 1;
+                            break;
+                        }
+                    }
+                    if(stop_through_statements){
+                        break;
+                    }
+                }
+            }
+
+            for(int i = 0; i < asm_following.size(); i++){
+                qDebug()<<"++++Next instruction: "<<asm_following.at(i);
+            }
         }
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
@@ -226,4 +230,3 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
     }
     enrgfield[statement_num].asm_base_energy_cost << energy;
 }
-
