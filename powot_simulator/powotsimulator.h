@@ -37,6 +37,12 @@ typedef enum{
     MODEL_BINARY
 }model_type_t;
 
+typedef enum{
+    INSTRUCTION_PREVIOUS,
+    INSTRUCTION_CURRENT,
+    INSTRUCTION_FOLLOWING
+}instr_pipln_t;
+
 typedef struct{
     QString objectfile_path;
     QString provider;
@@ -128,6 +134,7 @@ private:
     unsigned long count_number_of_statements(QStringList *sym_cont, bool *no_debug_info);
     void assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield);
     void assign_energy_cost_binary(energyfield_t *enrgfield, unsigned long enrgfield_size, unsigned long statement_num, long asm_mnemonic_num);
+    QString generate_cmd_line(energyfield_t *enrgfield, long asm_mnemonic_num, unsigned long cmd_index, instr_pipln_t instr_type);
     void parse_model_data(void);
     void parse_model_domains(void);
     bool check_if_function_call(QString statement);

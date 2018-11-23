@@ -127,24 +127,24 @@ void powotsimulator::assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_m
     enrgfield->asm_base_energy_cost << energy;
 }
 
-void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigned long enrgfield_size, unsigned long statement_num, long asm_mnemonic_num){
-    QStringList asm_following;
-    unsigned long asm_following_count = 0;
-    QStringList asm_previous;
+void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigned long enrgfield_size, unsigned long statement_num, long asm_mnemonic_num){    
+    unsigned long asm_following_count = 0;    
     unsigned long asm_previous_count = 0;
-    unsigned long asm_mnemonics_in_statement;
-    bool continue_through_statements = 0;
+    unsigned long asm_mnemonics_in_statement;    
     bool stop_through_statements = 0;
     unsigned long temp_statement_num;
     float energy = 1.0;
+    QStringList cmd_line_previous;
+    QString cmd_line_current;
+    QStringList cmd_line_following;
 
     if(statement_num < enrgfield_size){
         //----------------------------------------------------------------------
         //List the previous [bin_model_prev_instr_max] instructions in sym file-
         //----------------------------------------------------------------------
         if(bin_model_prev_instr_max){
-            for(int j = asm_mnemonic_num-1; j >= 0; j--){
-                asm_previous << enrgfield[statement_num].asm_instr.at(j);
+            for(int j = asm_mnemonic_num-1; j >= 0; j--){                
+                cmd_line_previous << generate_cmd_line(&enrgfield[statement_num], j, asm_previous_count, INSTRUCTION_PREVIOUS);
                 asm_previous_count++;
                 if(asm_previous_count >= bin_model_prev_instr_max){
                     break;
@@ -152,15 +152,11 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
             }
 
             if(asm_previous_count < bin_model_prev_instr_max){
-                continue_through_statements = 1;
-            }
-
-            if(continue_through_statements){
                 temp_statement_num = statement_num - 1;
                 for(int i = temp_statement_num; i >= 0; i--){
                     asm_mnemonics_in_statement = enrgfield[i].asm_mnemonic.size();
-                    for(int j = asm_mnemonics_in_statement-1; j >= 0; j--){
-                        asm_previous << enrgfield[i].asm_instr.at(j);
+                    for(int j = asm_mnemonics_in_statement-1; j >= 0; j--){                        
+                        cmd_line_previous << generate_cmd_line(&enrgfield[i], j, asm_previous_count, INSTRUCTION_PREVIOUS);
                         asm_previous_count++;
                         if(asm_previous_count >= bin_model_prev_instr_max){
                             stop_through_statements = 1;
@@ -173,25 +169,25 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
                 }
             }
 
-            for(int i = asm_previous.size()-1; i >= 0; i--){
-                qDebug()<<"----Prev instruction: "<<asm_previous.at(i);
+            for(int i = cmd_line_previous.size()-1; i >= 0; i--){
+                qDebug()<<"----Prev instruction: "<<cmd_line_previous.at(i);
             }
         }
         //----------------------------------------------------------------------
         //----------------------------------------------------------------------
         //----------------------------------------------------------------------
 
-        qDebug()<<"Current instruction: "<<enrgfield[statement_num].asm_instr.at(asm_mnemonic_num);
+        cmd_line_current = generate_cmd_line(&enrgfield[statement_num], asm_mnemonic_num, 3,INSTRUCTION_CURRENT);
+        qDebug()<<"@@@@Current instruction: "<<cmd_line_current;
 
         //--------------------------------------------------------------------
         //List the next [bin_model_follow_instr_max] instructions in sym file-
         //--------------------------------------------------------------------
-        if(bin_model_follow_instr_max){
-            continue_through_statements = 0;
+        if(bin_model_follow_instr_max){            
             stop_through_statements = 0;
             asm_mnemonics_in_statement = enrgfield[statement_num].asm_mnemonic.size();
-            for(unsigned long j = asm_mnemonic_num+1; j < asm_mnemonics_in_statement; j++){
-                asm_following << enrgfield[statement_num].asm_instr.at(j);
+            for(unsigned long j = asm_mnemonic_num+1; j < asm_mnemonics_in_statement; j++){                
+                cmd_line_following << generate_cmd_line(&enrgfield[statement_num], j, asm_following_count, INSTRUCTION_FOLLOWING);
                 asm_following_count++;
                 if(asm_following_count >= bin_model_follow_instr_max){
                     break;
@@ -199,15 +195,11 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
             }
 
             if(asm_following_count < bin_model_follow_instr_max){
-                continue_through_statements = 1;
-            }
-
-            if(continue_through_statements){
                 temp_statement_num = statement_num + 1;
                 for(unsigned long i = temp_statement_num; i < enrgfield_size; i++){
                     asm_mnemonics_in_statement = enrgfield[i].asm_mnemonic.size();
-                    for(unsigned long j = 0; j < asm_mnemonics_in_statement; j++){
-                        asm_following << enrgfield[i].asm_instr.at(j);
+                    for(unsigned long j = 0; j < asm_mnemonics_in_statement; j++){                        
+                        cmd_line_following << generate_cmd_line(&enrgfield[i], j, asm_following_count, INSTRUCTION_FOLLOWING);
                         asm_following_count++;
                         if(asm_following_count >= bin_model_follow_instr_max){
                             stop_through_statements = 1;
@@ -220,8 +212,8 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
                 }
             }
 
-            for(int i = 0; i < asm_following.size(); i++){
-                qDebug()<<"++++Next instruction: "<<asm_following.at(i);
+            for(int i = 0; i < cmd_line_following.size(); i++){
+                qDebug()<<"++++Next instruction: "<<cmd_line_following.at(i);
             }
         }
         //--------------------------------------------------------------------
@@ -229,4 +221,40 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         //--------------------------------------------------------------------
     }
     enrgfield[statement_num].asm_base_energy_cost << energy;
+}
+
+QString powotsimulator::generate_cmd_line(energyfield_t *enrgfield, long asm_mnemonic_num, unsigned long cmd_index, instr_pipln_t instr_type){
+    QString temp_line;
+
+    temp_line = "--instr_";
+
+    switch(instr_type){
+    case INSTRUCTION_PREVIOUS:
+        temp_line += "prev_";
+        temp_line += QString::number(cmd_index, 10);
+        break;
+    case INSTRUCTION_CURRENT:
+        temp_line += 'c';
+        break;
+    case INSTRUCTION_FOLLOWING:
+        temp_line += "foll_";
+        temp_line += QString::number(cmd_index, 10);
+        break;
+    default:
+        temp_line += 'c';
+    }
+
+    temp_line += " \"";
+    temp_line += QString::number(enrgfield->frequency_domain.at(asm_mnemonic_num), 'f', 3);
+    temp_line += " ";
+    temp_line += QString::number(enrgfield->voltage_domain.at(asm_mnemonic_num), 'f', 3);
+    temp_line += " ";
+    temp_line += QString::number(enrgfield->temperature_domain.at(asm_mnemonic_num), 'f', 3);
+    temp_line += " 0x";
+    temp_line += QString::number(enrgfield->asm_vma.at(asm_mnemonic_num), 16);
+    temp_line += " ";
+    temp_line += enrgfield->asm_instr.at(asm_mnemonic_num);
+    temp_line += "\"";
+
+    return temp_line;
 }
