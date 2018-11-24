@@ -133,11 +133,12 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
     unsigned long asm_mnemonics_in_statement;    
     bool stop_through_statements = 0;
     unsigned long temp_statement_num;
-    float energy = 1.0;
+    double energy = 0.0;
     QStringList cmd_line_previous;
     QString cmd_line_current;
     QStringList cmd_line_following;
     QString cmd_line_final;
+    QStringList binary_model_output;
 
     if(statement_num < enrgfield_size){
         //----------------------------------------------------------------------
@@ -170,16 +171,16 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
                 }
             }
 
-            for(int i = cmd_line_previous.size()-1; i >= 0; i--){
-                qDebug()<<"----Prev instruction: "<<cmd_line_previous.at(i);
-            }
+            //for(int i = cmd_line_previous.size()-1; i >= 0; i--){
+            //    qDebug()<<"----Prev instruction: "<<cmd_line_previous.at(i);
+            //}
         }
         //----------------------------------------------------------------------
         //----------------------------------------------------------------------
         //----------------------------------------------------------------------
 
         cmd_line_current = generate_cmd_line(&enrgfield[statement_num], asm_mnemonic_num, 3,INSTRUCTION_CURRENT);
-        qDebug()<<"@@@@Current instruction: "<<cmd_line_current;
+        //qDebug()<<"@@@@Current instruction: "<<cmd_line_current;
 
         //--------------------------------------------------------------------
         //List the next [bin_model_follow_instr_max] instructions in sym file-
@@ -213,9 +214,9 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
                 }
             }
 
-            for(int i = 0; i < cmd_line_following.size(); i++){
-                qDebug()<<"++++Next instruction: "<<cmd_line_following.at(i);
-            }
+            //for(int i = 0; i < cmd_line_following.size(); i++){
+            //    qDebug()<<"++++Next instruction: "<<cmd_line_following.at(i);
+            //}
         }
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
@@ -235,9 +236,18 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         cmd_line_final += cmd_line_following.at(i);
         cmd_line_final += ' ';
     }
-    qDebug()<<"****"<<cmd_line_final;
+    //qDebug()<<"****"<<cmd_line_final;
 
-    invoke_cmd_line(&bin_model_path, &bin_model_file, &cmd_line_final);
+    binary_model_output = invoke_cmd_line(&bin_model_path, &bin_model_file, &cmd_line_final);
+    if(!binary_model_output.isEmpty()){
+        QString temp_value = binary_model_output.at(0).section('\n', 0, 0);
+        bool ok;
+        energy = temp_value.toDouble(&ok);
+        if(!ok){
+            energy = 0.0;
+        }
+    }
+    qDebug()<<"(powotsimulator) binary_model_output: "<<binary_model_output;
 
     enrgfield[statement_num].asm_base_energy_cost << energy;
 }

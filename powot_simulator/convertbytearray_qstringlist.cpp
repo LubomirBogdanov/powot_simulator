@@ -26,7 +26,7 @@ void powotsimulator::convert_bytearray_stringlist(QByteArray *input, QStringList
 
     for(qint32 i = 0; i < input->size(); i++){
         linebuff[cnt++] = input->at(i);
-        if(input->at(i) == '\n'){
+        if(input->at(i) == '\n'){            
             linebuff[cnt+1] = '\0';
             QString temp = linebuff;
             *output << temp;

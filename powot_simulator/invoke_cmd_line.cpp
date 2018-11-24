@@ -22,18 +22,26 @@
 
 QStringList powotsimulator::invoke_cmd_line(QString *path_to_binary, QString *binary_name, QString *cmd_line_params){
     QStringList cmd_output;
-    QString cmd = *path_to_binary + *binary_name + *cmd_line_params;
-
+    QString cmd;
     QProcess terminal;
+
+    cmd = *path_to_binary;
+    cmd += '/';
+    cmd += *binary_name;
+    cmd += ' ';
+    cmd += *cmd_line_params;
+
+//    qDebug()<<"(powotsimulator) invoke_cmd_line: "<<cmd;
+
     terminal.setProcessChannelMode(QProcess::MergedChannels);
     terminal.start(cmd);
     terminal.waitForFinished(-1);
     QByteArray temp = terminal.readAllStandardOutput();
     convert_bytearray_stringlist(&temp, &cmd_output);
 
-    /*for(int i = 0; i < symbol_contents->size(); i++){
-        qDebug()<<"+++"<<symbol_contents->at(i);
-    }*/
+//    for(int i = 0; i < cmd_output.size(); i++){
+//        qDebug()<<"(powotsimulator) invoke_cmd_line: "<<cmd_output.at(i);
+//    }
 
     if(cmd_output.isEmpty()){
         err_message.display_error(CMD_LINE_EXEC_FAILED, binary_name);

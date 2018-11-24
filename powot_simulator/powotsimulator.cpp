@@ -58,6 +58,8 @@ powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu){
     mdl = NULL;
     bin_model_prev_instr_max = BIN_MODEL_MAX_PREVIOUS_INSTRUCTIONS;
     bin_model_follow_instr_max = BIN_MODEL_MAX_FOLLOWING_INSTRUCTIONS;
+    bin_model_path = modelsdir;
+    bin_model_file = *mcu;
 
     readconfiguration();
 
@@ -76,6 +78,15 @@ powotsimulator::powotsimulator(sim_params_t *sim_prms){
     arch_model_type = sim_prms->arch_model_type;
     bin_model_prev_instr_max = sim_prms->pipeline_previous;
     bin_model_follow_instr_max = sim_prms->pipeline_following;
+    bin_model_path = sim_prms->binary_model_path;
+    bin_model_file = sim_prms->binary_model_file;
+
+    if(bin_model_path.isEmpty()){        
+        bin_model_path = modelsdir + "/mcu/" + provider_name;
+    }
+    if(bin_model_file.isEmpty()){        
+        bin_model_file = mcu_name;
+    }
 
     e_table = NULL;
     e_table_size = 0;

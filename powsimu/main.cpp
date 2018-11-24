@@ -34,7 +34,7 @@ using namespace std;
 
 extern int opterr;
 
-static const char *short_options = "givhzbt:w:f:o:d:j:p:m:e:a:";
+static const char *short_options = "vhzbg:i:t:w:f:o:d:j:p:m:e:a:";
 
 static const struct option long_options[] = {
 { "version", no_argument, 0, 'v' },
@@ -318,7 +318,7 @@ int main(int argc, char *argv[]){
             sim_prms.binary_model_path = optarg;
             break;
         case 'i':
-            sim_prms.binary_model_name = optarg;
+            sim_prms.binary_model_file = optarg;
             break;
         case 'h':
         case '?':

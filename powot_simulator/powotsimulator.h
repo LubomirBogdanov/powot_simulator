@@ -54,7 +54,7 @@ typedef struct{
     unsigned long pipeline_previous;
     unsigned long pipeline_following;
     QString binary_model_path;
-    QString binary_model_name;
+    QString binary_model_file;
 }sim_params_t;
 
 //C statement info extracted by analyze_statements method
