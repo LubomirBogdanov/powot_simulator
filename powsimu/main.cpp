@@ -34,7 +34,7 @@ using namespace std;
 
 extern int opterr;
 
-static const char *short_options = "vhzbt:w:f:o:d:j:p:m:e:a:";
+static const char *short_options = "givhzbt:w:f:o:d:j:p:m:e:a:";
 
 static const struct option long_options[] = {
 { "version", no_argument, 0, 'v' },
@@ -48,6 +48,8 @@ static const struct option long_options[] = {
 { "use_bin_models", no_argument, 0, 'b' },
 { "set_pipeline_forward", required_argument, 0, PIPELINE_FORWARD_OPT },
 { "set_pipeline_backward", required_argument, 0, PIPELINE_BACKWARD_OPT },
+{ "set_bin_model_path", required_argument, 0, 'g' },
+{ "set_bin_model_name", required_argument, 0, 'i' },
 { 0, 0, 0, 0 }
 };
 
@@ -72,6 +74,8 @@ void printusage(){
           "-b or - -use_bin_models - use binary arch models instead of LUT, text-based, TAB-separated ones\n"
           "- -set_pipeline_forward [5] - pass to binary model that many instructions ahead of the current one (int)\n"
           "- -set_pipeline_backward [5] - pass to binary model that many instructions before the current one (int)\n"
+          "-g or - -set_bin_model_path - explicit setting of a binary model path. Default path will be used, if not specified (see -a, -j, -p, -m).\n"
+          "-i or - -set_bin_model_name - explicit setting of a binary model file name (including file extensions). Default name will be used, if not specified (see -a, -j, -p, -m).\n"
           "\nExample launch:"
           "\n./powsimu -z -p test -a arm-cortex-m4 -m test_model_1\n\n"
           "All your sources must be compiled with the -g -O0 options, including the libraries.\n"
@@ -309,6 +313,12 @@ int main(int argc, char *argv[]){
         case PIPELINE_BACKWARD_OPT:
             pipeline_depth = optarg;
             pipeline_backward = pipeline_depth.toInt(&ok, 10);
+            break;
+        case 'g':
+            sim_prms.binary_model_path = optarg;
+            break;
+        case 'i':
+            sim_prms.binary_model_name = optarg;
             break;
         case 'h':
         case '?':
