@@ -84,6 +84,9 @@ void errormsg::display_error(int errnum, const QString *msg){
     case DOMAIN_NOT_FOUND_IN_MDL:
         qDebug()<<"(powotsimulator) ERROR: Instruction <<"<<*msg<<">> does not have data for this domain in the model file!";
         break;
+    case CMD_LINE_EXEC_FAILED:
+        qDebug()<<"(powotsimulator) ERROR: Invocation of "<<*msg<<"did not return any result!";
+        break;
     default:
         qDebug()<<"(powotsimulator) ERROR: General error!";
     }

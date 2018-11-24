@@ -137,6 +137,7 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
     QStringList cmd_line_previous;
     QString cmd_line_current;
     QStringList cmd_line_following;
+    QString cmd_line_final;
 
     if(statement_num < enrgfield_size){
         //----------------------------------------------------------------------
@@ -220,6 +221,24 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         //--------------------------------------------------------------------
         //--------------------------------------------------------------------
     }
+
+
+    //Sum all of the command line parameters in a single string.
+    cmd_line_final = ' ';
+    for(int i = 0; i < cmd_line_previous.size(); i++){
+        cmd_line_final += cmd_line_previous.at(i);
+        cmd_line_final += ' ';
+    }
+    cmd_line_final += cmd_line_current;
+    cmd_line_final += ' ';
+    for(int i = 0; i < cmd_line_following.size(); i++){
+        cmd_line_final += cmd_line_following.at(i);
+        cmd_line_final += ' ';
+    }
+    qDebug()<<"****"<<cmd_line_final;
+
+    invoke_cmd_line(&bin_model_path, &bin_model_file, &cmd_line_final);
+
     enrgfield[statement_num].asm_base_energy_cost << energy;
 }
 

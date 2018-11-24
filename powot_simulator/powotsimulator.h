@@ -118,6 +118,8 @@ private:
     dvs_api_t dvs_api;
     dfs_api_t dfs_api;
     model_type_t arch_model_type;
+    QString bin_model_path;
+    QString bin_model_file;
 
     void objdump_file(QString *filepath, QStringList *objfile_contents);
     void gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents);
@@ -158,6 +160,7 @@ private:
     float estimate_dfs_api(QString *statement, float *dfs_api_energy);
     unsigned long estimate_dfs_api_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num);
     unsigned long estimate_num_operands(QString asm_instruction);
+    QStringList invoke_cmd_line(QString *path_to_binary, QString *binary_name, QString *cmd_line_params);
 
 public:
     unsigned long bin_model_prev_instr_max;

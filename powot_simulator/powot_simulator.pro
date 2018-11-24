@@ -46,7 +46,8 @@ SOURCES += powotsimulator.cpp \
     check_if_dfs_api.cpp \
     estimate_num_operands.cpp \
     get_model_metrics.cpp \
-    version.cpp
+    version.cpp \
+    invoke_cmd_line.cpp
 
 HEADERS += powotsimulator.h\
         powot_simulator_global.h \

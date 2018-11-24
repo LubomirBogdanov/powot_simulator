@@ -46,6 +46,7 @@ enum errors{
                     //Requires the for( ) loop that failed as the second parameter.
     INSTR_NOT_FOUND_IN_MDL, //Requires a string of the missing instruction as the second parameter
     DOMAIN_NOT_FOUND_IN_MDL, //Requires a string of the instruction whose domain cannot be found in the mdl as the second parameter
+    CMD_LINE_EXEC_FAILED, //Requires a string of the command that failed on the command line
 };
 
 
