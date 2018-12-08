@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+A Powot Simulator energy model for test_model_one_jaul
+All timings are in ms, currents in mA, the final energy is divided by DIVISOR
+except the DVS/DFS functions. The DVS/DFS functions must be provided directly
+with the metrics as the variable METRICS.
+
+Available instruction types:
+ mem   - memory access
+ datap - data processing
+ sat   - saturation instructions
+ contr - branch and control
+ misc  - miscellaneous
+-->
+
+<auxiliary_model>
+
+	<!--
+	The current/exec.time/voltage when multiplied will produce results in 
+	the following metrics (Jaulle):
+	-->
+	<metrics>uJ</metrics>
+
+	<!--
+	Divide the energy results for each instruction by this number for 
+	better display
+	-->
+
+</auxiliary_model>

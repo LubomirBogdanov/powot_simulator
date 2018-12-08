@@ -26,6 +26,7 @@
 #include <QTextStream>
 #include <QString>
 #include <QDebug>
+#include <QXmlStreamReader>
 #include "config.h"
 #include "fileio.h"
 #include "configfilepaths.h"
@@ -122,14 +123,14 @@ private:
     model_type_t arch_model_type;
     QString bin_model_path;
     QString bin_model_file;
+    QString bin_model_aux_xml_file;
 
     void objdump_file(QString *filepath, QStringList *objfile_contents);
     void gdbdump_file(QString *filepath, QString *source_entry_point, QStringList *symbol_contents);
-    void symbollist_file(QString *filepath, QStringList *symbol_list);
-    void readconfiguration(void);
+    void symbol_list_file(QString *filepath, QStringList *symbol_list);
+    void read_configuration(void);
     void remove_empty_lines(QStringList *file_contents);
-    void convert_bytearray_stringlist(QByteArray *input, QStringList *output);
-    void parsestatements(void);
+    void convert_bytearray_stringlist(QByteArray *input, QStringList *output);    
     void find_entry_point(void);
     void link_source_and_object(void);
     void object_to_sequential(void);
@@ -163,6 +164,7 @@ private:
     unsigned long estimate_dfs_api_extend(energyfield_t *arr, unsigned long current_statement, unsigned long energy_field_num);
     unsigned long estimate_num_operands(QString asm_instruction);
     QStringList invoke_cmd_line(QString *path_to_binary, QString *binary_name, QString *cmd_line_params);
+    void parse_aux_model_xml(void);
 
 public:
     unsigned long bin_model_prev_instr_max;

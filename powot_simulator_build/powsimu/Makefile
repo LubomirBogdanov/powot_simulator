@@ -764,6 +764,7 @@ main.o: ../../powsimu/main.cpp ../../../../programs/Qt_5_11_2/5.11.2/gcc_64/incl
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QProcess \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qprocess.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QTextStream \
+		../../powot_simulator/config.h \
 		../../powot_simulator/fileio.h \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/QFile \
 		../../../../programs/Qt_5_11_2/5.11.2/gcc_64/include/QtCore/qfile.h \

@@ -37,6 +37,7 @@ enum errors{
     OBJDUMP_FAILED,
     SYMBOLLIST_FAILED,
     MODEL_NOT_LOADED,
+    MODEL_XML_NOT_LOADED,
     CONFIG_NOT_LOADED, //Requires a file name as the second parameter.
     SRC_ENTRY_NOT_FOUND, //Requires a name of a function as the second parameter.
     LOOP_LOW_INVALID, //Requires the for( ) loop that failed as the second parameter.

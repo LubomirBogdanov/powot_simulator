@@ -61,7 +61,7 @@ powotsimulator::powotsimulator(QString *provider, QString *arch, QString *mcu){
     bin_model_path = modelsdir;
     bin_model_file = *mcu;
 
-    readconfiguration();
+    read_configuration();
 
     qDebug()<<"(powotsimulator) MCU provider: "<<provider_name;
     qDebug()<<"(powotsimulator) MCU: "<<mcu_name;
@@ -93,7 +93,7 @@ powotsimulator::powotsimulator(sim_params_t *sim_prms){
     mdl_domains.addr_ranges = NULL;
     mdl = NULL;
 
-    readconfiguration();
+    read_configuration();
 
     parse_model_def_domains(&sim_prms->default_domains, &def_domains);
 

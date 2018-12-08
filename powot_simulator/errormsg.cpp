@@ -60,6 +60,9 @@ void errormsg::display_error(int errnum, const QString *msg){
     case MODEL_NOT_LOADED:
         qDebug()<<"(powotsimulator) ERROR: model failed to load!";
         break;
+    case MODEL_XML_NOT_LOADED:
+        qDebug()<<"(powotsimulator) ERROR: auxiliary XML model failed to load!";
+        break;
     case CONFIG_NOT_LOADED:
         qDebug()<<"(powotsimulator) ERROR: config file "<<*msg<<" failed to load!";
         break;

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
+QT       += xml
 
 TARGET = powot_simulator
 TEMPLATE = lib
@@ -14,9 +15,6 @@ DEFINES += POWOT_SIMULATOR_LIBRARY
 SOURCES += powotsimulator.cpp \
     fileio.cpp \
     errormsg.cpp \
-    readconfiguration.cpp \
-    convertbytearray_qstringlist.cpp \
-    startsimulation.cpp \
     gdbdump_file.cpp \
     analyze_statements.cpp \
     count_number_of_statements.cpp \
@@ -25,7 +23,6 @@ SOURCES += powotsimulator.cpp \
     check_if_function_call.cpp \
     estimate_function_call.cpp \
     analyze_assembly.cpp \
-    symbollist_file.cpp \
     check_if_for_loop.cpp \
     estimate_for_loop.cpp \
     estimate_for_loop_extend.cpp \
@@ -47,7 +44,12 @@ SOURCES += powotsimulator.cpp \
     estimate_num_operands.cpp \
     get_model_metrics.cpp \
     version.cpp \
-    invoke_cmd_line.cpp
+    invoke_cmd_line.cpp \
+    parse_aux_model_xml.cpp \
+    read_configuration.cpp \
+    start_simulation.cpp \
+    convert_bytearray_stringlist.cpp \
+    symbol_list_file.cpp
 
 HEADERS += powotsimulator.h\
         powot_simulator_global.h \
