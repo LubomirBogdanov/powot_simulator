@@ -27,4 +27,85 @@ Available instruction types:
 	-->
 	<divisor>1326000</divisor>
 
+	<domains>
+		<memory>
+			<flash_memory>
+				<start>0x00000000</start>
+				<end>0x00040000</end>
+			</flash_memory>
+			<sram_memory>
+				<start>0x20000000</start>
+				<end>0x20010000</end>
+			</sram_memory>
+		</memory>
+		<temperatures>
+			<temperature> 27.0</temperature>
+		</temperatures>
+		<voltages>
+			<voltage>3.3</voltage>
+		</voltages>
+		<frequencies>
+			<frequency>10</frequency>
+			<frequency>20</frequency>
+			<frequency>30</frequency>
+			<frequency>40</frequency>
+			<frequency>50</frequency>
+			<frequency>80</frequency>
+		</frequencies>
+		<number_of_operands>
+			<operands>0</operands>
+			<operands>1</operands>
+			<operands>2</operands>
+			<operands>3</operands>
+			<operands>4</operands>
+		</number_of_operands>
+	</domains>
+	<!-- DVS_API - voltage, V - execution time, ms - consumed energy, uJ -->
+	<dvs_apis>
+		<dvs_api>
+			<dvs_api_prototype>SysCtlCPUVoltage(LDO0, VOLT1_2);</dvs_api_prototype>
+			<voltage>3.3</voltage>
+			<exec_time>20.00</exec_time>
+			<energy>3.45</energy>
+		</dvs_api>
+	</dvs_apis>
+	<!-- DFS_API - frequency, MHz - execution time, ms - consumed energy, uJ -->
+	<dfs_apis>
+		<dfs_api>
+			<dfs_api_prototype>SysCtlClockSet(SYSCTL_SYSDIV_20 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);</dfs_api_prototype>
+			<frequency>10</frequency>
+			<exec_time>0.0266</exec_time>
+			<energy>0.505613</energy>
+		</dfs_api>
+		<dfs_api>
+			<dfs_api_prototype>SysCtlClockSet(SYSCTL_SYSDIV_10 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);</dfs_api_prototype>
+			<frequency>20</frequency>
+			<exec_time>0.0247</exec_time>
+			<energy>0.469498</energy>
+		</dfs_api>
+		<dfs_api>
+			<dfs_api_prototype>SysCtlClockSet(SYSCTL_SYSDIV_7 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);</dfs_api_prototype>
+			<frequency>30</frequency>
+			<exec_time>0.02125</exec_time>
+			<energy>0.403920</energy>
+		</dfs_api>
+		<dfs_api>
+			<dfs_api_prototype>SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);</dfs_api_prototype>
+			<frequency>40</frequency>
+			<exec_time>0.01935</exec_time>
+			<energy>0.367805</energy>
+		</dfs_api>
+		<dfs_api>
+			<dfs_api_prototype>SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);</dfs_api_prototype>
+			<frequency>50</frequency>
+			<exec_time>0.01916</exec_time>
+			<energy>0.364193</energy>
+		</dfs_api>
+		<dfs_api>
+			<dfs_api_prototype>SysCtlClockSet(SYSCTL_SYSDIV_2_5 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);</dfs_api_prototype>
+			<frequency>80</frequency>
+			<exec_time>0.023444</exec_time>
+			<energy>0.445624</energy>
+		</dfs_api>
+	</dfs_apis>
 </auxiliary_model>
