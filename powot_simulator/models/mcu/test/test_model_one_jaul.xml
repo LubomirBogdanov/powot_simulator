@@ -28,16 +28,18 @@ Available instruction types:
 	<divisor>1326000</divisor>
 
 	<domains>
-		<memory>
-			<flash_memory>
+		<memory_ranges>
+			<memory>
+				<memory_name>FLASH</memory_name>
 				<start>0x00000000</start>
 				<end>0x00040000</end>
-			</flash_memory>
-			<sram_memory>
+			</memory>
+			<memory>
+				<memory_name>SRAM</memory_name>
 				<start>0x20000000</start>
 				<end>0x20010000</end>
-			</sram_memory>
-		</memory>
+			</memory>
+		</memory_ranges>
 		<temperatures>
 			<temperature> 27.0</temperature>
 		</temperatures>

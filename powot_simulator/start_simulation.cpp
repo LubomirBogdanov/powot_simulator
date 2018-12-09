@@ -52,7 +52,8 @@ energyfield_t *powotsimulator::start_simulation(quint32 *size){
         e_table_size = count_number_of_statements(&entry_point_symbol_contents, &no_debug_info);
         qDebug()<<"(powotsimulator) Function "<<source_entry_point<<" consists of "<<e_table_size<<" lines! ";
         e_table = new energyfield_t[e_table_size];        
-        analyze_statements(&entry_point_symbol_contents, e_table);        
+
+        analyze_statements(&entry_point_symbol_contents, e_table);
 
         //Produce C statement energy costs out of the assembly costs.
         for(unsigned long i = 0; i < e_table_size; i++){

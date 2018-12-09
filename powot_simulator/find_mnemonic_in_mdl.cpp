@@ -23,18 +23,20 @@
 bool powotsimulator::find_mnemonic_in_mdl(QString *asm_mnemonic){
     bool instr_found = 0;
 
-    //qDebug()<<"find_mnemonic_in_mdl: asm_mnemonic = "<<asm_mnemonic;
+    //qDebug()<<"find_mnemonic_in_mdl: asm_mnemonic = "<<*asm_mnemonic;
 
     //Check to see if we can find the asm_mnemonic in the model file
-    for(unsigned long i = 0; i < num_instr_in_mdl_file; i++){
-        if(mdl[i].mnemonic == *asm_mnemonic){
-            instr_found = 1;
-            break;
+    if(mdl != NULL){
+        for(unsigned long i = 0; i < num_instr_in_mdl_file; i++){
+            if(mdl[i].mnemonic == *asm_mnemonic){
+                instr_found = 1;
+                break;
+            }
         }
-    }
 
-    if(!instr_found){
-        err_message.display_error(INSTR_NOT_FOUND_IN_MDL, asm_mnemonic);
+        if(!instr_found){
+            err_message.display_error(INSTR_NOT_FOUND_IN_MDL, asm_mnemonic);
+        }
     }
 
     return instr_found;

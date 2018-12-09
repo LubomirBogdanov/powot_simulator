@@ -54,7 +54,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
         //qDebug()<<"----"<<line;
         line1 = line.section(' ', 0, 0);
         if(line1.contains("0x")){
-
             //Extract assembly instruction
             e_field.asm_instr << line.section(' ', 2);
             arr[energy_field_num-1].asm_instr << e_field.asm_instr.last();
@@ -74,7 +73,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             //qDebug()<<"analyze_statements: asm_mnemonic = "<<asm_mnemonic;
 
             if(find_mnemonic_in_mdl(&asm_mnemonic)){
-
                 //Match the address asm_vma with the corresponding address domain name from the model file and fill in the corresponding ASM field.
                 for(unsigned long j = 0; j < mdl_domains.num_addr_ranges; j++){
                     if((mdl_domains.addr_ranges[j].at(0) <= e_field.asm_vma.last()) && (e_field.asm_vma.last() <= mdl_domains.addr_ranges[j].at(1))){
@@ -112,7 +110,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             //-------------------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------------------
-
             //Multiply the energy cost if the assembly instruction is inside a loop
             //qDebug()<<"+++"<<energy_cost<<" "<<arr[energy_field_num-1];
             arr[energy_field_num-1].asm_repeated << (arr[energy_field_num-1].asm_base_energy_cost.last() * arr[energy_field_num-1].repeated);
@@ -235,7 +232,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
         }
     }
     //-------------------------------------
-
     //List for( ) loop execution times------------------------------------
     //Make a list of the number of execution times for each for( ) loop.
     //What we do here is basically update the field "arr[i].repeated" for each
@@ -248,7 +244,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             //qDebug()<<"for_loop_extend: "<<arr[i].for_loop_start<<" <--> "<<arr[i].for_loop_end;
         }
     }
-
     //Make a list of the loops in an array. Use the format: loop_start <-> loop_end <-> statement number
     num_loops *= 3;
     arr_loop_boundaries = new unsigned long[num_loops];
@@ -263,7 +258,6 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             loop_count+=3;
         }
     }
-
     /*for(unsigned long i = 0; i < num_loops; i++){
         if(i%3 == 0){
             qDebug()<<" ";

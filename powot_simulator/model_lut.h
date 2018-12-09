@@ -50,14 +50,14 @@ typedef struct {
 
 //Info structure describing the domains in a model
 typedef struct {
-    QList <unsigned long> *addr_ranges;
+    QList<unsigned long> *addr_ranges;
     unsigned long num_addr_ranges;    
     //-------------Domains----------------
     QStringList addr_ranges_names;
-    QList <unsigned long> operand_domains;
-    QList <float> temperature_domains;
-    QList <float> voltage_domains;
-    QList <float> frequency_domains;
+    QList<unsigned long> operand_domains;
+    QList<float> temperature_domains;
+    QList<float> voltage_domains;
+    QList<float> frequency_domains;
     //------------------------------------
     QString metrics;
     float metrics_div;

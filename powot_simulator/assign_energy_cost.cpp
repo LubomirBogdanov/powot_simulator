@@ -247,7 +247,7 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
             energy = 0.0;
         }
     }
-    qDebug()<<"(powotsimulator) binary_model_output: "<<binary_model_output;
+    //qDebug()<<"(powotsimulator) binary_model_output: "<<binary_model_output;
 
     enrgfield[statement_num].asm_base_energy_cost << energy;
 }
