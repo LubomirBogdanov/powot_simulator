@@ -258,7 +258,7 @@ int main(int argc, char *argv[]){
             if(no_opt_entered == 0){
                 printusage();
             }
-            break;
+            return EXIT_FAILURE;
         }
         no_opt_entered = 1;
 
