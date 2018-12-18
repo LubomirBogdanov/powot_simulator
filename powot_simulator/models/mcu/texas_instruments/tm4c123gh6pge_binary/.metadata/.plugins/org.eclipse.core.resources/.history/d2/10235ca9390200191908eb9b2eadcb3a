@@ -1,0 +1,45 @@
+/*
+ ============================================================================
+ Name        : tm4c123gh6pge.c
+ Author      : Lubomir Bogdanov
+ Version     :
+ Copyright   : 2018 Lubomir Bogdanov
+ Description :
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
+
+#define CMD_INSTR_C	3000
+
+static const char *short_options = "";
+
+static const struct option long_options[] = {
+		{ "instr_c", required_argument, 0,  CMD_INSTR_C},
+		{ 0, 0, 0, 0 }
+};
+
+int main(int argc, char *argv[]) {
+	int opt = 0;
+	int opt_index = 1;
+
+	opterr = 0; //Disable printing errors to stderr by getopt_long().
+
+	while(1){
+		opt = getopt_long(argc, argv, short_options, long_options, &opt_index);
+
+		if(opt == -1){
+			break;
+		}
+
+		switch(opt){
+		case CMD_INSTR_C:
+			printf("10.00\n");
+			break;
+		}
+	}
+
+	return EXIT_SUCCESS;
+}

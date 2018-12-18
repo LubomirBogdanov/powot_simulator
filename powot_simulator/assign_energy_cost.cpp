@@ -236,7 +236,7 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         cmd_line_final += cmd_line_following.at(i);
         cmd_line_final += ' ';
     }
-    //qDebug()<<"****"<<cmd_line_final;
+    qDebug()<<"(powotsimulator) cmd_line_final: "<<cmd_line_final;
 
     binary_model_output = invoke_cmd_line(&bin_model_path, &bin_model_file, &cmd_line_final);
     if(!binary_model_output.isEmpty()){
