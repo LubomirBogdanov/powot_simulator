@@ -28,7 +28,7 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 
 	strcpy(cmd_line_local, cmd_param);
 
-	printf("cmd_param ->%s<-\n", cmd_param);
+	//printf("cmd_param ->%s<-\n", cmd_param);
 
 	ptr = strtok(cmd_line_local, " ");
 
@@ -47,28 +47,14 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 			printf("t -> %f\n", parsed_instr->domains.tempr_domain);
 			break;
 		case 3:
-			printf("ptr ===== %s\n\r", ptr);
-			if(strcmp("FLASH", ptr) == 0){
-				parsed_instr->domains.mem_type = FLASH;
-			}
-			else if(strcmp("SRAM", ptr) == 0){
-				parsed_instr->domains.mem_type = SRAM;
-			}
-			else{
-				parsed_instr->domains.mem_type = UNKNOWN;
-			}
-			printf("mem_type -> %d\n", parsed_instr->domains.mem_type);
+			parsed_instr->domains.mem_addr = atohex(ptr);
+			printf("mem_vma -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
 			break;
 		case 4:
-			parsed_instr->domains.mem_addr = atohex(ptr);
-			printf("mem_addr -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
-
-			break;
-		case 5:
 			strcpy(parsed_instr->instr_mnemonic, ptr);
 			printf("mnem -> %s\n", parsed_instr->instr_mnemonic);
 			break;
-		case 6:
+		case 5:
 			terminate_parse = 1;
 			break;
 		default:
@@ -84,8 +70,8 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 	}
 
 	operands_comments_extract(cmd_param, ptr, parsed_instr->instr_operands, parsed_instr->instr_comments);
-	printf("ops -> %s\n", parsed_instr->instr_operands);
-	printf("comm -> %s\n", parsed_instr->instr_comments);
+	//printf("ops -> %s\n", parsed_instr->instr_operands);
+	//printf("comm -> %s\n", parsed_instr->instr_comments);
 
 }
 

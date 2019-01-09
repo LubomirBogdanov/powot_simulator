@@ -34,10 +34,10 @@ double get_instr_energy(instruction_desc_t *iut){
 			for(j = 0; j < tm4c_isa[i]->num_of_mem_domains; j++){
 				if(iut->domains.mem_type){
 					printf("instr found!\n\r");
-					break;
 				}
 			}
 		}
+
 	}
 
 	return 0;

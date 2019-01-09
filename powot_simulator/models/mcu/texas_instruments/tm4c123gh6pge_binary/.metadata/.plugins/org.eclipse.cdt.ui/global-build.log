@@ -3859,3 +3859,230 @@ Invoking: GCC C Linker
 gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
 Finished building target: tm4c123gh6pge
  
+02:25:59 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:26:01 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:27:16 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:27:18 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:27:44 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:31:35 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+../src/instr_parser.c: In function ‘parse_cmd’:
+../src/instr_parser.c:58:4: error: incompatible type for argument 1 of ‘strcpy’
+    strcpy(parsed_instr->domains.mem_type, ptr);
+    ^
+In file included from /home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc/tm4c123gh6pge.h:26:0,
+                 from /home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc/instr_parser.h:24,
+                 from ../src/instr_parser.c:21:
+/usr/include/string.h:129:14: note: expected ‘char * __restrict__’ but argument is of type ‘mem_domain_e’
+ extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+              ^
+../src/instr_parser.c:68:4: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘unsigned int’ [-Wformat=]
+    printf("mem_type -> %s\n", parsed_instr->domains.mem_type);
+    ^
+make: *** [src/instr_parser.o] Error 1
+02:31:42 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+../src/instr_parser.c: In function ‘parse_cmd’:
+../src/instr_parser.c:67:4: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘unsigned int’ [-Wformat=]
+    printf("mem_type -> %s\n", parsed_instr->domains.mem_type);
+    ^
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:31:57 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:32:00 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:32:59 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:33:02 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:33:50 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:33:52 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:36:16 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:36:18 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:37:44 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:37:46 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:38:09 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:38:26 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/get_instr_energy.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/get_instr_energy.d" -MT"src/get_instr_energy.d" -o "src/get_instr_energy.o" "../src/get_instr_energy.c"
+../src/get_instr_energy.c: In function ‘get_instr_energy’:
+../src/get_instr_energy.c:29:28: warning: unused variable ‘m’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                            ^
+../src/get_instr_energy.c:29:25: warning: unused variable ‘l’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                         ^
+../src/get_instr_energy.c:29:22: warning: unused variable ‘k’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                      ^
+Finished building: ../src/get_instr_energy.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:38:31 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:38:42 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/get_instr_energy.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/get_instr_energy.d" -MT"src/get_instr_energy.d" -o "src/get_instr_energy.o" "../src/get_instr_energy.c"
+../src/get_instr_energy.c: In function ‘get_instr_energy’:
+../src/get_instr_energy.c:29:28: warning: unused variable ‘m’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                            ^
+../src/get_instr_energy.c:29:25: warning: unused variable ‘l’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                         ^
+../src/get_instr_energy.c:29:22: warning: unused variable ‘k’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                      ^
+Finished building: ../src/get_instr_energy.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
+02:38:45 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+make: Nothing to be done for `all'.
+02:38:56 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+make all 
+Building file: ../src/get_instr_energy.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/get_instr_energy.d" -MT"src/get_instr_energy.d" -o "src/get_instr_energy.o" "../src/get_instr_energy.c"
+../src/get_instr_energy.c: In function ‘get_instr_energy’:
+../src/get_instr_energy.c:29:28: warning: unused variable ‘m’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                            ^
+../src/get_instr_energy.c:29:25: warning: unused variable ‘l’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                         ^
+../src/get_instr_energy.c:29:22: warning: unused variable ‘k’ [-Wunused-variable]
+  unsigned long i, j, k, l, m;
+                      ^
+Finished building: ../src/get_instr_energy.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 

@@ -60,13 +60,11 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 			printf("mem_type -> %d\n", parsed_instr->domains.mem_type);
 			break;
 		case 4:
-			parsed_instr->domains.mem_addr = atohex(ptr);
-			printf("mem_addr -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
-
-			break;
-		case 5:
 			strcpy(parsed_instr->instr_mnemonic, ptr);
 			printf("mnem -> %s\n", parsed_instr->instr_mnemonic);
+			break;
+		case 5:
+
 			break;
 		case 6:
 			terminate_parse = 1;

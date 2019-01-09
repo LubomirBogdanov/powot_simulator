@@ -38,6 +38,7 @@ double get_instr_energy(instruction_desc_t *iut){
 				}
 			}
 		}
+
 	}
 
 	return 0;
