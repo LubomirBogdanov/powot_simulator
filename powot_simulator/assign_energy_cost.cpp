@@ -279,8 +279,8 @@ QString powotsimulator::generate_cmd_line(energyfield_t *enrgfield, long asm_mne
     temp_line += QString::number(enrgfield->voltage_domain.at(asm_mnemonic_num), 'f', 3);
     temp_line += " ";
     temp_line += QString::number(enrgfield->temperature_domain.at(asm_mnemonic_num), 'f', 3);
-    //temp_line += " ";
-    //temp_line += enrgfield->addr_range_name.at(asm_mnemonic_num);
+    temp_line += " ";
+    temp_line += enrgfield->addr_range_name.at(asm_mnemonic_num);
     temp_line += " 0x";
     temp_line += QString::number(enrgfield->asm_vma.at(asm_mnemonic_num), 16);
     temp_line += " ";
