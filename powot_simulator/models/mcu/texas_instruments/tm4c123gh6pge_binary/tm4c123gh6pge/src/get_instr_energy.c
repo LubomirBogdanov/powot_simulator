@@ -1,0 +1,45 @@
+/*
+    Copyright (C) 2019 Lubomir Bogdanov
+
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
+
+    This file is part of Powot Simulator.
+
+    Powot Simulator is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Powot Simulator is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Powot Simulator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include <stdint.h>
+#include <string.h>
+#include <stdio.h>
+#include "get_instr_energy.h"
+#include "isa.h"
+
+double get_instr_energy(instruction_desc_t *iut){
+	int result;
+	unsigned long i, j, k, l, m;
+
+	for(i = 0; i < NUM_OF_INSTRUCTIONS; i++){
+		result = strcmp(iut->instr_mnemonic, tm4c_isa[i]->instr_mnemonic);
+		if(!result){
+			for(j = 0; j < tm4c_isa[i]->num_of_mem_domains; j++){
+				if(iut->domains.mem_type){
+
+				}
+				printf("instr found!\n\r");
+			}
+		}
+
+	}
+
+	return 0;
+}

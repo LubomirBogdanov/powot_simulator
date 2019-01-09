@@ -25,19 +25,39 @@
 
 #define MAX_BUFF_SIZE	64
 
+typedef enum {
+	FLASH,
+	SRAM,
+	UNKNOWN
+} mem_domain_e;
+
 typedef struct {
-	double freq_domain;
-	double volt_domain;
+	uint32_t mem_addr;
+	mem_domain_e mem_type;
 	double tempr_domain;
-	uint32_t mem_domain;
+	double volt_domain;
+	double freq_domain;
+	uint32_t num_of_operands;
+	double consumed_time;
+	double consumed_energy;
 }domain_t;
 
 typedef struct {
-	domain_t domains;
 	char instr_mnemonic[MAX_BUFF_SIZE];
 	char instr_operands[MAX_BUFF_SIZE];
 	char instr_comments[MAX_BUFF_SIZE];
+	domain_t domains;
 }instruction_desc_t;
+
+typedef struct {
+	char instr_mnemonic[MAX_BUFF_SIZE];
+	uint8_t num_of_mem_domains;
+	uint8_t num_of_tempr_domains;
+	uint8_t num_of_volt_domains;
+	uint8_t num_of_freq_domains;
+	uint8_t num_of_operand_domains;
+	domain_t domains[30];
+}instruction_t;
 
 
 #endif /* COMMON_H_ */

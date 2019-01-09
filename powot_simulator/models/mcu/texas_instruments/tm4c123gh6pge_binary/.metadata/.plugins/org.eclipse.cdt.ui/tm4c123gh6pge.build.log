@@ -1,6 +1,15 @@
-02:58:51 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+02:11:21 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
 make all 
-make: Nothing to be done for `all'.
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building target: tm4c123gh6pge
+Invoking: GCC C Linker
+gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
+Finished building target: tm4c123gh6pge
+ 
 
-02:58:52 Build Finished (took 75ms)
+02:11:21 Build Finished (took 162ms)
 

@@ -244,7 +244,7 @@ int main(int argc, char *argv[]){
     unsigned long pipeline_forward = 0xFFFF, pipeline_backward = 0xFFFF;
 
     sim_prms.default_domains = {
-        " ", 0, 0, 0, 0, " ", 0
+        "", 0, 0, 0, 0, "", 0
     };
 
     sim_prms.arch_model_type = MODEL_TAB_LUT;

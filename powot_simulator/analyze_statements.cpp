@@ -34,7 +34,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
     QString line, line1, line2, asm_mnemonic;
     bool is_digit;
     bool flag = 0;
-    bool instr_found = 0;
+    bool instr_mem_found = 0;
     energyfield_t e_field;
     unsigned long energy_field_num = 0;
     unsigned long for_loop_start = 0;
@@ -57,7 +57,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             //Extract assembly instruction
             e_field.asm_instr << line.section(' ', 2);
             arr[energy_field_num-1].asm_instr << e_field.asm_instr.last();
-            //qDebug()<<e_field.asm_instr.last();
+            //qDebug()<<e_field.asm_instr.last();energy_field_num++
 
             //Extract virtual memory address of the assembly instruction
             line2 = line1.section('x', 1);
@@ -73,40 +73,66 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
             //qDebug()<<"analyze_statements: asm_mnemonic = "<<asm_mnemonic;
 
             if(find_mnemonic_in_mdl(&asm_mnemonic)){
-                //Match the address asm_vma with the corresponding address domain name from the model file and fill in the corresponding ASM field.
+                //Process memory domains------------------------------------------------------------------------------
+                //Match the address asm_vma with the corresponding address domain name from
+                //the model file and fill in the corresponding ASM field.
                 for(unsigned long j = 0; j < mdl_domains.num_addr_ranges; j++){
                     if((mdl_domains.addr_ranges[j].at(0) <= e_field.asm_vma.last()) && (e_field.asm_vma.last() <= mdl_domains.addr_ranges[j].at(1))){
-                        //qDebug()<<"instruction "<<asm_mnemonic<<" at 0x"<<hex<<asm_vma<<" is in: "<<mdl_domains.addr_ranges_names[i];
+                        //qDebug()<<"instruction "<<asm_mnemonic<<" at 0x"<<hex<<e_field.asm_vma.last()<<" is in: "<<mdl_domains.addr_ranges_names[j];
                         arr[energy_field_num-1].addr_range_name << mdl_domains.addr_ranges_names[j];
-                        instr_found = 1;
+                        instr_mem_found = 1;
                         break;
                     }
                 }
 
-                if(!instr_found){
-                    instr_found = 0;
+                //Assign defaults for the mnemonic
+                if(!instr_mem_found){
                     err_message.display_error(DOMAIN_NOT_FOUND_IN_MDL, &asm_mnemonic);
                     arr[energy_field_num-1].addr_range_name << def_domains.default_addr_range;
                 }
-
-                //Assign defaults for the mnemonic
                 arr[energy_field_num-1].temperature_domain << def_domains.default_temperature;
                 arr[energy_field_num-1].voltage_domain << def_domains.default_voltage;
                 arr[energy_field_num-1].frequency_domain << def_domains.default_frequency;
                 arr[energy_field_num-1].num_of_operands << def_domains.default_operand;
-
-                //assign_energy_cost(asm_mnemonic, &arr[energy_field_num-1]);
                 arr[energy_field_num-1].asm_base_energy_cost << 1.00;
+                //----------------------------------------------------------------------------------------------------
             }
             else{
-                //Mnemonic not found in model. Assign default values for everything and energy cost of zero.
-                arr[energy_field_num-1].addr_range_name << def_domains.default_addr_range;
-                arr[energy_field_num-1].frequency_domain << def_domains.default_frequency;
-                arr[energy_field_num-1].num_of_operands << def_domains.default_operand;
-                arr[energy_field_num-1].temperature_domain << def_domains.default_temperature;
-                arr[energy_field_num-1].voltage_domain << def_domains.default_voltage;
-                arr[energy_field_num-1].asm_base_energy_cost << 0.0;
+                switch(arch_model_type){
+                case MODEL_TAB_LUT:
+                    //Mnemonic not found in model. Assign default values for everything and energy cost of zero.
+                    arr[energy_field_num-1].addr_range_name << def_domains.default_addr_range;
+                    arr[energy_field_num-1].frequency_domain << def_domains.default_frequency;
+                    arr[energy_field_num-1].num_of_operands << def_domains.default_operand;
+                    arr[energy_field_num-1].temperature_domain << def_domains.default_temperature;
+                    arr[energy_field_num-1].voltage_domain << def_domains.default_voltage;
+                    arr[energy_field_num-1].asm_base_energy_cost << 0.0;
+                    break;
+                case MODEL_BINARY:
+                    //Process memory domains-----------------------------------------------------------------------------------
+                    //If find_mnemonic_in_mdl( ) failed, the instruction's mem region still could be extracted
+                    for(unsigned long j = 0; j < mdl_domains.num_addr_ranges; j++){
+                        if((mdl_domains.addr_ranges[j].at(0) <= e_field.asm_vma.last()) && (e_field.asm_vma.last() <= mdl_domains.addr_ranges[j].at(1))){
+                            qDebug()<<"instruction "<<asm_mnemonic<<" at 0x"<<hex<<e_field.asm_vma.last()<<" is in: "<<mdl_domains.addr_ranges_names[j];
+                            arr[energy_field_num-1].addr_range_name << mdl_domains.addr_ranges_names[j];
+                            instr_mem_found = 1;
+                            break;
+                        }
+                    }
+                    if(!instr_mem_found){
+                        err_message.display_error(DOMAIN_NOT_FOUND_IN_MDL, &asm_mnemonic);
+                        arr[energy_field_num].addr_range_name << def_domains.default_addr_range;
+                    }
+                    arr[energy_field_num-1].frequency_domain << def_domains.default_frequency;
+                    arr[energy_field_num-1].num_of_operands << def_domains.default_operand;
+                    arr[energy_field_num-1].temperature_domain << def_domains.default_temperature;
+                    arr[energy_field_num-1].voltage_domain << def_domains.default_voltage;
+                    arr[energy_field_num-1].asm_base_energy_cost << 0.0;
+                    //-------------------------------------------------------------------------------------------------------------
+                    break;
+                }
             }
+
             //-------------------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------------------
@@ -452,6 +478,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
            //qDebug()<<" "<<arr[i].asm_instr.at(j)<<" "<<arr[i].voltage_domain.at(j);
        }
    }*/
+    qDebug()<<"analyze_statements done!";
 }
 
 void powotsimulator::multiply_nested_loops(unsigned long *arr_loop_boundaries, unsigned long num_of_loops, unsigned long loop_index, energyfield_t *arr, unsigned long energy_field_num){
