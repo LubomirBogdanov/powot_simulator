@@ -1,5 +1,10 @@
-02:38:56 **** Incremental Build of configuration Debug for project tm4c123gh6pge ****
+23:45:08 **** Build of configuration Debug for project tm4c123gh6pge ****
 make all 
+Building file: ../src/aux.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/aux.d" -MT"src/aux.d" -o "src/aux.o" "../src/aux.c"
+Finished building: ../src/aux.c
+ 
 Building file: ../src/get_instr_energy.c
 Invoking: GCC C Compiler
 gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/get_instr_energy.d" -MT"src/get_instr_energy.d" -o "src/get_instr_energy.o" "../src/get_instr_energy.c"
@@ -15,11 +20,21 @@ gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu
                       ^
 Finished building: ../src/get_instr_energy.c
  
+Building file: ../src/instr_parser.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/instr_parser.d" -MT"src/instr_parser.d" -o "src/instr_parser.o" "../src/instr_parser.c"
+Finished building: ../src/instr_parser.c
+ 
+Building file: ../src/tm4c123gh6pge.c
+Invoking: GCC C Compiler
+gcc -I"/home/crusader/git_projects/powot_simulator_v2/powot_simulator/models/mcu/texas_instruments/tm4c123gh6pge_binary/tm4c123gh6pge/inc" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/tm4c123gh6pge.d" -MT"src/tm4c123gh6pge.d" -o "src/tm4c123gh6pge.o" "../src/tm4c123gh6pge.c"
+Finished building: ../src/tm4c123gh6pge.c
+ 
 Building target: tm4c123gh6pge
 Invoking: GCC C Linker
 gcc  -o "tm4c123gh6pge"  ./src/aux.o ./src/get_instr_energy.o ./src/instr_parser.o ./src/tm4c123gh6pge.o   -lm
 Finished building target: tm4c123gh6pge
  
 
-02:38:56 Build Finished (took 113ms)
+23:45:09 Build Finished (took 490ms)
 

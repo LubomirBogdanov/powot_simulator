@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;tm4c123gh6pge/inc/isa.h&apos;" deleteContents="false" description="Delete resource &apos;tm4c123gh6pge/inc/isa.h&apos;" element1="/tm4c123gh6pge/inc/isa.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1548193377746"/>&#x0A;<refactoring comment="Delete resource &apos;tm4c123gh6pge/inc/isa_SINGLE.h&apos;" deleteContents="false" description="Delete resource &apos;tm4c123gh6pge/inc/isa_SINGLE.h&apos;" element1="/tm4c123gh6pge/inc/isa_SINGLE.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1548193489942"/>
+</session>

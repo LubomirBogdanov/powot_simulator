@@ -51,6 +51,13 @@ public:
     void insert_define(const char *define_name, const char *define_value, QStringList &string_list);
     void insert_newline(QStringList &string_list);
     void insert_array(const char *arr_type, const char *arr_name, const char *arr_size, QStringList &arr_elements, QStringList &string_list);
+    void insert_struct(const char *struct_type, const char *struct_name, int tabs_before, QStringList &string_list);
+    void insert_struct_field(const char *field_name, const char *field_value, int tabs_before, QStringList &string_list);
+    void insert_struct_struct_field(const char *field_name, int tabs_before, QStringList &string_list);
+    void insert_struct_initializers(QStringList init_names, QStringList init_values, int tabs_before, QStringList &string_list);
+    void find_in_list_add(QString &search_value, QStringList &string_list);
+    void detect_domain_sizes(QStringList &instr_desc, QString &mem_sz_str, QString &tempr_sz_str, QString &volt_sz_str, QString &freq_sz_str, QString &ops_sz_str);
+    QString convert_dot_to_slash(const QString &string_val);
 };
 
 

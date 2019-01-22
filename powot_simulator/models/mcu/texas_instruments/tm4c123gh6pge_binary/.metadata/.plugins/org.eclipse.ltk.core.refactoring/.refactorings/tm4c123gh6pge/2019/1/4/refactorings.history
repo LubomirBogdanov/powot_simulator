@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;tm4c123gh6pge/inc/isa.h&apos; to &apos;isa_SINGLE.h&apos;" description="Rename resource &apos;isa.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="inc/isa.h" name="isa_SINGLE.h" stamp="1548193124748" updateReferences="true"/>
+</session>

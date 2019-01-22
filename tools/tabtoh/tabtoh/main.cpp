@@ -46,7 +46,7 @@ void printusage(){
               "-o or - -output [FILE_NAME] - output file of type C header file.\n"
               "-m or - -model_name [MODEL_NAME] - the name of the modeled architecture.\n"
               "\nExample launch:"
-              "\n./tabtoh \n";
+              "\n./tabtoh -m tm4c123gh6pge -i /path/to/model/tm4c123gh6pge.mdl -o /path/to/model/isa.h\n";
 }
 
 int main(int argc, char *argv[]){
@@ -102,6 +102,9 @@ int main(int argc, char *argv[]){
         if(tabtoh_converter){
             if(tabtoh_converter->convert()){
                 qDebug()<<"ERROR: conversion failed!";
+            }
+            else{
+                qDebug()<<"Conversion succeeded!";
             }
         }
     }

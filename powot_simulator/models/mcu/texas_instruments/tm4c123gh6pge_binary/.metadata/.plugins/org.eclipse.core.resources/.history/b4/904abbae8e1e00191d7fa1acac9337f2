@@ -4,7 +4,7 @@
 
 #include "common.h"
 
-#define NUM_OF_INSTRUCTIONS 186
+#define NUM_OF_INSTRUCTIONS 188
 
 const instruction_t add = {
 	.instr_mnemonic = "add",
@@ -497,6 +497,35 @@ const instruction_t bic = {
 		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 40.0, .num_of_operands = 3, .consumed_time = 35.050, .consumed_energy = 13.8},
 		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 50.0, .num_of_operands = 2, .consumed_time = 26.550, .consumed_energy = 13.1},
 		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 50.0, .num_of_operands = 3, .consumed_time = 26.550, .consumed_energy = 13.1},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 80.0, .num_of_operands = 2, .consumed_time = 16.450, .consumed_energy = 17.6},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 80.0, .num_of_operands = 3, .consumed_time = 16.550, .consumed_energy = 17.8},
+	}
+};
+
+const instruction_t bic = {
+	.instr_mnemonic = "bic",
+	.num_of_mem_domains = 1,
+	.num_of_tempr_domains = 1,
+	.num_of_volt_domains = 1,
+	.num_of_freq_domains = 6,
+	.num_of_operand_domains = 3,
+	.domains = {
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 10.0, .num_of_operands = 0, .consumed_time = 139.000, .consumed_energy = 6.88},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 10.0, .num_of_operands = 2, .consumed_time = 139.000, .consumed_energy = 6.88},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 10.0, .num_of_operands = 3, .consumed_time = 140.000, .consumed_energy = 6.96},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 20.0, .num_of_operands = 0, .consumed_time = 69.000, .consumed_energy = 9.2},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 20.0, .num_of_operands = 2, .consumed_time = 69.000, .consumed_energy = 9.2},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 20.0, .num_of_operands = 3, .consumed_time = 70.000, .consumed_energy = 9.2},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 30.0, .num_of_operands = 0, .consumed_time = 48.000, .consumed_energy = 11.4},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 30.0, .num_of_operands = 2, .consumed_time = 48.000, .consumed_energy = 11.4},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 30.0, .num_of_operands = 3, .consumed_time = 49.000, .consumed_energy = 11.3},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 40.0, .num_of_operands = 0, .consumed_time = 35.050, .consumed_energy = 13.9},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 40.0, .num_of_operands = 2, .consumed_time = 35.050, .consumed_energy = 13.9},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 40.0, .num_of_operands = 3, .consumed_time = 35.050, .consumed_energy = 13.8},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 50.0, .num_of_operands = 0, .consumed_time = 26.550, .consumed_energy = 13.1},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 50.0, .num_of_operands = 2, .consumed_time = 26.550, .consumed_energy = 13.1},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 50.0, .num_of_operands = 3, .consumed_time = 26.550, .consumed_energy = 13.1},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 80.0, .num_of_operands = 0, .consumed_time = 16.450, .consumed_energy = 17.6},
 		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 80.0, .num_of_operands = 2, .consumed_time = 16.450, .consumed_energy = 17.6},
 		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 80.0, .num_of_operands = 3, .consumed_time = 16.550, .consumed_energy = 17.8},
 	}
@@ -2219,6 +2248,23 @@ const instruction_t mvn_w = {
 	}
 };
 
+const instruction_t nop = {
+	.instr_mnemonic = "nop",
+	.num_of_mem_domains = 1,
+	.num_of_tempr_domains = 1,
+	.num_of_volt_domains = 1,
+	.num_of_freq_domains = 6,
+	.num_of_operand_domains = 1,
+	.domains = {
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 10.0, .num_of_operands = 2, .consumed_time = 133.000, .consumed_energy = 5.68},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 20.0, .num_of_operands = 2, .consumed_time = 67.000, .consumed_energy = 7.36},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 30.0, .num_of_operands = 2, .consumed_time = 46.000, .consumed_energy = 8.88},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 40.0, .num_of_operands = 2, .consumed_time = 34.050, .consumed_energy = 10.9},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 50.0, .num_of_operands = 2, .consumed_time = 26.050, .consumed_energy = 10.6},
+		{.mem_addr = 0, .mem_type = FLASH, .tempr_domain = 27.0, .volt_domain = 3.3, .freq_domain = 80.0, .num_of_operands = 2, .consumed_time = 16.550, .consumed_energy = 14.6},
+	}
+};
+
 const instruction_t orn = {
 	.instr_mnemonic = "orn",
 	.num_of_mem_domains = 1,
@@ -3820,27 +3866,27 @@ const instruction_t bx = {
 const instruction_t* tm4c_isa[NUM_OF_INSTRUCTIONS] = {
 &add, &addw, &vadd_f32, &adds, &adds_w, &add_w, &addc, &adc_w, &addc_w, 
 &adr, &and, &ands, &ands_w, &and_w, &asr, &asr_w, &asrs, 
-&bfc, &bfi, &bic, &bic_w, &nop, &nop_w, &bl, &blt_w, 
-&blt_n, &bls_n, &bls_w, &clrex, &clz, &cpsid_l, &cpsid_f, &cpsie_l, 
-&cpsie_f, &dmb, &dsb, &b, &bmi_n, &bhi_w, &bhi_n, &bcc_n, 
-&bcc_w, &bcs_n, &b_n, &b_w, &beq_n, &beq_w, &bne_n, &bne_w, 
-&bgt_n, &bgt_w, &bge_n, &bge_w, &ble_n, &ble_w, &eor, &eor_w, 
-&eors, &isb, &ITTE_NE, &it, &ite, &ldm, &ldmdb, &ldmea, 
-&ldmfd, &ldmia, &ldmia_w, &ldr, &vldr, &ldr_w, &ldrb, &ldrb_w, 
-&ldrd, &ldrex, &ldrexb, &ldrexh, &ldrh, &ldrh_w, &ldrsb, &ldrsb_w, 
-&ldrsh, &ldrsh_w, &ldrst, &lsl, &lsl_w, &lsr, &lsr_w, &lsrs, 
-&mla, &mls, &mov, &vmov_f32, &movcs, &movcc, &movne, &moveq, 
-&mov_w, &movw, &movt, &mrs, &vmrs, &msr, &mul, &vmul_f32, 
-&mul_w, &mvn, &mvns, &mvn_w, &orn, &orr, &orrs, &orrs_w, 
-&orr_w, &push, &pop, &rbit, &rev, &rev16, &revsh, &ror, 
-&rsb, &negs, &sbc, &sbc_w, &sbcs_w, &sbfx, &sdiv, &vdiv_f32, 
-&sev, &smlal, &smull, &ssat, &stm, &stc, &stmdb, &stmea, 
-&stmfd, &stmia, &stmia_w, &str, &vstr, &str_w, &strb, &strb_w, 
-&strd, &strex, &strexb, &strexh, &strh, &strh_w, &sub, &sub_w, 
-&vsub_f32, &subw, &svc, &sxtb, &sxth, &tbb, &ubfx, &udiv, 
-&umlal, &umull, &usat, &uxtb, &uxth, &cmn, &cmn_w, &cmp, 
-&vcmp_f32, &cbnz, &cbz, &cmpeq, &vcmpe_f32, &cmp_w, &lsls, &movs, 
-&movlt, &vmov, &subs, &teq, &tst, &tst_w, &tbh, &blx, 
-&bx, 
+&bfc, &bfi, &bic, &bic, &bic_w, &nop, &nop_w, &bl, 
+&blt_w, &blt_n, &bls_n, &bls_w, &clrex, &clz, &cpsid_l, &cpsid_f, 
+&cpsie_l, &cpsie_f, &dmb, &dsb, &b, &bmi_n, &bhi_w, &bhi_n, 
+&bcc_n, &bcc_w, &bcs_n, &b_n, &b_w, &beq_n, &beq_w, &bne_n, 
+&bne_w, &bgt_n, &bgt_w, &bge_n, &bge_w, &ble_n, &ble_w, &eor, 
+&eor_w, &eors, &isb, &ITTE_NE, &it, &ite, &ldm, &ldmdb, 
+&ldmea, &ldmfd, &ldmia, &ldmia_w, &ldr, &vldr, &ldr_w, &ldrb, 
+&ldrb_w, &ldrd, &ldrex, &ldrexb, &ldrexh, &ldrh, &ldrh_w, &ldrsb, 
+&ldrsb_w, &ldrsh, &ldrsh_w, &ldrst, &lsl, &lsl_w, &lsr, &lsr_w, 
+&lsrs, &mla, &mls, &mov, &vmov_f32, &movcs, &movcc, &movne, 
+&moveq, &mov_w, &movw, &movt, &mrs, &vmrs, &msr, &mul, 
+&vmul_f32, &mul_w, &mvn, &mvns, &mvn_w, &nop, &orn, &orr, 
+&orrs, &orrs_w, &orr_w, &push, &pop, &rbit, &rev, &rev16, 
+&revsh, &ror, &rsb, &negs, &sbc, &sbc_w, &sbcs_w, &sbfx, 
+&sdiv, &vdiv_f32, &sev, &smlal, &smull, &ssat, &stm, &stc, 
+&stmdb, &stmea, &stmfd, &stmia, &stmia_w, &str, &vstr, &str_w, 
+&strb, &strb_w, &strd, &strex, &strexb, &strexh, &strh, &strh_w, 
+&sub, &sub_w, &vsub_f32, &subw, &svc, &sxtb, &sxth, &tbb, 
+&ubfx, &udiv, &umlal, &umull, &usat, &uxtb, &uxth, &cmn, 
+&cmn_w, &cmp, &vcmp_f32, &cbnz, &cbz, &cmpeq, &vcmpe_f32, &cmp_w, 
+&lsls, &movs, &movlt, &vmov, &subs, &teq, &tst, &tst_w, 
+&tbh, &blx, &bx, 
 };
 #endif
