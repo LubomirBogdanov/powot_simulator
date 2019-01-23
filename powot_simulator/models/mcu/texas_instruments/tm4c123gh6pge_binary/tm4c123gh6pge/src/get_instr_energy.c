@@ -25,20 +25,46 @@
 #include "isa.h"
 
 double get_instr_energy(instruction_desc_t *iut){
-	int result;
-	unsigned long i, j, k, l, m;
+	double result = 0.0;
+	int str_differ;
+	unsigned long i, j, k, l, m, n;
+	uint8_t instr_found = 0;
 
 	for(i = 0; i < NUM_OF_INSTRUCTIONS; i++){
-		result = strcmp(iut->instr_mnemonic, tm4c_isa[i]->instr_mnemonic);
-		if(!result){
-			for(j = 0; j < tm4c_isa[i]->num_of_mem_domains; j++){
-				if(iut->domains.mem_type){
-					printf("instr found!\n\r");
-					break;
+		str_differ = strcmp(iut->instr_mnemonic, tm4c_isa[i]->instr_mnemonic);
+		if(!str_differ){
+			for(j = 0; j < MAX_BUFF_SIZE; j++){
+				if(iut->domains.mem_type == tm4c_isa[i]->domains[j].mem_type){
+					for(k = j; k < MAX_BUFF_SIZE; k++){
+						if(iut->domains.tempr_domain == tm4c_isa[i]->domains[k].tempr_domain){
+							for(l = k; l < MAX_BUFF_SIZE; l++){
+								if(iut->domains.volt_domain == tm4c_isa[i]->domains[l].volt_domain){
+									for(m = l; m < MAX_BUFF_SIZE; m++){
+										if(iut->domains.freq_domain == tm4c_isa[i]->domains[m].freq_domain){
+											for(n = m; n < MAX_BUFF_SIZE; n++){
+												if(iut->domains.num_of_operands == tm4c_isa[i]->domains[n].num_of_operands){
+													instr_found = 1;
+													result = tm4c_isa[i]->domains[n].consumed_time * tm4c_isa[i]->domains[n].consumed_current * tm4c_isa[i]->domains[n].volt_domain;
+													goto end;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
 	}
 
-	return 0;
+end:
+	//printf("j%ld k%ld l%ld m%ld, n%ld\n", j, k, l, m, n);
+
+	if(!instr_found){
+		printf("err\n");
+	}
+
+	return result;
 }

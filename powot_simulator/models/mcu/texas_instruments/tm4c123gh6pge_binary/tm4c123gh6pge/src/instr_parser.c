@@ -28,7 +28,7 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 
 	strcpy(cmd_line_local, cmd_param);
 
-	printf("cmd_param ->%s<-\n", cmd_param);
+	//printf("cmd_param ->%s<-\n", cmd_param);
 
 	ptr = strtok(cmd_line_local, " ");
 
@@ -36,18 +36,18 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 		switch(field_counter){
 		case 0:
 			parsed_instr->domains.freq_domain = atof(ptr);
-			printf("f -> %f\n", parsed_instr->domains.freq_domain);
+			//printf("f -> %f\n", parsed_instr->domains.freq_domain);
 			break;
 		case 1:
 			parsed_instr->domains.volt_domain = atof(ptr);
-			printf("v -> %f\n", parsed_instr->domains.volt_domain);
+			//printf("v -> %f\n", parsed_instr->domains.volt_domain);
 			break;
 		case 2:
 			parsed_instr->domains.tempr_domain = atof(ptr);
-			printf("t -> %f\n", parsed_instr->domains.tempr_domain);
+			//printf("t -> %f\n", parsed_instr->domains.tempr_domain);
 			break;
 		case 3:
-			printf("ptr ===== %s\n\r", ptr);
+			//printf("ptr ===== %s\n\r", ptr);
 			if(strcmp("FLASH", ptr) == 0){
 				parsed_instr->domains.mem_type = FLASH;
 			}
@@ -57,16 +57,16 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 			else{
 				parsed_instr->domains.mem_type = UNKNOWN;
 			}
-			printf("mem_type -> %d\n", parsed_instr->domains.mem_type);
+			//printf("mem_type -> %d\n", parsed_instr->domains.mem_type);
 			break;
 		case 4:
 			parsed_instr->domains.mem_addr = atohex(ptr);
-			printf("mem_addr -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
+			//printf("mem_addr -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
 
 			break;
 		case 5:
 			strcpy(parsed_instr->instr_mnemonic, ptr);
-			printf("mnem -> %s\n", parsed_instr->instr_mnemonic);
+			//printf("mnem -> %s\n", parsed_instr->instr_mnemonic);
 			break;
 		case 6:
 			terminate_parse = 1;
@@ -84,8 +84,10 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 	}
 
 	operands_comments_extract(cmd_param, ptr, parsed_instr->instr_operands, parsed_instr->instr_comments);
-	printf("ops -> %s\n", parsed_instr->instr_operands);
-	printf("comm -> %s\n", parsed_instr->instr_comments);
+	parsed_instr->domains.num_of_operands = operands_count(parsed_instr->instr_operands);
+	//printf("ops -> %s\n", parsed_instr->instr_operands);
+	//printf("# of ops: %d\n", parsed_instr->domains.num_of_operands);
+	//printf("comm -> %s\n", parsed_instr->instr_comments);
 
 }
 
@@ -112,6 +114,34 @@ void operands_comments_extract(char *cmd, char *op_comm, char *operand, char *co
 		strncpy(operand, ops_plus_comm, (comm - ops_plus_comm));
 	}
 	else{
-		strcpy(operand, ops_plus_comm);
+		//strcpy(operand, ops_plus_comm);
+		strcpy(operand, "");
 	}
+}
+
+uint32_t operands_count(char *op_string){
+	char *char_pos;
+	uint32_t count = 1;
+	uint8_t no_operands = 1;
+
+	char_pos = strchr(op_string,',');
+
+	while (char_pos != NULL){
+		no_operands = 0;
+		count++;
+		char_pos = strchr(char_pos+1,',');
+	}
+
+	if(no_operands){
+		if(!strlen(op_string)){
+			count = 0;
+		}
+		else{
+			if((!strcmp(op_string, " "))){
+				count = 0;
+			}
+		}
+	}
+
+	return count;
 }

@@ -39,7 +39,7 @@ typedef struct {
 	double freq_domain;
 	uint32_t num_of_operands;
 	double consumed_time;
-	double consumed_energy;
+	double consumed_current;
 }domain_t;
 
 typedef struct {
@@ -56,7 +56,7 @@ typedef struct {
 	uint8_t num_of_volt_domains;
 	uint8_t num_of_freq_domains;
 	uint8_t num_of_operand_domains;
-	domain_t domains[30];
+	domain_t domains[MAX_BUFF_SIZE];
 }instruction_t;
 
 

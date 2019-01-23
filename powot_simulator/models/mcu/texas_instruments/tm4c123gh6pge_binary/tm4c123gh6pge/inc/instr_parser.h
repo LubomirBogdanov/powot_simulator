@@ -25,5 +25,6 @@
 
 void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr);
 void operands_comments_extract(char *cmd, char *op_comm, char *operand, char *comment);
+uint32_t operands_count(char *op_string);
 
 #endif /* INSTR_PARSER_H_ */

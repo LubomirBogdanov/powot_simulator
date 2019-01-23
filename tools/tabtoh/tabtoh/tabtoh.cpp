@@ -475,7 +475,7 @@ QStringList tabtoh::parse_and_convert_instr(QStringList &instr_desc){
             energy_time = instr_desc.at(i).section('\t', 5, 5);
             init_names << "consumed_time";
             init_values << energy_time.section(',', 0, 0);
-            init_names << "consumed_energy";
+            init_names << "consumed_current";
             init_values << energy_time.section(',', 1, 1);
         }
 

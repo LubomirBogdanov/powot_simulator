@@ -1,0 +1,64 @@
+/*
+    Copyright (C) 2019 Lubomir Bogdanov
+
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
+
+    This file is part of Powot Simulator.
+
+    Powot Simulator is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Powot Simulator is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Powot Simulator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include <stdint.h>
+#include <string.h>
+#include <stdio.h>
+#include "get_instr_energy.h"
+#include "isa.h"
+
+double get_instr_energy(instruction_desc_t *iut){
+	double
+	int str_differ;
+	unsigned long i, j, k, l, m, n;
+
+	for(i = 0; i < NUM_OF_INSTRUCTIONS; i++){
+		str_cmp = strcmp(iut->instr_mnemonic, tm4c_isa[i]->instr_mnemonic);
+		if(!str_cmp){
+			for(j = 0; j < MAX_BUFF_SIZE; j++){
+				if(iut->domains.mem_type == tm4c_isa[i]->domains[j].mem_type){
+					for(k = j; k < MAX_BUFF_SIZE; k++){
+						if(iut->domains.tempr_domain == tm4c_isa[i]->domains[k].tempr_domain){
+							for(l = k; l < MAX_BUFF_SIZE; l++){
+								if(iut->domains.volt_domain == tm4c_isa[i]->domains[l].volt_domain){
+									for(m = l; m < MAX_BUFF_SIZE; m++){
+										if(iut->domains.freq_domain == tm4c_isa[i]->domains[m].freq_domain){
+											for(n = m; n < MAX_BUFF_SIZE; n++){
+												if(iut->domains.num_of_operands == tm4c_isa[i]->domains[n].num_of_operands){
+													printf("@\n");
+													goto end;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+end:
+	printf("j%ld k%ld l%ld m%ld, n%ld\n", j, k, l, m, n);
+
+	return 0;
+}
