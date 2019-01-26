@@ -21,7 +21,7 @@
 #include "powotsimulator.h"
 
 void powotsimulator::assign_energy_cost_tab_lut(QString asm_mnemonic, long asm_mnemonic_num, energyfield_t *enrgfield){
-    float energy = 0;
+    double energy = 0;
     long index_addr = -1;
     long index_temp = -1;
     long index_voltage = -1;
@@ -236,7 +236,7 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         cmd_line_final += cmd_line_following.at(i);
         cmd_line_final += ' ';
     }
-    qDebug()<<"(powotsimulator) cmd_line_final: "<<cmd_line_final;
+    //qDebug()<<"(powotsimulator) cmd_line_final: "<<cmd_line_final;
 
     binary_model_output = invoke_cmd_line(&bin_model_path, &bin_model_file, &cmd_line_final);
     if(!binary_model_output.isEmpty()){
@@ -244,6 +244,9 @@ void powotsimulator::assign_energy_cost_binary(energyfield_t *enrgfield, unsigne
         bool ok;
         energy = temp_value.toDouble(&ok);
         if(!ok){
+            if(temp_value.contains("err")){
+                err_message.display_error(INSTR_NOT_FOUND_IN_MDL, &enrgfield[statement_num].asm_mnemonic.at(asm_mnemonic_num));
+            }
             energy = 0.0;
         }
     }

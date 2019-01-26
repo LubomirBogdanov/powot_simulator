@@ -21,7 +21,14 @@
 #ifndef GET_INSTR_ENERGY_H_
 #define GET_INSTR_ENERGY_H_
 
+#include "tm4c123gh6pge.h"
 #include "common.h"
+
+#ifdef DEBUG_GET_INSTR_ENERGY_ENABLE
+	#define DEBUG_GETINSTR(...) printf(__VA_ARGS__)
+#else
+	#define DEBUG_GETINSTR(...)
+#endif
 
 double get_instr_energy(instruction_desc_t *iut);
 

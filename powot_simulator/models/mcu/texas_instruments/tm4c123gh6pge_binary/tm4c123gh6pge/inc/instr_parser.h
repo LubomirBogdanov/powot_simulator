@@ -20,11 +20,21 @@
 */
 #ifndef INSTR_PARSER_H_
 #define INSTR_PARSER_H_
-
+# include <stddef.h>
+# include <features.h>
+# include <bits/types.h>
+#include <stdarg.h>
 #include "tm4c123gh6pge.h"
+
+#ifdef DEBUG_PARSER_ENABLE
+	#define DEBUG_PARSER(...) printf(__VA_ARGS__)
+#else
+	#define DEBUG_PARSER(...)
+#endif
 
 void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr);
 void operands_comments_extract(char *cmd, char *op_comm, char *operand, char *comment);
 uint32_t operands_count(char *op_string);
+uint32_t str_num_of_occurences(char *input_str, char ch);
 
 #endif /* INSTR_PARSER_H_ */

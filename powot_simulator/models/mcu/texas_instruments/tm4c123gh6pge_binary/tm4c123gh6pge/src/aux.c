@@ -21,6 +21,7 @@
 #include "aux.h"
 
 unsigned long atohex(char *hex_str){
+	char *hex_str_local_ptr;
 	char *ptr;
 	int field_counter = 0;
 	int hex_len;
@@ -28,7 +29,7 @@ unsigned long atohex(char *hex_str){
 	int lsb_to_msb = 0;
 	uint32_t result = 0;
 
-	ptr = strtok_r(hex_str, "x", &hex_str);
+	ptr = strtok_r(hex_str, "x", &hex_str_local_ptr);
 
 	while (ptr != NULL){
 		if(field_counter == 1){
@@ -39,7 +40,7 @@ unsigned long atohex(char *hex_str){
 			}
 		}
 		field_counter++;
-		ptr = strtok_r(hex_str, "x", &hex_str);
+		ptr = strtok_r(NULL, "x", &hex_str_local_ptr);
 	}
 
 	return result;

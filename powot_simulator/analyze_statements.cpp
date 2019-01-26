@@ -113,7 +113,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
                     //If find_mnemonic_in_mdl( ) failed, the instruction's mem region still could be extracted
                     for(unsigned long j = 0; j < mdl_domains.num_addr_ranges; j++){
                         if((mdl_domains.addr_ranges[j].at(0) <= e_field.asm_vma.last()) && (e_field.asm_vma.last() <= mdl_domains.addr_ranges[j].at(1))){
-                            qDebug()<<"instruction "<<asm_mnemonic<<" at 0x"<<hex<<e_field.asm_vma.last()<<" is in: "<<mdl_domains.addr_ranges_names[j];
+                            //qDebug()<<"instruction "<<asm_mnemonic<<" at 0x"<<hex<<e_field.asm_vma.last()<<" is in: "<<mdl_domains.addr_ranges_names[j];
                             arr[energy_field_num-1].addr_range_name << mdl_domains.addr_ranges_names[j];
                             instr_mem_found = 1;
                             break;
@@ -478,7 +478,7 @@ void powotsimulator::analyze_statements(QStringList *sym_cont, energyfield_t *ar
            //qDebug()<<" "<<arr[i].asm_instr.at(j)<<" "<<arr[i].voltage_domain.at(j);
        }
    }*/
-    qDebug()<<"analyze_statements done!";
+    //qDebug()<<"analyze_statements done!";
 }
 
 void powotsimulator::multiply_nested_loops(unsigned long *arr_loop_boundaries, unsigned long num_of_loops, unsigned long loop_index, energyfield_t *arr, unsigned long energy_field_num){

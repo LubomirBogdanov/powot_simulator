@@ -1,0 +1,109 @@
+/*
+    Copyright (C) 2018 Lubomir Bogdanov
+
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
+
+    This file is part of Powot Simulator.
+
+    Powot Simulator is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Powot Simulator is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Powot Simulator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include "aux.h"
+
+unsigned long atohex(char *hex_str){
+	char hex_str_local[MAX_BUFF_SIZE];
+	char *hex_str_local_ptr;
+	char *ptr;
+	int field_counter = 0;
+	int hex_len;
+	int i;
+	int lsb_to_msb = 0;
+	uint32_t result = 0;
+
+	strcpy(hex_str_local, hex_str);
+printf("7777%s\n", hex_str_local);
+	ptr = strtok_r(hex_str, "x", &hex_str_local_ptr);
+printf("####%s\n", ptr);
+	while (ptr != '\0'){
+		if(field_counter == 1){
+			hex_len = strlen(ptr);
+			for(i = hex_len - 1; i >= 0; i--){
+				result += (hex_to_decimal(&ptr[i]) * (pow(16, lsb_to_msb)));
+				lsb_to_msb++;
+			}
+		}
+		field_counter++;
+		ptr = strtok_r(NULL, "x", &hex_str_local_ptr);
+		printf("~~~~%s\n", ptr);
+	}
+
+	return result;
+}
+
+uint8_t hex_to_decimal(char *digit){
+	uint8_t dec_digit;
+
+	if(*digit >= 0x30 && *digit <= 0x39){
+		dec_digit = digit[0] - 0x30;
+	}
+	else if(*digit >= 'a' && *digit <= 'f'){
+		switch(*digit){
+		case 'a':
+			dec_digit = 10;
+			break;
+		case 'b':
+			dec_digit = 11;
+			break;
+		case 'c':
+			dec_digit = 12;
+			break;
+		case 'd':
+			dec_digit = 13;
+			break;
+		case 'e':
+			dec_digit = 14;
+			break;
+		case 'f':
+			dec_digit = 15;
+			break;
+		}
+	}
+	else if(*digit >= 'A' && *digit <= 'F'){
+		switch(*digit){
+		case 'A':
+			dec_digit = 10;
+			break;
+		case 'B':
+			dec_digit = 11;
+			break;
+		case 'C':
+			dec_digit = 12;
+			break;
+		case 'D':
+			dec_digit = 13;
+			break;
+		case 'E':
+			dec_digit = 14;
+			break;
+		case 'F':
+			dec_digit = 15;
+			break;
+		}
+	}
+	else{
+		dec_digit = 0;
+	}
+
+	return dec_digit;
+}
+

@@ -59,7 +59,11 @@ int main(int argc, char *argv[]) {
 
 	base_energy_cost = get_instr_energy(&simulated_instr);
 
-	printf("%f\n", base_energy_cost);
+	base_energy_cost /= DIVISOR;
+
+	if(base_energy_cost){
+		printf("%f\n", base_energy_cost);
+	}
 
 	return EXIT_SUCCESS;
 }

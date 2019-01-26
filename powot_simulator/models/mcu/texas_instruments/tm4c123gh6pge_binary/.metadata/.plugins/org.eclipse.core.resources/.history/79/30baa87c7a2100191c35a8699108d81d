@@ -1,0 +1,176 @@
+/*
+    Copyright (C) 2018 Lubomir Bogdanov
+
+    Contributor Lubomir Bogdanov <lbogdanov@tu-sofia.bg>
+
+    This file is part of Powot Simulator.
+
+    Powot Simulator is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Powot Simulator is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Powot Simulator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include "instr_parser.h"
+
+void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
+	char cmd_line_local[MAX_BUFF_SIZE];
+	int field_counter = 0;
+	char *ptr;
+	uint8_t terminate_parse = 0;
+
+	strcpy(cmd_line_local, cmd_param);
+
+	DEBUG_PARSER("cmd_param ->%s<-\n", cmd_param);
+
+	ptr = strtok(cmd_line_local, " ");
+
+	while (ptr != NULL){
+		printf(".\n");
+		switch(field_counter){
+		case 0:
+			parsed_instr->domains.freq_domain = atof(ptr);
+			DEBUG_PARSER("f -> %f\n", parsed_instr->domains.freq_domain);
+			break;
+		case 1:
+			parsed_instr->domains.volt_domain = atof(ptr);
+			DEBUG_PARSER("v -> %f\n", parsed_instr->domains.volt_domain);
+			break;
+		case 2:
+			parsed_instr->domains.tempr_domain = atof(ptr);
+			DEBUG_PARSER("t -> %f\n", parsed_instr->domains.tempr_domain);
+			break;
+		case 3:
+			DEBUG_PARSER("ptr ===== %s\n\r", ptr);
+			if(strcmp("FLASH", ptr) == 0){
+				parsed_instr->domains.mem_type = FLASH;
+			}
+			else if(strcmp("SRAM", ptr) == 0){
+				parsed_instr->domains.mem_type = SRAM;
+			}
+			else{
+				parsed_instr->domains.mem_type = UNKNOWN;
+			}
+			DEBUG_PARSER("mem_type -> %d\n", parsed_instr->domains.mem_type);
+			break;
+		case 4:
+			parsed_instr->domains.mem_addr = atohex(ptr);
+			DEBUG_PARSER("mem_addr -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
+			break;
+		case 5:
+			strcpy(parsed_instr->instr_mnemonic, ptr);
+			DEBUG_PARSER("mnem -> %s\n", parsed_instr->instr_mnemonic);
+			break;
+		case 6:
+			terminate_parse = 1;
+			break;
+		default:
+			break;
+		}
+
+		field_counter++;
+
+		if(terminate_parse){
+			break;
+		}
+		ptr = strtok (NULL, " ");
+	}
+	printf("1.");;
+	operands_comments_extract(cmd_param, ptr, parsed_instr->instr_operands, parsed_instr->instr_comments);
+	printf("2.");
+	parsed_instr->domains.num_of_operands = operands_count(parsed_instr->instr_operands);
+	printf("3.");
+	DEBUG_PARSER("ops -> %s\n", parsed_instr->instr_operands);
+	DEBUG_PARSER("# of ops: %d\n", parsed_instr->domains.num_of_operands);
+	DEBUG_PARSER("comm -> %s\n", parsed_instr->instr_comments);
+
+}
+
+void operands_comments_extract(char *cmd, char *op_comm, char *operand, char *comment){
+	char *ops_plus_comm;
+	char *comm;
+	//printf("\n\nf(%s, %s, %s, %s)\n\n", cmd, op_comm, operand, comment);
+
+	if(*op_comm){
+		printf("--------\n");
+		ops_plus_comm = strstr(cmd, op_comm);
+		comm = strstr(ops_plus_comm, ";");
+		if(comm == NULL){
+			comm = strstr(ops_plus_comm, "<");
+			if(comm == NULL){
+				*comment = '\0';
+			}
+			else{
+				strcpy(comment, comm);
+			}
+		}
+		else{
+			strcpy(comment, comm);
+		}
+
+		if(comm > ops_plus_comm){
+			strncpy(operand, ops_plus_comm, (comm - ops_plus_comm));
+		}
+		else{
+			strcpy(operand, ops_plus_comm);
+		}
+	}
+	else{
+		printf("*********\n");
+		strcpy(operand, " ");
+	}
+}
+
+uint32_t operands_count(char *op_string){
+	uint32_t count = 1;
+	char *indexed_addr_mode = 0;
+	char *double_register = 0;
+
+	count = str_num_of_occurences(op_string, ',');
+	if(count){
+		count++;
+	}
+
+	indexed_addr_mode = strchr(op_string,'[');
+	if(indexed_addr_mode){
+		count--;
+	}
+
+	double_register = strchr(op_string,'{');
+	if(double_register){
+
+	}
+
+	if(!count){
+		if(strlen(op_string)){
+			count = 1;
+		}
+		else if(!strcmp(op_string, " ")){
+			printf("PRUC\n");
+			count = 0;
+		}
+	}
+
+	return count;
+}
+
+uint32_t str_num_of_occurences(char *input_str, char ch){
+	uint32_t count = 0;
+	char *char_pos;
+
+	char_pos = strchr(input_str, ch);
+
+	while (char_pos != NULL){
+		count++;
+		char_pos = strchr(char_pos+1, ch);
+	}
+
+	return count;
+}

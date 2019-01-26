@@ -28,7 +28,7 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 
 	strcpy(cmd_line_local, cmd_param);
 
-	//printf("cmd_param ->%s<-\n", cmd_param);
+	DEBUG_PARSER("cmd_param ->%s<-\n", cmd_param);
 
 	ptr = strtok(cmd_line_local, " ");
 
@@ -36,18 +36,18 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 		switch(field_counter){
 		case 0:
 			parsed_instr->domains.freq_domain = atof(ptr);
-			//printf("f -> %f\n", parsed_instr->domains.freq_domain);
+			DEBUG_PARSER("f -> %f\n", parsed_instr->domains.freq_domain);
 			break;
 		case 1:
 			parsed_instr->domains.volt_domain = atof(ptr);
-			//printf("v -> %f\n", parsed_instr->domains.volt_domain);
+			DEBUG_PARSER("v -> %f\n", parsed_instr->domains.volt_domain);
 			break;
 		case 2:
 			parsed_instr->domains.tempr_domain = atof(ptr);
-			//printf("t -> %f\n", parsed_instr->domains.tempr_domain);
+			DEBUG_PARSER("t -> %f\n", parsed_instr->domains.tempr_domain);
 			break;
 		case 3:
-			//printf("ptr ===== %s\n\r", ptr);
+			DEBUG_PARSER("ptr ===== %s\n\r", ptr);
 			if(strcmp("FLASH", ptr) == 0){
 				parsed_instr->domains.mem_type = FLASH;
 			}
@@ -57,16 +57,15 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 			else{
 				parsed_instr->domains.mem_type = UNKNOWN;
 			}
-			//printf("mem_type -> %d\n", parsed_instr->domains.mem_type);
+			DEBUG_PARSER("mem_type -> %d\n", parsed_instr->domains.mem_type);
 			break;
 		case 4:
 			parsed_instr->domains.mem_addr = atohex(ptr);
-			//printf("mem_addr -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
-
+			DEBUG_PARSER("mem_addr -> 0x%08X\n", (unsigned int)parsed_instr->domains.mem_addr);
 			break;
 		case 5:
 			strcpy(parsed_instr->instr_mnemonic, ptr);
-			//printf("mnem -> %s\n", parsed_instr->instr_mnemonic);
+			DEBUG_PARSER("mnem -> %s\n", parsed_instr->instr_mnemonic);
 			break;
 		case 6:
 			terminate_parse = 1;
@@ -85,9 +84,9 @@ void parse_cmd(char *cmd_param, instruction_desc_t *parsed_instr){
 
 	operands_comments_extract(cmd_param, ptr, parsed_instr->instr_operands, parsed_instr->instr_comments);
 	parsed_instr->domains.num_of_operands = operands_count(parsed_instr->instr_operands);
-	//printf("ops -> %s\n", parsed_instr->instr_operands);
-	//printf("# of ops: %d\n", parsed_instr->domains.num_of_operands);
-	//printf("comm -> %s\n", parsed_instr->instr_comments);
+	DEBUG_PARSER("ops -> %s\n", parsed_instr->instr_operands);
+	DEBUG_PARSER("# of ops: %d\n", parsed_instr->domains.num_of_operands);
+	DEBUG_PARSER("comm -> %s\n", parsed_instr->instr_comments);
 
 }
 
@@ -95,51 +94,79 @@ void operands_comments_extract(char *cmd, char *op_comm, char *operand, char *co
 	char *ops_plus_comm;
 	char *comm;
 
-	ops_plus_comm = strstr(cmd, op_comm);
-	comm = strstr(ops_plus_comm, ";");
-	if(comm == NULL){
-		comm = strstr(ops_plus_comm, "<");
+	if(op_comm){
+		ops_plus_comm = strstr(cmd, op_comm);
+		comm = strstr(ops_plus_comm, ";");
 		if(comm == NULL){
-			*comment = '\0';
+			comm = strstr(ops_plus_comm, "<");
+			if(comm == NULL){
+				*comment = '\0';
+			}
+			else{
+				strcpy(comment, comm);
+			}
 		}
 		else{
 			strcpy(comment, comm);
 		}
-	}
-	else{
-		strcpy(comment, comm);
-	}
 
-	if(comm > ops_plus_comm){
-		strncpy(operand, ops_plus_comm, (comm - ops_plus_comm));
+		if(comm > ops_plus_comm){
+			strncpy(operand, ops_plus_comm, (comm - ops_plus_comm));
+		}
+		else{
+			strcpy(operand, ops_plus_comm);
+		}
 	}
 	else{
-		//strcpy(operand, ops_plus_comm);
-		strcpy(operand, "");
+		strcpy(operand, " ");
+		strcpy(comment, "");
 	}
 }
 
 uint32_t operands_count(char *op_string){
-	char *char_pos;
 	uint32_t count = 1;
-	uint8_t no_operands = 1;
+	char *indexed_addr_mode = 0;
+	char *double_register = 0;
+	uint32_t delimiter_count;
 
-	char_pos = strchr(op_string,',');
-
-	while (char_pos != NULL){
-		no_operands = 0;
+	count = str_num_of_occurences(op_string, ',');
+	if(count){
 		count++;
-		char_pos = strchr(char_pos+1,',');
 	}
 
-	if(no_operands){
-		if(!strlen(op_string)){
+	indexed_addr_mode = strchr(op_string,'[');
+	if(indexed_addr_mode){
+		delimiter_count = str_num_of_occurences(indexed_addr_mode, ',');
+		count -= delimiter_count;
+	}
+
+	double_register = strchr(op_string,'{');
+	if(double_register){
+		delimiter_count = str_num_of_occurences(double_register, ',');
+		count -= delimiter_count;
+	}
+
+	if(!count){
+		if(strlen(op_string) && strcmp(op_string, " ")){
+			count = 1;
+		}
+		else if(!strcmp(op_string, " ")){
 			count = 0;
 		}
-		else{
-			if((!strcmp(op_string, " "))){
-				count = 0;
-			}
+	}
+
+	return count;
+}
+
+uint32_t str_num_of_occurences(char *input_str, char ch){
+	uint32_t count = 0;
+	char *char_pos;
+
+	if(input_str){
+		char_pos = strchr(input_str, ch);
+		while (char_pos != NULL){
+			count++;
+			char_pos = strchr(char_pos+1, ch);
 		}
 	}
 

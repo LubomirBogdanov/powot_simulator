@@ -60,7 +60,8 @@ double get_instr_energy(instruction_desc_t *iut){
 	}
 
 end:
-	//printf("j%ld k%ld l%ld m%ld, n%ld\n", j, k, l, m, n);
+	DEBUG_GETINSTR("j%ld k%ld l%ld m%ld, n%ld\n", j, k, l, m, n);
+	//DEBUG_GETINSTR("E = t * I * V <-> %f = %f * %f *%f\n", result, tm4c_isa[i]->domains[n].consumed_time, tm4c_isa[i]->domains[n].consumed_current, tm4c_isa[i]->domains[n].volt_domain);
 
 	if(!instr_found){
 		printf("err\n");

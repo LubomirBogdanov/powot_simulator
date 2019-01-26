@@ -17,7 +17,7 @@
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_START_MODE" value="run"/>
 <booleanAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN_SYMBOL" value="main"/>
-<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_ARGUMENTS" value="--instr_c &quot;10.000 3.300 27.000 SRAM 0x8250 add r1, r2; 0x833c &lt;main+248&gt;&quot;"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROGRAM_ARGUMENTS" value="--instr_c &quot;10.000 3.300 27.000 FLASH 0x8260 strh r2,[r3]&quot;"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="Debug/tm4c123gh6pge"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="tm4c123gh6pge"/>
 <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="true"/>
