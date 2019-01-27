@@ -1,0 +1,27 @@
+//Taken from https://github.com/mageec/beebs
+
+//BIN model
+./powsimu -j ../../examples/beebs_part/bubblesort.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e BubbleSort -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/compress.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e compress -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/crc_32.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e crc32pseudo -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/cubic.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e SolveCubic -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/expint.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e expint -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/fibcall.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e fib -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/fir.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e fir_filter_int -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/huffbench.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e compdecomp -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/picojpeg.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e decodeNextMCU -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/sqrt.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e sqrtfcn -b --set_pipeline_forward 0 --set_pipeline_backward 0
+./powsimu -j ../../examples/beebs_part/wikisort.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e WikiSort -b --set_pipeline_forward 0 --set_pipeline_backward 0
+
+//TAB_LUT model
+./powsimu -j ../../examples/beebs_part/bubblesort.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e BubbleSort
+./powsimu -j ../../examples/beebs_part/compress.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e compress
+./powsimu -j ../../examples/beebs_part/crc_32.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e crc32pseudo
+./powsimu -j ../../examples/beebs_part/cubic.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e SolveCubic
+./powsimu -j ../../examples/beebs_part/expint.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e expint
+./powsimu -j ../../examples/beebs_part/fibcall.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e fib
+./powsimu -j ../../examples/beebs_part/fir.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e fir_filter_int
+./powsimu -j ../../examples/beebs_part/huffbench.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e compdecomp
+./powsimu -j ../../examples/beebs_part/picojpeg.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e decodeNextMCU
+./powsimu -j ../../examples/beebs_part/sqrt.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e sqrtfcn
+./powsimu -j ../../examples/beebs_part/wikisort.o -a arm-cortex-m4 -p texas_instruments -m tm4c123gh6pge -e WikiSort
