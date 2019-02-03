@@ -21,7 +21,7 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#define POWOT_SIMULATOR_VERSION 2.7
+#define POWOT_SIMULATOR_VERSION 2.8
 #define OS_X86_X64              "64"
 #define OS_NAME                 "Ubuntu 14.04"
 #define COPYRIGHT               "Copyright (C) 2016 Lubomir Bogdanov"\
